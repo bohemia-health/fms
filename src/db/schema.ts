@@ -1,5 +1,4 @@
-import { integer, pgTable, varchar } from "drizzle-orm/pg-core";
-import { text } from "stream/consumers";
+import { integer, pgTable, varchar, text } from "drizzle-orm/pg-core";
 
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
@@ -9,7 +8,7 @@ export const usersTable = pgTable("users", {
   phone: text("phone"),
 });
 
-export const customersTable = pgTable("users", {
+export const customersTable = pgTable("customers", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   first_name: varchar({ length: 255 }).notNull(),
   last_name: varchar({ length: 255 }).notNull(),
