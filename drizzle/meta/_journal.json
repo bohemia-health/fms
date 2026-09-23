@@ -15,6 +15,13 @@
       "when": 1790110512390,
       "tag": "0001_breezy_namor",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790161938496,
+      "tag": "0002_clammy_sasquatch",
+      "breakpoints": true
     }
   ]
 }
