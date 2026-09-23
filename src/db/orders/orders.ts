@@ -23,6 +23,7 @@ export const ordersTable = pgTable(
   {
     id: uuid("id").primaryKey().defaultRandom(),
     order_number: text("order_number").notNull().unique(),
+    ezformz_id: text("ezformz_id").unique(),
     customer_id: integer("customer_id")
       .notNull()
       .references(() => customersTable.id),
