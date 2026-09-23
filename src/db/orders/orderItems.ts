@@ -1,18 +1,14 @@
-import {
-  pgTable,
-  uuid,
-  integer,
-  varchar,
-  numeric,
-  primaryKey,
-} from "drizzle-orm/pg-core";
+import { pgTable, uuid, integer, varchar, numeric } from "drizzle-orm/pg-core";
 import { ordersTable } from "./orders";
 import { productsTable } from "../products/products";
 
-/* TO-DO: FINISH IMPLEMENTING ORDER_ITEMS DB TABLE */
+// One row per line item. The same product can appear more than once on an
+// order (different options), so this has its own id rather than a
+// composite (order_id, product_id) key.
 export const orderItemsTable = pgTable(
   "order_items",
   {
+    id: uuid("id").primaryKey().defaultRandom(),
     order_id: uuid("order_id")
       .notNull()
       .references(() => ordersTable.id),
@@ -28,5 +24,4 @@ export const orderItemsTable = pgTable(
     }).notNull(),
     nameAtPurchase: varchar("name_at_purchase", { length: 255 }).notNull(),
   },
-  (table) => [primaryKey({ columns: [table.order_id, table.product_id] })],
 );
