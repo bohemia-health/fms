@@ -17,7 +17,7 @@ CREATE TABLE "order_addresses" (
 CREATE TABLE "orders" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"order_number" text NOT NULL,
-	"customer_id" uuid NOT NULL,
+	"customer_id" integer NOT NULL,
 	"status" "order_status_type" DEFAULT 'order received' NOT NULL,
 	CONSTRAINT "orders_order_number_unique" UNIQUE("order_number")
 );

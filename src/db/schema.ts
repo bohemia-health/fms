@@ -7,6 +7,8 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
+import { sql } from "drizzle-orm";
+
 export const usersTable = pgTable("users", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   first_name: varchar({ length: 255 }).notNull(),
@@ -37,14 +39,20 @@ export const orderAddressType = pgEnum("order_address_type", [
   "billing",
 ]);
 
-export const ordersTable = pgTable("orders", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  order_number: text("order_number").notNull().unique(),
-  customer_id: uuid("customer_id")
-    .notNull()
-    .references(() => customersTable.id),
-  status: orderStatus("status").notNull().default("order received"),
-});
+export const ordersTable = pgTable(
+  "orders",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    order_number: text("order_number").notNull().unique(),
+    customer_id: integer("customer_id")
+      .notNull()
+      .references(() => customersTable.id),
+    status: orderStatus("status").notNull().default("order received"),
+  },
+  (table) => [
+    sql`CONSTRAINT order_number_upper_check CHECK (${table.order_number} = upper(${table.order_number}))`,
+  ],
+);
 
 export const orderAddressesTable = pgTable("order_addresses", {
   id: uuid("id").primaryKey().defaultRandom(),
