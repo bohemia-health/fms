@@ -1,6 +1,14 @@
 import { db } from "@/index";
 import { customersTable, ordersTable } from "@/db";
 import { eq, sql } from "drizzle-orm";
+import {
+  Table,
+  TableHeader,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
 
 export default async function orders() {
   const orders = await db
@@ -19,28 +27,28 @@ export default async function orders() {
     .leftJoin(customersTable, eq(ordersTable.customer_id, customersTable.id));
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Order Number</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Items</th>
-        </tr>
-      </thead>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Order ID</TableHead>
+          <TableHead>Order Number</TableHead>
+          <TableHead>First Name</TableHead>
+          <TableHead>Last Name</TableHead>
+          <TableHead>Items</TableHead>
+        </TableRow>
+      </TableHeader>
 
-      <tbody>
+      <TableBody>
         {orders.map((order) => (
-          <tr key={order.orderId}>
-            <td>{order.orderId}</td>
-            <td>{order.orderNumber}</td>
-            <td>{order.firstName}</td>
-            <td>{order.lastName}</td>
-            <td>{order.items}</td>
-          </tr>
+          <TableRow key={order.orderId}>
+            <TableCell>{order.orderId}</TableCell>
+            <TableCell>{order.orderNumber}</TableCell>
+            <TableCell>{order.firstName}</TableCell>
+            <TableCell>{order.lastName}</TableCell>
+            <TableCell>{order.items}</TableCell>
+          </TableRow>
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 }
