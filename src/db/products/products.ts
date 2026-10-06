@@ -1,6 +1,6 @@
 import { pgTable, uuid, text, numeric } from "drizzle-orm/pg-core";
 
-export const productsTable = pgTable("items", {
+export const productsTable = pgTable("products", {
   id: uuid("id").primaryKey().defaultRandom(),
   ezformz_id: text("ezformz_id").unique(),
   image: text(),
