@@ -1,12 +1,12 @@
+import { HeroText } from "@/components/HeroText";
+
 export default function Home() {
   return (
     <main>
       <section className=" px-4 pt-12 text-center">
-        <h1 className="text-5xl font-semibold tracking-tight text-foreground md:text-8xl">
-          Cut out the middleman
-        </h1>
+        <HeroText />
 
-        <p className="mx-auto mt-6 max-w-xl text-md text-foreground/60">
+        <p className="mx-auto mt-6 max-w-2xl text-md text-foreground/70">
           Science is producing real breakthroughs. Ordinary people are being
           priced out of them. At Bohemia Health, machine learning and AI
           research is used to curate a new frontier of modern healthcare.
