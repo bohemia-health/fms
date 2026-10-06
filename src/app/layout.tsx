@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "next-themes";
 import MegaFooter from "@/components/Footer";
+import SiteBanner from "@/components/banner/SiteBanner";
 
 export const metadata: Metadata = {
   title: "Bohemia Health",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <SiteBanner />
           <Navbar />
           {children}
           <MegaFooter />

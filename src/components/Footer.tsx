@@ -65,7 +65,7 @@ export default function MegaFooter() {
             <div className="flex gap-4">
               {socialLinks.map(({ label, href, icon: Icon }) => (
                 <Link
-                  key={href}
+                  key={label}
                   href={href}
                   aria-label={label}
                   target="_blank"

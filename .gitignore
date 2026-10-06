@@ -42,3 +42,9 @@ next-env.d.ts
 
 # scratch (test folder)
 /scratch
+
+# CLAUDE
+/.claude/
+
+# TO-DO
+/TO-DO.md
