@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+import { ThemeProvider } from "next-themes";
+import MegaFooter from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Bohemia Health",
@@ -13,10 +12,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)}>
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <Navbar />
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Navbar />
+          {children}
+          <MegaFooter />
+        </ThemeProvider>
       </body>
     </html>
   );

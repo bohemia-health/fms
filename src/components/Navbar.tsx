@@ -12,56 +12,82 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logo } from "./brand/Logo";
+import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 export default function Navbar() {
   return (
-    <header className="flex items-center justify-between px-6 py-4">
+    <header className="grid grid-cols-[1fr_auto_1fr] items-center px-6 py-4 sticky top-0 z-50 bg-background/80 backdrop-blur-2xl border-b">
       <Logo />
-      <NavigationMenu>
-        {/* Initialize a navigation menu list to hold the items */}
-        <NavigationMenuList>
-          {/* Each link should have an individual item */}
-          <NavigationMenuItem>
-            <NavigationMenuLink
-              className={cn(
-                navigationMenuTriggerStyle(),
-                "rounded-full h-7.5 font-normal text-muted-foreground",
-              )}
-              render={<Link href="/dashboard">Dashboard</Link>}
-            />
-          </NavigationMenuItem>
+      <div className="flex items-center justify-between mx-auto">
+        {/* Here is where the logo, Navbar components are implemented */}
 
-          <NavigationMenuItem>
-            <NavigationMenuLink
-              className={cn(
-                navigationMenuTriggerStyle(),
-                "rounded-full h-7.5 font-normal text-muted-foreground",
-              )}
-              render={<Link href="/menu">Menu</Link>}
-            ></NavigationMenuLink>
-          </NavigationMenuItem>
+        <NavigationMenu>
+          {/* Initialize a navigation menu list to hold the items */}
+          <NavigationMenuList>
+            {/* Each link should have an individual item */}
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                className={cn(
+                  navigationMenuTriggerStyle(),
+                  "rounded-full h-7.5 font-normal text-muted-foreground",
+                )}
+                render={<Link href="/shop">Store</Link>}
+              />
+            </NavigationMenuItem>
 
-          <NavigationMenuItem>
-            <NavigationMenuLink
-              className={cn(
-                navigationMenuTriggerStyle(),
-                "rounded-full h-7.5 font-normal text-muted-foreground",
-              )}
-              render={<Link href="/menu">Pricing</Link>}
-            ></NavigationMenuLink>
-          </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                className={cn(
+                  navigationMenuTriggerStyle(),
+                  "rounded-full h-7.5 font-normal text-muted-foreground",
+                )}
+                render={<Link href="/menu">Campaign</Link>}
+              ></NavigationMenuLink>
+            </NavigationMenuItem>
 
-          <NavigationMenuItem>
-            <NavigationMenuLink
-              className={cn(
-                navigationMenuTriggerStyle(),
-                "rounded-full h-7.5 font-normal text-muted-foreground",
-              )}
-              render={<Link href="/menu">Log In</Link>}
-            ></NavigationMenuLink>
-          </NavigationMenuItem>
-        </NavigationMenuList>
-      </NavigationMenu>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                className={cn(
+                  navigationMenuTriggerStyle(),
+                  "rounded-full h-7.5 font-normal text-muted-foreground",
+                )}
+                render={<Link href="/menu">Repository</Link>}
+              ></NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                className={cn(
+                  navigationMenuTriggerStyle(),
+                  "rounded-full h-7.5 font-normal text-muted-foreground",
+                )}
+                render={<Link href="/menu">News</Link>}
+              ></NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                className={cn(
+                  navigationMenuTriggerStyle(),
+                  "rounded-full h-7.5 font-normal text-muted-foreground",
+                )}
+                render={<Link href="/menu">Partners</Link>}
+              ></NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
+
+      <div className="flex items-center justify-self-end">
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Avatar className="border">
+              <AvatarImage src="" alt="Example Name" />
+              <AvatarFallback>EN</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+        </DropdownMenu>
+      </div>
     </header>
   );
 }
