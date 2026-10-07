@@ -41,7 +41,7 @@ export default function Navbar() {
                   navigationMenuTriggerStyle(),
                   "rounded-full h-7.5 font-normal text-muted-foreground",
                 )}
-                render={<Link href="/menu">Campaign</Link>}
+                render={<Link href="/campaign">Campaign</Link>}
               ></NavigationMenuLink>
             </NavigationMenuItem>
 
@@ -51,7 +51,7 @@ export default function Navbar() {
                   navigationMenuTriggerStyle(),
                   "rounded-full h-7.5 font-normal text-muted-foreground",
                 )}
-                render={<Link href="/menu">Repository</Link>}
+                render={<Link href="/repository">Repository</Link>}
               ></NavigationMenuLink>
             </NavigationMenuItem>
 
@@ -61,7 +61,7 @@ export default function Navbar() {
                   navigationMenuTriggerStyle(),
                   "rounded-full h-7.5 font-normal text-muted-foreground",
                 )}
-                render={<Link href="/menu">News</Link>}
+                render={<Link href="/news">News</Link>}
               ></NavigationMenuLink>
             </NavigationMenuItem>
 

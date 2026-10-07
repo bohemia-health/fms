@@ -1,7 +1,14 @@
-import { pgTable, pgEnum, text } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
+import { pgTable, pgEnum, integer, text, numeric } from "drizzle-orm/pg-core";
+import { manufacturer } from "../manufacturer";
 
-export const itemCode = pgEnum("item_code_type", [
+export const itemFormTypes = pgEnum("item_form_types", [
+  "injectable",
+  "capsule",
+  "tablet",
+  "liquid",
+]);
+
+export const productCode = pgEnum("product_code", [
   "RE",
   "ZE",
   "OZ",
@@ -18,10 +25,13 @@ export const itemCode = pgEnum("item_code_type", [
 ]);
 
 export const itemTable = pgTable("items", {
-  id: text("id")
-    .primaryKey()
-    .default(sql`lpad(floor(random() * 1000000)::int::text, 6, '0')`),
-  code: itemCode("item_code_type").notNull(),
-  name: text("name"),
-  vendor: text("vendor"),
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity({ startWith: 100000 }),
+  manufacturer_id: integer("manufacturer_id")
+    .notNull()
+    .references(() => manufacturer.id),
+  name: text("name").notNull().default("Untitled Item"),
+  product_code: productCode().notNull(),
+  size: text("size").notNull(),
+  form: itemFormTypes().notNull().default("injectable"),
+  price: numeric("price", { precision: 10, scale: 2 }).notNull().default("0.00"),
 });
