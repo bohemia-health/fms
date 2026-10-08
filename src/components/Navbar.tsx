@@ -16,12 +16,12 @@ import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 export default function Navbar() {
   return (
-    <header className="grid grid-cols-[1fr_auto_1fr] items-center px-6 py-4 sticky top-0 z-50 bg-background/80 backdrop-blur-2xl border-b">
+    <header className="grid grid-cols-[1fr_auto_1fr] items-center px-6 py-4 sticky top-0 z-50 bg-background/60 backdrop-saturate-150 backdrop-blur-xl border-b">
       <Logo />
       <div className="flex items-center justify-between mx-auto">
         {/* Here is where the logo, Navbar components are implemented */}
 
-        <NavigationMenu>
+        <NavigationMenu className="hidden md:flex">
           {/* Initialize a navigation menu list to hold the items */}
           <NavigationMenuList>
             {/* Each link should have an individual item */}
