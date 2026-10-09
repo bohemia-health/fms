@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 import { ThemeProvider } from "next-themes";
-import MegaFooter from "@/components/Footer";
+import MegaFooter from "@/components/footer/Footer";
 import SiteBanner from "@/components/banner/SiteBanner";
+import { BreadcrumbProvider } from "@/components/footer/breadcrumb/context";
 
 export const metadata: Metadata = {
   title: "Bohemia Health",
@@ -16,10 +17,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SiteBanner />
-          <Navbar />
-          {children}
-          <MegaFooter />
+          <BreadcrumbProvider>
+            <Navbar />
+            <SiteBanner />
+            {children}
+            <MegaFooter />
+          </BreadcrumbProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -18,7 +18,7 @@ export const Logo: React.FC<LogoProps> = ({
       href="/"
       className={`inline-flex items-center gap-2.5 font-bold tracking-tight ${className}`}
     >
-      <LogoMark className="h-7 w-auto text-foreground" />
+      <LogoMark className="h-4 w-auto text-foreground" />
 
       {showText && (
         <span

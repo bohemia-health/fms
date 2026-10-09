@@ -1,6 +1,7 @@
 import { db } from "@/index";
 import { productsTable } from "@/db";
 import ProductCard from "@/components/products/ProductCard";
+import SetBreadcrumb from "@/components/footer/breadcrumb/SetBreadcrumb";
 
 export default async function ShopPage() {
   const products = await db
@@ -25,6 +26,7 @@ export default async function ShopPage() {
           <ProductCard key={p.productId} title={p.title} />
         ))}
       </div>
+      <SetBreadcrumb items={[{ label: "Store" }]} />
     </main>
   );
 }
