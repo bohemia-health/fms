@@ -13,6 +13,7 @@ import {
 } from "@/components/tile";
 import { Logo } from "@/components/brand/Logo";
 import { LogoMark } from "@/components/brand/LogoMark";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -167,8 +168,21 @@ export default function Home() {
       </div>
       <SetFootnotes
         notes={[
-          "The information provided on this site is for general informational and educational purposes. Certain sections of this Web site are intended for particular audiences including Bohemia's employees, as well as members of the health care community and the general public. Your access to and use of the information contained in the Web site is subject to this Terms of Use Agreement. By accessing and using this Web site you accept, without limitation or qualification, this Terms of Use Agreement.",
-          "Bohemia will use reasonable efforts to include accurate and up-to-date information on this Web site but makes no warranties or representations of any kind as to its accuracy, currency or completeness. You agree that access to and use fo this Web site and the content thereof is at your own risk.",
+          <>
+            The information provided on this site is for general informational
+            and educational purposes. Certain sections of this site are intended
+            for particular audiences including Bohemia's employees, subsidiaries
+            and shareholders, as well as the general public. Your access to and
+            use of the information contained in this site is subject to the
+            Terms of Use Agreement. By accessing and using this site, you
+            accept, without limitation of qualification, the Terms of Use
+            Agreement at{" "}
+            <Link href="/terms-of-use" className="underline">
+              https://bhmhlth.com/terms-of-use
+            </Link>
+          </>,
+          "Bohemia will use reasonable efforts to include accurate and up-to-date information on this site but makes no warranties or representations of any kind as to its accuracy, currency or completeness. You agree that access to and use of this site and the content thereof is at your own risk. Bohemia disclaims all warranties, express or implied.",
+          "The entire contents of this site are subject to copyright protection. Copyright 2025-2026 Bohemia LLC. Except as expressly provided above, you may not otherwise copy, display, download, distribute, modify, reproduce, republish or retransmit any information, text or documents contained in this site or create any derivative work based on such images, text or documents, without the express written consent of Bohemia. You are expressly prohibited from using robots, spiders, scripts, service, software or any manual or automatic device, tool, or process design to data mine or scrape any content from this website, or otherwise use, access, or collect any content using automated means, except for purposes for inclusion in a public search engine.",
         ]}
       />
     </main>
