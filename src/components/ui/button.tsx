@@ -38,7 +38,7 @@ const buttonVariants = cva(
         variant: "normal",
         size: "default",
         class:
-          "h-auto rounded-full px-[22px] py-[12px] text-[16px] leading-[1.18] font-light tracking-[-0.022em]",
+          "h-auto rounded-full px-[16px] py-[9px] text-[14px] md:px-[22px] md:py-[12px] md:text-[16px] leading-[1.18] font-light tracking-[-0.022em]",
       },
     ],
     defaultVariants: {

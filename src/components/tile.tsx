@@ -29,7 +29,7 @@ function TileHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="tile-header"
-      className={cn("pt-13", className)}
+      className={cn("pt-8 md:pt-13", className)}
       {...props}
     />
   );
@@ -40,7 +40,7 @@ function TileTitle({ className, ...props }: React.ComponentProps<"h2">) {
     <h2
       data-slot="tile-title"
       className={cn(
-        "text-[54px] leading-none tracking-[-0.020em]",
+        "text-[36px] md:text-[44px] lg:text-[54px] leading-none tracking-[-0.020em]",
         "group-data-[theme=dark]/tile:text-neutral-100 group-data-[theme=light]/tile:text-gray-950",
         className,
       )}
@@ -54,7 +54,7 @@ function TileTagline({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="tile-tagline"
       className={cn(
-        "mt-1 text-[23px] font-light",
+        "mt-1 text-[19px] md:text-[21px] lg:text-[23px] font-light",
         "group-data-[theme=dark]/tile:text-neutral-100 group-data-[theme=light]/tile:text-gray-950",
         className,
       )}
@@ -67,7 +67,7 @@ function TileActions({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="tile-actions"
-      className={cn("flex flex-wrap gap-4 pt-6", className)}
+      className={cn("flex flex-wrap justify-center gap-3 pt-5 md:gap-4 md:pt-6", className)}
       {...props}
     />
   );
@@ -93,7 +93,7 @@ function TileImage({
         className="absolute left-1/2 top-1/2 hidden h-72 w-[28rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-400/30 blur-3xl group-data-[theme=dark]/tile:block"
       />
       <Image
-        className={cn("relative h-auto w-100", imageClassName)}
+        className={cn("relative h-auto w-[min(25rem,85vw)]", imageClassName)}
         width={width}
         height={height}
         alt={alt}

@@ -28,7 +28,7 @@ export default function ProductCard({ title }: ProductCardProps) {
         className="mx-auto mt-6 aspect-square w-3/5 rounded-lg object-cover"
       />
 
-      <CardHeader className="pt-12 px-8">
+      <CardHeader className="pt-8 px-5 md:pt-12 md:px-8">
         <CardTitle className="grid gap-1.75">
           <span className="font-light text-xs text-indigo-500">New</span>
           <span className="text-[0.96rem] font-medium tracking-[0.030rem] leading-5.5">
@@ -37,7 +37,7 @@ export default function ProductCard({ title }: ProductCardProps) {
         </CardTitle>
       </CardHeader>
 
-      <CardFooter className="border-0 bg-card shadow-md pt-6 pb-7.5 px-8">
+      <CardFooter className="border-0 bg-card shadow-md pt-6 pb-7.5 px-5 md:px-8">
         <p className="font-thin text-[0.820rem] tracking-wide">$59.00</p>
       </CardFooter>
     </Card>

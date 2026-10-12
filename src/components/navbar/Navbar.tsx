@@ -37,13 +37,12 @@ export default function Navbar() {
     <header className="flex items-center h-10 sticky top-0 z-50 bg-navbar backdrop-saturate-150 backdrop-blur-xl">
       {/* Here is where the logo, Navbar components are implemented */}
       <div className={cn("flex items-center justify-between", container)}>
+        <Logo showText={false} />
         <NavigationMenu className="hidden md:flex flex-1 max-w-none">
-          <Logo showText={false} />
           <NavigationMenuList className="justify-evenly">
-            {links.map((link, index) => (
-              <NavigationMenuItem>
+            {links.map((link) => (
+              <NavigationMenuItem key={link.href}>
                 <NavigationMenuLink
-                  key={index}
                   className={linkClass}
                   render={<Link href={link.href}>{link.label}</Link>}
                 />

@@ -22,10 +22,10 @@ export default function MegaFooter() {
         <Footnotes notes={notes} />
         <div className="border-t border-muted-foreground/35 py-5">
           <Breadcrumb items={items} />
-          <div className="grid grid-cols-2 md:grid-cols-5 py-4">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-8 py-4 md:grid-cols-5 md:gap-0">
             {/* link columns, 1 each */}
             {footerColumn.map((groups, i) => (
-              <div key={i} className="space-y-6">
+              <div key={i} className="contents md:block md:space-y-6">
                 {groups.map((group) => (
                   <div key={group.heading} className="space-y-1.5">
                     <h3 className="text-[12px] font-medium text-[#444445]/95">
@@ -51,7 +51,7 @@ export default function MegaFooter() {
 
           <div className="mt-12 flex flex-col gap-4 border-t pt-8 text-xs text-muted-foreground font-light md:flex-row md:items-center md:justify-between">
             <p>Copyright © 2026 BOHEMIA. All rights reserved.</p>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
               <Link href="/policy/refunds" className="hover:text-foreground">
                 Sales and Refunds
               </Link>

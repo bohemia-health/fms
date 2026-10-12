@@ -40,8 +40,8 @@ export default function SiteBanner() {
 
   return (
     <div className="bg-footer text-foreground/65 font-thin tracking-wide text-[13px]">
-      <div className={cn("flex items-center gap-4 py-1", container, "px-12")}>
-        <p className="flex-1 text-center">
+      <div className={cn("flex items-center gap-2 py-1", container, "px-4 md:px-12")}>
+        <p className="flex-1 text-center text-[12px] md:text-[13px]">
           {MESSAGE}
           {LINK_HREF && (
             <Link
