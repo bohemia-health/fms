@@ -5,8 +5,8 @@ import type { Crumb } from "./types";
 type BreadcrumbContextValue = {
   items: Crumb[];
   setItems: (items: Crumb[]) => void;
-  notes: string[];
-  setNotes: (notes: string[]) => void;
+  notes: React.ReactNode[];
+  setNotes: (notes: React.ReactNode[]) => void;
 };
 
 const BreadcrumbContext = createContext<BreadcrumbContextValue | null>(null);
@@ -17,7 +17,7 @@ export function BreadcrumbProvider({
   children: React.ReactNode;
 }) {
   const [items, setItems] = useState<Crumb[]>([]);
-  const [notes, setNotes] = useState<string[]>([]);
+  const [notes, setNotes] = useState<React.ReactNode[]>([]);
   return (
     <BreadcrumbContext.Provider value={{ items, setItems, notes, setNotes }}>
       {children}
