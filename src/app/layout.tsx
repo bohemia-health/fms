@@ -6,6 +6,8 @@ import { ThemeProvider } from "next-themes";
 import MegaFooter from "@/components/footer/Footer";
 import SiteBanner from "@/components/banner/SiteBanner";
 import { BreadcrumbProvider } from "@/components/footer/breadcrumb/context";
+import { LocalNavProvider } from "@/components/navbar/local-nav/context";
+import LocalNav from "@/components/navbar/local-nav/LocalNav";
 
 export const metadata: Metadata = {
   title: "Bohemia Health",
@@ -18,10 +20,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <BreadcrumbProvider>
-            <Navbar />
-            <SiteBanner />
-            {children}
-            <MegaFooter />
+            <LocalNavProvider>
+              <Navbar />
+              <LocalNav />
+              <SiteBanner />
+              {children}
+              <MegaFooter />
+            </LocalNavProvider>
           </BreadcrumbProvider>
         </ThemeProvider>
       </body>

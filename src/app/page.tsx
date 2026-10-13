@@ -1,9 +1,7 @@
 import SetFootnotes from "@/components/footer/breadcrumb/SetFootnotes";
-import { HeroText } from "@/components/HeroText";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
-  LegacyTile,
   Tile,
   TileActions,
   TileHeader,
@@ -11,8 +9,6 @@ import {
   TileTagline,
   TileTitle,
 } from "@/components/tile";
-import { Logo } from "@/components/brand/Logo";
-import { LogoMark } from "@/components/brand/LogoMark";
 import Link from "next/link";
 import { Fragment } from "react";
 
@@ -174,12 +170,12 @@ export default function Home() {
           <Fragment key="note-1">
             The information provided on this site is for general informational
             and educational purposes. Certain sections of this site are intended
-            for particular audiences including Bohemia&rsquo;s employees, subsidiaries
-            and shareholders, as well as the general public. Your access to and
-            use of the information contained in this site is subject to the
-            Terms of Use Agreement. By accessing and using this site, you
-            accept, without limitation of qualification, the Terms of Use
-            Agreement at{" "}
+            for particular audiences including Bohemia&rsquo;s employees,
+            subsidiaries and shareholders, as well as the general public. Your
+            access to and use of the information contained in this site is
+            subject to the Terms of Use Agreement. By accessing and using this
+            site, you accept, without limitation of qualification, the Terms of
+            Use Agreement at{" "}
             <Link href="/terms-of-use" className="underline">
               https://bhmhlth.com/terms-of-use
             </Link>

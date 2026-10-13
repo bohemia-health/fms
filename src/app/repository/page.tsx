@@ -4,6 +4,8 @@ import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import SetBreadcrumb from "@/components/footer/breadcrumb/SetBreadcrumb";
 import SetFootnotes from "@/components/footer/breadcrumb/SetFootnotes";
+import SetLocalNav from "@/components/navbar/local-nav/SetLocalNav";
+import SetNavbar from "@/components/navbar/local-nav/SetNavbar";
 import { container } from "@/lib/layout";
 
 export default function Repository() {
@@ -41,6 +43,17 @@ export default function Repository() {
           </ButtonGroup>
         </Field>
       </div>
+      <SetNavbar sticky={false} />
+      <SetLocalNav
+        sticky
+        title="Repository"
+        href="/repository"
+        links={[
+          { href: "/repository/lab_reports", label: "Lab Reports" },
+          { href: "/research/mito", label: "Research" },
+          { href: "/support", label: "Support" },
+        ]}
+      />
       <SetBreadcrumb items={[{ label: "Repository" }]} />
       <SetFootnotes
         notes={[

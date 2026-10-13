@@ -6,6 +6,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { footerColumn } from "./links";
 import Breadcrumb from "./breadcrumb/Breadcrumb";
 import Footnotes from "./Footnotes";
+import { FooterGroup } from "./FooterGroup";
 import { container } from "@/lib/layout";
 import { useBreadcrumb } from "./breadcrumb/context";
 
@@ -22,28 +23,12 @@ export default function MegaFooter() {
         <Footnotes notes={notes} />
         <div className="border-t border-muted-foreground/35 py-5">
           <Breadcrumb items={items} />
-          <div className="grid grid-cols-2 gap-x-4 gap-y-8 py-4 md:grid-cols-5 md:gap-0">
+          <div className="grid grid-cols-1 py-2 md:grid-cols-5 md:py-4">
             {/* link columns, 1 each */}
             {footerColumn.map((groups, i) => (
               <div key={i} className="contents md:block md:space-y-6">
                 {groups.map((group) => (
-                  <div key={group.heading} className="space-y-1.5">
-                    <h3 className="text-[12px] font-medium text-[#444445]/95">
-                      {group.heading}
-                    </h3>
-                    <ul className="space-y-2">
-                      {group.links.map((link) => (
-                        <li key={link.href}>
-                          <Link
-                            href={link.href}
-                            className="block text-[11.5px] leading-[1.4] text-foreground/65 hover:underline transition-colors text-shadow-muted-foreground"
-                          >
-                            {link.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <FooterGroup key={group.heading} group={group} />
                 ))}
               </div>
             ))}
