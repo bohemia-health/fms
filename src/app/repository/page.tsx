@@ -8,7 +8,10 @@ import SetLocalNav from "@/components/navbar/local-nav/SetLocalNav";
 import SetNavbar from "@/components/navbar/local-nav/SetNavbar";
 import { container } from "@/lib/layout";
 
-export default function Repository() {
+import { listLabReports } from "@/integrations/b2/client";
+
+export default async function Repository() {
+  const files = await listLabReports();
   return (
     <main>
       <div className="relative aspect-[3/1] max-w-[2520px] mx-auto">
@@ -68,6 +71,16 @@ export default function Repository() {
             "TAMC/TYMC (Sterility)",
           ]}
         />
+
+        <ul className="mt-10">
+          {files.map((file) => (
+            <li key={file.name}>
+              <a href={file.url} target="_blank">
+                {file.name}
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Private Information */}

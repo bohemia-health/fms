@@ -1,4 +1,11 @@
-import { pgTable, pgEnum, integer, uuid, text, date } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  pgEnum,
+  integer,
+  uuid,
+  text,
+  date,
+} from "drizzle-orm/pg-core";
 import { batch } from "../batch";
 import { labTable } from "../lab";
 
@@ -9,8 +16,17 @@ export const coaTestType = pgEnum("coa_test_type", [
   "sterility",
 ]);
 
+export const coaCategoryType = pgEnum("coa_category_type", [
+  "GLP-1",
+  "MITO",
+  "Nootropic",
+  "Bioregulator",
+]);
+
 export const coa = pgTable("coa", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity({ startWith: 100000 }),
+  id: integer("id")
+    .primaryKey()
+    .generatedAlwaysAsIdentity({ startWith: 100000 }),
   public_id: text("public_id").notNull().unique(),
   batch_id: integer("batch_id")
     .notNull()
