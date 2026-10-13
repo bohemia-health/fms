@@ -67,7 +67,10 @@ function TileActions({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="tile-actions"
-      className={cn("flex flex-wrap justify-center gap-3 pt-5 md:gap-4 md:pt-6", className)}
+      className={cn(
+        "flex flex-wrap justify-center gap-3 pt-5 md:gap-4 md:pt-6",
+        className,
+      )}
       {...props}
     />
   );
@@ -104,63 +107,3 @@ function TileImage({
 }
 
 export { Tile, TileHeader, TileTitle, TileTagline, TileActions, TileImage };
-
-/* ------------------------------------------------------------------ */
-/* LegacyTile: the old props-based tile, built on the pieces above.    */
-/* Still used by the MITO and Bioregulators tiles on the home page.    */
-/* Delete once those are converted.                                    */
-/* ------------------------------------------------------------------ */
-
-type LegacyTileProps = {
-  title: string;
-  subtitle?: string;
-  tagline?: string;
-  image: string;
-  imageAlt: string;
-  theme?: TileTheme;
-  priority?: boolean;
-  imageClassName?: string;
-  imageWrapperClassName?: string;
-};
-
-export function LegacyTile({
-  title,
-  subtitle,
-  tagline,
-  image,
-  imageAlt,
-  theme = "dark",
-  priority = false,
-  imageClassName,
-  imageWrapperClassName,
-}: LegacyTileProps) {
-  return (
-    <Tile theme={theme}>
-      <TileHeader>
-        <TileTitle>
-          <span className="font-medium">{title}</span>
-          <span className="font-thin">{subtitle}</span>
-        </TileTitle>
-        <TileTagline>{tagline}</TileTagline>
-      </TileHeader>
-      <TileActions>
-        <Button variant="normal" className="tracking-wide">
-          Learn more
-        </Button>
-        <Button
-          variant="normal"
-          className="tracking-wide bg-transparent text-[#2797FF] border-[#2797FF] hover:bg-[#2797FF] hover:text-white"
-        >
-          Buy
-        </Button>
-      </TileActions>
-      <TileImage
-        src={image}
-        alt={imageAlt}
-        priority={priority}
-        className={imageWrapperClassName}
-        imageClassName={imageClassName}
-      />
-    </Tile>
-  );
-}

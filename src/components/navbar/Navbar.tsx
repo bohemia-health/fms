@@ -2,7 +2,9 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { container } from "@/lib/layout";
-import { MagnifyingGlass, Bag } from "@phosphor-icons/react";
+import { Search } from "lucide-react";
+import { Bag } from "../icons/bag";
+import { Menu } from "../icons/menu";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -16,6 +18,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Logo } from "../brand/Logo";
 import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { navLinks } from "./types";
+import { useLocalNav } from "./local-nav/context";
+
+// Shared by the three right-side glyphs so weight and tap target stay in sync.
+const iconStroke = 1.75;
+const iconBox =
+  "flex size-11 md:size-8 items-center justify-center hover:text-foreground transition-colors";
 
 const linkClass = cn(
   navigationMenuTriggerStyle(),
@@ -23,6 +31,7 @@ const linkClass = cn(
 );
 
 export default function Navbar() {
+  const { navbarSticky } = useLocalNav();
   const links: navLinks[] = [
     { href: "/shop", label: "Store" },
     { href: "/campaign", label: "Group Buy" },
@@ -34,7 +43,13 @@ export default function Navbar() {
     { href: "/support", label: "Support" },
   ];
   return (
-    <header className="flex items-center h-10 sticky top-0 z-50 bg-navbar backdrop-saturate-150 backdrop-blur-xl">
+    <header
+      className={cn(
+        "flex items-center h-12 md:h-10 top-0 z-50 bg-navbar backdrop-saturate-150 backdrop-blur-xl",
+        // Pages opt out with <SetNavbar sticky={false} />.
+        navbarSticky && "sticky",
+      )}
+    >
       {/* Here is where the logo, Navbar components are implemented */}
       <div className={cn("flex items-center justify-between", container)}>
         <Logo showText={false} />
@@ -51,21 +66,20 @@ export default function Navbar() {
           </NavigationMenuList>
         </NavigationMenu>
 
-        <div className="flex items-center gap-5 text-muted-foreground">
-          <Link
-            href="/search"
-            aria-label="Search"
-            className="hover:text-foreground transition-colors"
-          >
-            <MagnifyingGlass className="size-4" weight="light" />
+        <div className="flex items-center text-foreground/80 -mr-3 md:-mr-2">
+          <Link href="/search" aria-label="Search" className={iconBox}>
+            <Search className="size-5 md:size-4" strokeWidth={iconStroke} />
           </Link>
-          <Link
-            href="/bag"
-            aria-label="Shopping bag"
-            className="hover:text-foreground transition-colors"
-          >
-            <Bag className="size-4" weight="light" />
+          <Link href="/bag" aria-label="Shopping bag" className={iconBox}>
+            <Bag className="size-5 md:size-4" strokeWidth={iconStroke} />
           </Link>
+          <button
+            type="button"
+            aria-label="Open menu"
+            className={cn(iconBox, "md:hidden")}
+          >
+            <Menu className="size-5" strokeWidth={iconStroke} />
+          </button>
         </div>
       </div>
     </header>
