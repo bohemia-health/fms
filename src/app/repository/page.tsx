@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 import PillRow from "@/components/pill-row";
 import SetBreadcrumb from "@/components/footer/breadcrumb/SetBreadcrumb";
 import SetFootnotes from "@/components/footer/breadcrumb/SetFootnotes";
@@ -8,10 +9,17 @@ import SetLocalNav from "@/components/navbar/local-nav/SetLocalNav";
 import SetNavbar from "@/components/navbar/local-nav/SetNavbar";
 import { container } from "@/lib/layout";
 
-import { listLabReports } from "@/integrations/b2/client";
+import { db } from "@/index";
+import { coa } from "@/db";
+import { labReportUrl } from "@/integrations/b2/client";
+
+// "report.pdf" -> "PDF". The bucket key is the only place the type lives for now.
+function extOf(key: string): string {
+  return key.slice(key.lastIndexOf(".") + 1).toUpperCase();
+}
 
 export default async function Repository() {
-  const files = await listLabReports();
+  const files = await db.select().from(coa).orderBy(coa.title);
   return (
     <main>
       <div className="relative aspect-[3/1] max-w-[2520px] mx-auto">
@@ -47,7 +55,7 @@ export default async function Repository() {
         </p>
       </section>
 
-      <section className={`${container} py-8`}>
+      <section className="mx-auto w-full max-w-[1240px] px-6 py-8">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground pointer-events-none" />
           <Input
@@ -72,11 +80,20 @@ export default async function Repository() {
           ]}
         />
 
-        <ul className="mt-10">
+        <ul className="mt-14 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {files.map((file) => (
-            <li key={file.name}>
-              <a href={file.url} target="_blank">
-                {file.name}
+            <li key={file.id}>
+              <p className="text-[19px] leading-snug font-light lg:text-[17px]">
+                {file.title}
+              </p>
+              <a
+                href={labReportUrl(file.file_key)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 inline-flex items-center gap-1 text-[#0065CC] font-light text-[16px] hover:underline"
+              >
+                View ({extOf(file.file_key)})
+                <ArrowUpRight className="size-4" />
               </a>
             </li>
           ))}
