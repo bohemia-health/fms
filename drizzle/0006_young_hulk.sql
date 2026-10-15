@@ -70,7 +70,7 @@ ALTER TABLE "order_items" DROP CONSTRAINT "order_items_product_id_items_id_fk";
 
 -- ALTER TABLE "items" DROP CONSTRAINT "<constraint_name>";--> statement-breakpoint
 ALTER TABLE "items" ALTER COLUMN "id" DROP NOT NULL;--> statement-breakpoint
-ALTER TABLE "items" ADD COLUMN "manufacturer_id" uuid NOT NULL;--> statement-breakpoint
+ALTER TABLE "items" ADD COLUMN "manufacturer_id" integer NOT NULL;--> statement-breakpoint
 ALTER TABLE "items" ADD COLUMN "name" text DEFAULT 'Untitled Item' NOT NULL;--> statement-breakpoint
 ALTER TABLE "items" ADD COLUMN "item_code" "item_code" NOT NULL;--> statement-breakpoint
 ALTER TABLE "items" ADD COLUMN "form" "item_form_types" DEFAULT 'injectable' NOT NULL;--> statement-breakpoint

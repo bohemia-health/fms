@@ -3,6 +3,7 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useScrollRail } from "./rail/use-scroll-rail";
 
 type PillRowProps = {
   items: string[];
@@ -15,34 +16,8 @@ type PillRowProps = {
 // Selection is visual only for now; nothing is filtered yet.
 export default function PillRow({ items, className }: PillRowProps) {
   const [selected, setSelected] = React.useState(items[0]);
-  const [canScrollLeft, setCanScrollLeft] = React.useState(false);
-  const [canScrollRight, setCanScrollRight] = React.useState(false);
-  const scroller = React.useRef<HTMLDivElement>(null);
-
-  // Re-check which chevrons apply whenever the row scrolls or resizes.
-  React.useEffect(() => {
-    const el = scroller.current;
-    if (!el) return;
-
-    function update() {
-      if (!el) return;
-      setCanScrollLeft(el.scrollLeft > 0);
-      setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
-    }
-
-    update();
-    el.addEventListener("scroll", update, { passive: true });
-    const observer = new ResizeObserver(update);
-    observer.observe(el);
-    return () => {
-      el.removeEventListener("scroll", update);
-      observer.disconnect();
-    };
-  }, []);
-
-  function scrollByStep(direction: -1 | 1) {
-    scroller.current?.scrollBy({ left: direction * 240, behavior: "smooth" });
-  }
+  const { ref: scroller, canScrollLeft, canScrollRight, scrollByStep } =
+    useScrollRail(240);
 
   return (
     <div className={cn("relative", className)}>
