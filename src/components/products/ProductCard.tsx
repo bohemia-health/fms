@@ -1,45 +1,75 @@
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
 import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import type { StoreProduct } from "@/components/store/types";
 
-type ProductCardProps = {
-  title: string;
-};
+const money = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
 
-export default function ProductCard({ title }: ProductCardProps) {
+// Store product card. The whole card is the link. Image on top, the line
+// name as an eyebrow, title, one-line descriptor, price at the bottom.
+// Shadow carries the edge in light mode; a hairline ring does in dark.
+export default function ProductCard({
+  product,
+  className,
+}: {
+  product: StoreProduct;
+  className?: string;
+}) {
+  const { title, descriptor, price, href, line } = product;
+  const external = href.startsWith("http");
+
   return (
-    <Card
-      size="default"
-      className="relative flex w-full max-w-xs gap-0 rounded-[18px] bg-card ring-0 shadow-[2px_4px_12px_rgba(0,0,0,0.08)] transition hover:scale-[1.01] hover:shadow-[2px_4px_16px_rgba(0,0,0,0.16)] dark:shadow-none"
+    <Link
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+      className={cn(
+        "group/card flex flex-col rounded-[18px] bg-card text-card-foreground",
+        "shadow-[2px_4px_12px_rgba(0,0,0,0.08)] dark:shadow-none dark:ring-1 dark:ring-foreground/10",
+        "transition-[transform,box-shadow] duration-200 ease-out",
+        "hover:scale-[1.01] hover:shadow-[2px_4px_16px_rgba(0,0,0,0.16)] active:scale-[0.99]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0065CC]",
+        className,
+      )}
     >
-      <Image
-        src="/product-image.png"
-        alt="product image"
-        width={600}
-        height={600}
-        className="mx-auto mt-6 aspect-square w-3/5 rounded-lg object-cover"
-      />
+      <div className="relative mx-8 mt-8 aspect-square">
+        {line && (
+          <Image
+            src={line.image.src}
+            alt={line.image.alt}
+            fill
+            sizes="300px"
+            className={cn("object-contain", line.image.className)}
+          />
+        )}
+      </div>
 
-      <CardHeader className="pt-8 px-5 md:pt-12 md:px-8">
-        <CardTitle className="grid gap-1.75">
-          <span className="font-light text-xs text-indigo-500">New</span>
-          <span className="text-[0.96rem] font-medium tracking-[0.030rem] leading-5.5">
-            {title}
-          </span>
-        </CardTitle>
-      </CardHeader>
+      <div className="px-5 pt-7 md:px-7">
+        {line && (
+          <p className="text-xs font-light text-indigo-500">{line.label}</p>
+        )}
+        <h3 className="mt-1.5 line-clamp-2 text-[17px] font-medium leading-snug tracking-[0.01em]">
+          {title}
+        </h3>
+        {descriptor && (
+          <p className="mt-1 line-clamp-1 text-[13px] font-light text-muted-foreground">
+            {descriptor}
+          </p>
+        )}
+      </div>
 
-      <CardFooter className="border-0 bg-card shadow-md pt-6 pb-7.5 px-5 md:px-8">
-        <p className="font-thin text-[0.820rem] tracking-wide">$59.00</p>
-      </CardFooter>
-    </Card>
+      <div className="mt-auto px-5 pb-7 pt-5 md:px-7">
+        <p className="text-[14px] font-light tracking-wide">
+          {price != null ? (
+            money.format(price)
+          ) : (
+            <span className="text-[#0065CC]">View pricing</span>
+          )}
+        </p>
+      </div>
+    </Link>
   );
 }

@@ -2,7 +2,6 @@ export * from "./users";
 export * from "./customers";
 export * from "./manufacturer";
 export * from "./item";
-export * from "./products";
 export * from "./orders";
 export * from "./departments";
 export * from "./campaigns";
