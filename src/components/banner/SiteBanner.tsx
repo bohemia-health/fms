@@ -5,6 +5,7 @@ import { XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { container } from "@/lib/layout";
+import { useLocalNav } from "../navbar/local-nav/context";
 
 type SiteBannerProps = {
   id: string;
@@ -24,6 +25,7 @@ const LINK_LABEL = "Shop now";
 
 export default function SiteBanner() {
   const [open, setOpen] = useState(true);
+  const { localNav } = useLocalNav();
 
   useEffect(() => {
     if (localStorage.getItem("banner-dismissed") === BANNER_ID) {
@@ -36,7 +38,9 @@ export default function SiteBanner() {
     setOpen(false);
   }
 
-  if (!open) return null;
+  // Overlay pages put the LocalNav on top of their hero image, so there is
+  // no row for the banner to sit in. Hide it there.
+  if (!open || localNav?.overlay) return null;
 
   return (
     <div className="bg-footer text-foreground/65 font-thin tracking-wide text-[13px]">

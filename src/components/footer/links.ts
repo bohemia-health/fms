@@ -99,7 +99,7 @@ export const footerColumn: FooterColumn[] = [
         { label: "Legal", href: "/legal" },
         { label: "Ethics & Compliance", href: "/legal/ethics" },
         { label: "Terms of Use", href: "/legal/terms-of-use" },
-        { label: "Contact Us", href: "/support/contact-us" },
+        { label: "Contact Us", href: "/contact-us" },
       ],
     },
   ],
