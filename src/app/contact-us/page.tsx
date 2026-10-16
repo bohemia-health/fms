@@ -1,3 +1,3 @@
 export default function Page() {
-  return <h1>this is bohemia health's contact us page.</h1>;
+  return <h1>this is bohemia health's contact us page. Hello!</h1>;
 }
