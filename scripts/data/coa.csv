@@ -1,0 +1,69 @@
+﻿product,product_code,batch_number,category_id,category_name,coa_test_type,lab_id,lab_name,vendor_id,vendor_name,tested_at,file_key
+5-Amino-1mq,AM,50AM-0226,6b4f8f57-275a-4a8d-a82c-41677c9ba67f,MITO/MDPs,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,384980,WWB,2026-02-26,bhm-oct-26/50AM-0226.pdf
+5-Amino-1mq,AM,50AM-0506,6b4f8f57-275a-4a8d-a82c-41677c9ba67f,MITO/MDPs,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,384980,WWB,2026-05-06,bhm-oct-26/50AM-0506-2.png
+5-Amino-1mq,AM,50AM-0506,6b4f8f57-275a-4a8d-a82c-41677c9ba67f,MITO/MDPs,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,384980,WWB,2026-05-06,bhm-oct-26/50AM-0506-1.pdf
+Bacteriostatic Water,BAC,BAC10-0715,26bb32b4-f90e-4822-9568-622903e24974,Accessories,endotoxin,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,370411,CXT,2026-07-20,bhm-oct-26/BAC10-0715.pdf
+Bacteriostatic Water,BAC,BAC3-0715,26bb32b4-f90e-4822-9568-622903e24974,Accessories,endotoxin,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,370411,CXT,2026-07-20,bhm-oct-26/BAC3-0715.pdf
+BPC-157/Thymosin Beta-4 Blend,BPTB,BPTB20-0506,aa74910f-ae20-4745-9bb8-9e9505ec7ed5,Blends,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,384980,WWB,2026-05-06,bhm-oct-26/BPTB20-0506.pdf
+BPC-157/Thymosin Beta-4 Blend,BPTB,BPTB30-0928,aa74910f-ae20-4745-9bb8-9e9505ec7ed5,Blends,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,370411,CXT,2026-09-29,bhm-oct-26/BPTB30-0928.pdf
+Cartalax,CARTA,CARTA40-0730,7ceac0da-5815-44b3-bf29-8b68e89aa05d,Bioregulators,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-08-28,bhm-oct-26/CARTA40-0730-1.png
+Cartalax,CARTA,CARTA40-0730,7ceac0da-5815-44b3-bf29-8b68e89aa05d,Bioregulators,endotoxin,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-09-17,bhm-oct-26/CARTA40-0730-2.png
+Cartalax,CARTA,CARTA40-0730,7ceac0da-5815-44b3-bf29-8b68e89aa05d,Bioregulators,lcms,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-09-21,bhm-oct-26/CARTA40-0730-3.png
+Cartalax,CARTA,CARTA40-0730,7ceac0da-5815-44b3-bf29-8b68e89aa05d,Bioregulators,sterility,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-10-01,bhm-oct-26/CARTA40-0730-4.png
+CJC-1295 MOD,CJND,CJND10-0910,4f49f28c-c835-4e28-ab00-3ef6c4ff970e,Structural/Composition,mass_purity,6dc40551-2262-4ce0-b24e-6e8e8112b537,Chromate,370411,CXT,2026-09-13,bhm-oct-26/CJND10-0727.png
+CJC-1295 MOD/Ipamorelin,CJIP,CJIP10-0727,aa74910f-ae20-4745-9bb8-9e9505ec7ed5,Blends,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,370411,CXT,2026-07-31,bhm-oct-26/CJIP10-0727.pdf
+Epithalon,ET,ET50-0226,7ceac0da-5815-44b3-bf29-8b68e89aa05d,Bioregulators,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,384980,WWB,2026-02-26,bhm-oct-26/ET50-0226.pdf
+GH,GH,GH36-0226,4f49f28c-c835-4e28-ab00-3ef6c4ff970e,Structural/Composition,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,521270,QSC,2026-03-03,bhm-oct-26/GH36-0226.png
+GH,GH,GH15-0404,4f49f28c-c835-4e28-ab00-3ef6c4ff970e,Structural/Composition,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,791892,Lobster,2026-04-23,bhm-oct-26/GH15-0404-1.png
+GH,GH,GH15-0404,4f49f28c-c835-4e28-ab00-3ef6c4ff970e,Structural/Composition,endotoxin,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,791892,Lobster,2026-04-24,bhm-oct-26/GH15-0404-2.png
+GH,GH,GH31-0421,4f49f28c-c835-4e28-ab00-3ef6c4ff970e,Structural/Composition,mass_purity,ae9156b9-c055-41a6-bb90-2d595716efdd,"Analytical Formulations, Inc.",791892,Lobster,2026-04-30,bhm-oct-26/GH31-0421.png
+GHK-Cu,HK,HK100-0226,b2af1ef6-c5e0-4509-9802-093e883def86,Angiogenic,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,384980,WWB,2026-02-26,bhm-oct-26/HK100-0226.pdf
+GHK-Cu,HK,HK100-0505,b2af1ef6-c5e0-4509-9802-093e883def86,Angiogenic,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-06-16,bhm-oct-26/HK100-0505.png
+GHK-Cu,HK,HK100-0609,b2af1ef6-c5e0-4509-9802-093e883def86,Angiogenic,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-07-20,bhm-oct-26/HK100-0609.png
+Glutathione,GT,GT1500-0410,6b4f8f57-275a-4a8d-a82c-41677c9ba67f,MITO/MDPs,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,384980,WWB,2026-04-10,bhm-oct-26/GT1500-0410.pdf
+Ipamorelin,IP,IP10-0727,4f49f28c-c835-4e28-ab00-3ef6c4ff970e,Structural/Composition,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,370411,CXT,2026-07-31,bhm-oct-26/IP10-0727.pdf
+KLOW,KLO,KLO80-0318,aa74910f-ae20-4745-9bb8-9e9505ec7ed5,Blends,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,582198,TFC,2026-03-19,bhm-oct-26/KLO80-0318.png
+KLOW,KLO,KLO80-0318,aa74910f-ae20-4745-9bb8-9e9505ec7ed5,Blends,lcms,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,582198,TFC,2026-04-23,bhm-oct-26/KLO80-0318-2.png
+KLOW,KLO,KLO80-0715,aa74910f-ae20-4745-9bb8-9e9505ec7ed5,Blends,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,370411,CXT,2026-07-20,bhm-oct-26/KLO80-0715.pdf
+KLOW,KLO,KLO80-0418,aa74910f-ae20-4745-9bb8-9e9505ec7ed5,Blends,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-06-25,bhm-oct-26/KLO80-0418.png
+KPV,KP,KP30-0509,b2af1ef6-c5e0-4509-9802-093e883def86,Angiogenic,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-06-24,bhm-oct-26/KP30-0509.png
+KPV,KP,KP30-0604,b2af1ef6-c5e0-4509-9802-093e883def86,Angiogenic,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,239781,Uther,2026-10-02,bhm-oct-26/KP30-0604.pdf
+Methylene Blue,MB,MB20-0226,4f49f28c-c835-4e28-ab00-3ef6c4ff970e,Structural/Composition,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,384980,WWB,2026-02-26,bhm-oct-26/MB20-0226.pdf
+Methylene Blue,MB,MB20-0506,4f49f28c-c835-4e28-ab00-3ef6c4ff970e,Structural/Composition,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,384980,WWB,2026-05-06,bhm-oct-26/MB20-0506.pdf
+Mots-C,MO,MO40-0115,6b4f8f57-275a-4a8d-a82c-41677c9ba67f,MITO/MDPs,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-03-04,bhm-oct-26/MO40-0115-1.png
+Mots-C,MO,MO40-0115,6b4f8f57-275a-4a8d-a82c-41677c9ba67f,MITO/MDPs,lcms,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-03-03,bhm-oct-26/MO40-0115-2.png
+Mots-C,MO,MO40-0506,6b4f8f57-275a-4a8d-a82c-41677c9ba67f,MITO/MDPs,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,384980,WWB,2026-05-06,bhm-oct-26/MO40-0506.pdf
+NAD,NJ,NJ500-0506,6b4f8f57-275a-4a8d-a82c-41677c9ba67f,MITO/MDPs,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,384980,WWB,2026-05-06,bhm-oct-26/NJ500-0506.pdf
+Retatrutide,RE,RE60-0102,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,ae9156b9-c055-41a6-bb90-2d595716efdd,"Analytical Formulations, Inc.",582198,TFC,2026-01-02,bhm-oct-26/RE60-0102.pdf
+Retatrutide,RE,RE20-1119,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,267237,OU,2025-11-19,bhm-oct-26/RE20-1119-1.png
+Retatrutide,RE,RE20-1119,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,lcms,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,267237,OU,2025-11-19,bhm-oct-26/RE20-1119-2.png
+Retatrutide,RE,RE20-1119,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,endotoxin,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,267237,OU,2025-11-19,bhm-oct-26/RE20-1119-3.png
+Retatrutide,RE,RE20-1119,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,sterility,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,267237,OU,2025-11-19,bhm-oct-26/RE20-1119-4.png
+Retatrutide,RE,RE20-0113,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,267237,OU,2026-01-13,bhm-oct-26/RE20-0113.png
+Retatrutide,RE,RE30-0115,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-02-27,bhm-oct-26/RE30-0115-1.png
+Retatrutide,RE,RE30-0115,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,endotoxin,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-02-27,bhm-oct-26/RE30-0115-2.png
+Retatrutide,RE,RE30-0115,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,lcms,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-03-20,bhm-oct-26/RE30-0115-4.png
+Retatrutide,RE,RE30-0115,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,sterility,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-03-31,bhm-oct-26/RE30-0115-3.png
+Retatrutide,RE,RE30-0422,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,791892,Lobster,2026-04-22,bhm-oct-26/RE30-0422.pdf
+Retatrutide,RE,RE30-0704,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,370411,CXT,2026-07-09,bhm-oct-26/RE30-0704.pdf
+Retatrutide,RE,RE20-0423,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-06-25,bhm-oct-26/RE20-0423.png
+Retatrutide,RE,RE30-0416,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-05-18,bhm-oct-26/RE30-0416-1.png
+Retatrutide,RE,RE30-0416,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,endotoxin,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-05-18,bhm-oct-26/RE30-0416-2.png
+Retatrutide,RE,RE30-0706,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,239781,Uther,2026-10-02,bhm-oct-26/RE30-0706.pdf
+SS-31,SS,SS50-0411,6b4f8f57-275a-4a8d-a82c-41677c9ba67f,MITO/MDPs,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-05-14,bhm-oct-26/SS50-0411.png
+SS-31,SS,SS50-0605,6b4f8f57-275a-4a8d-a82c-41677c9ba67f,MITO/MDPs,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-08-14,bhm-oct-26/SS50-0605.png
+Tesamorelin,TE,TE20-0429,4f49f28c-c835-4e28-ab00-3ef6c4ff970e,Structural/Composition,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-06-16,bhm-oct-26/TE20-0429.png
+Thymosin Alpha-1,TA1,TA110-0114,b5cf1872-cb9f-42f1-8b68-a646490d8cb4,Immune Modulation,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-03-04,bhm-oct-26/TA110-0114-1.png
+Thymosin Alpha-1,TA1,TA110-0114,b5cf1872-cb9f-42f1-8b68-a646490d8cb4,Immune Modulation,endotoxin,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-03-04,bhm-oct-26/TA110-0114-2.png
+Tirzepatide,ZE,ZE30-0102,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,ae9156b9-c055-41a6-bb90-2d595716efdd,"Analytical Formulations, Inc.",582198,TFC,2026-01-02,bhm-oct-26/ZE30-0102.pdf
+Tirzepatide,ZE,ZE30-0105,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-02-27,bhm-oct-26/ZE30-0105-1.png
+Tirzepatide,ZE,ZE30-0105,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,endotoxin,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-02-27,bhm-oct-26/ZE30-0105-2.png
+Tirzepatide,ZE,ZE30-0105,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,sterility,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-03-31,bhm-oct-26/ZE30-0105-3.png
+Tirzepatide,ZE,ZE30-0715,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,370411,CXT,2026-07-20,bhm-oct-26/ZE30-0715.pdf
+Tirzepatide,ZE,ZE60-0409,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-06-25,bhm-oct-26/ZE60-0409.png
+Tirzepatide,ZE,ZE30-0517,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,endotoxin,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-09-21,bhm-oct-26/ZE30-0517-2.png
+Tirzepatide,ZE,ZE30-0517,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-09-21,bhm-oct-26/ZE30-0517-1.png
+Tirzepatide,ZE,ZE30-0607,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,endotoxin,8241ddf2-2197-46e4-987d-30c62a86f164,Freedom Diagnostics,239781,Uther,2026-10-02,bhm-oct-26/ZE30-0607.pdf
+Tirzepatide,ZE,ZE30-0601,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,mass_purity,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-07-28,bhm-oct-26/ZE30-0601-1.png
+Tirzepatide,ZE,ZE30-0601,5a61c8e4-a0a5-42e7-bf44-4ff03d47f34c,GLP-1,endotoxin,6e63d737-98d4-466c-8fb1-1d0563a55cb7,Janoshik,239781,Uther,2026-07-27,bhm-oct-26/ZE30-0601-2.png
+,,,,,,,,,,,
