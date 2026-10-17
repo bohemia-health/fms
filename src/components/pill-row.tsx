@@ -4,9 +4,14 @@ import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useScrollRail } from "./rail/use-scroll-rail";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 type PillRowProps = {
-  items: string[];
+  items: {
+    label: string;
+    slug?: string;
+  }[];
   className?: string;
 };
 
@@ -15,9 +20,14 @@ type PillRowProps = {
 // always visible, dimmed when there is nothing left to scroll that way.
 // Selection is visual only for now; nothing is filtered yet.
 export default function PillRow({ items, className }: PillRowProps) {
-  const [selected, setSelected] = React.useState(items[0]);
-  const { ref: scroller, canScrollLeft, canScrollRight, scrollByStep } =
-    useScrollRail(240);
+  const params = useSearchParams();
+  const active = params.get("category");
+  const {
+    ref: scroller,
+    canScrollLeft,
+    canScrollRight,
+    scrollByStep,
+  } = useScrollRail(240);
 
   return (
     <div className={cn("relative", className)}>
@@ -26,22 +36,24 @@ export default function PillRow({ items, className }: PillRowProps) {
         className="-my-1 flex gap-4 overflow-x-auto scroll-smooth px-16 py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((item) => {
-          const isSelected = item === selected;
+          const isSelected = item.slug ? item.slug === active : active === null;
           return (
-            <button
-              key={item}
-              type="button"
+            <Link
+              scroll={false}
+              key={item.label}
+              href={
+                item.slug ? `/repository?category=${item.slug}` : "/repository"
+              }
               aria-pressed={isSelected}
-              onClick={() => setSelected(item)}
               className={cn(
-                "h-14 shrink-0 whitespace-nowrap rounded-full border px-6 text-[17px] transition-colors",
+                "inline-flex items-center h-14 shrink-0 whitespace-nowrap rounded-full border px-6 text-[17px] transition-colors",
                 isSelected
                   ? "border-foreground bg-foreground text-background"
                   : "border-foreground/15 bg-transparent text-foreground hover:border-foreground/40",
               )}
             >
-              {item}
-            </button>
+              {item.label}
+            </Link>
           );
         })}
       </div>

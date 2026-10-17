@@ -6,4 +6,5 @@ export const manufacturer = pgTable("manufacturer", {
     .primaryKey()
     .default(sql`floor(random() * 900000 + 100000)::int`),
   name: text().notNull(),
+  short_name: text(),
 });
