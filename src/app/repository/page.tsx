@@ -10,7 +10,8 @@ import SetNavbar from "@/components/navbar/local-nav/SetNavbar";
 import { container } from "@/lib/layout";
 
 import { db } from "@/index";
-import { coa } from "@/db";
+import { eq } from "drizzle-orm";
+import { category, coa, manufacturer, batch, itemCodes } from "@/db";
 import { labReportUrl } from "@/integrations/b2/client";
 
 // "report.pdf" -> "PDF". The bucket key is the only place the type lives for now.
@@ -18,8 +19,36 @@ function extOf(key: string): string {
   return key.slice(key.lastIndexOf(".") + 1).toUpperCase();
 }
 
-export default async function Repository() {
-  const files = await db.select().from(coa).orderBy(coa.title);
+export default async function Repository({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string }>;
+}) {
+  const { category: slug } = await searchParams;
+  const query = db
+    .select({
+      id: coa.id,
+      title: coa.title,
+      fileKey: coa.file_key,
+      batchNumber: batch.batch_number,
+      compound: itemCodes.codeTitle,
+      vendor: manufacturer.name,
+    })
+    .from(coa)
+    .innerJoin(batch, eq(coa.batch_id, batch.id))
+    .innerJoin(itemCodes, eq(batch.item_code_id, itemCodes.id))
+    .innerJoin(category, eq(itemCodes.category_id, category.id))
+    .innerJoin(manufacturer, eq(batch.manufacturer_id, manufacturer.id))
+    .orderBy(coa.title);
+  const files = slug ? await query.where(eq(category.slug, slug)) : await query;
+  const categories = await db
+    .select({
+      title: category.title,
+      slug: category.slug,
+    })
+    .from(category)
+    .orderBy(category.title);
+
   return (
     <main>
       <div className="relative aspect-[3/1] max-w-[2520px] mx-auto">
@@ -68,15 +97,8 @@ export default async function Repository() {
         <PillRow
           className="mt-8"
           items={[
-            "GLP-1",
-            "MITO",
-            "Nootropic",
-            "Blend",
-            "Bioregulator",
-            "Endotoxin (EU)",
-            "HPLC-MS (LC-MS)",
-            "Heavy Metals",
-            "TAMC/TYMC (Sterility)",
+            { label: "All" },
+            ...categories.map((c) => ({ label: c.title, slug: c.slug })),
           ]}
         />
 
@@ -87,12 +109,12 @@ export default async function Repository() {
                 {file.title}
               </p>
               <a
-                href={labReportUrl(file.file_key)}
+                href={labReportUrl(file.fileKey)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-1 inline-flex items-center gap-1 text-[#0065CC] font-light text-[16px] hover:underline"
               >
-                View ({extOf(file.file_key)})
+                View ({extOf(file.fileKey)})
                 <ArrowUpRight className="size-4" />
               </a>
             </li>

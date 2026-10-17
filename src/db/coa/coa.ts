@@ -15,19 +15,11 @@ export const coaTestType = pgEnum("coa_test_type", [
   "endotoxin",
   "lcms",
   "sterility",
-]);
-
-export const coaCategoryType = pgEnum("coa_category_type", [
-  "GLP-1",
-  "MITO",
-  "Nootropic",
-  "Bioregulator",
+  "benzyl_alcohol_content",
 ]);
 
 export const coa = pgTable("coa", {
-  id: integer("id")
-    .primaryKey()
-    .generatedAlwaysAsIdentity({ startWith: 100000 }),
+  id: uuid("id").defaultRandom().primaryKey(),
   public_id: text("public_id").notNull().unique().$defaultFn(generatePublicId),
   batch_id: integer("batch_id").references(() => batch.id, {
     onDelete: "cascade",
