@@ -32,3 +32,8 @@ export async function listLabReports() {
     };
   });
 }
+
+// Retrieve item images
+export function itemImageUrl(key: string): string {
+  return `${process.env.B2_ITEMS_PUBLIC_URL}/${encodeURIComponent(key)}`;
+}

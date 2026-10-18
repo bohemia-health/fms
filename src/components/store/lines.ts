@@ -174,6 +174,8 @@ type ItemRow = {
   form: string;
   /** numeric columns come back as strings, e.g. "59.00". */
   price: string | null;
+  /** item_codes.slug via the join; null when the item has no code or the code no slug. */
+  slug?: string | null;
 };
 
 // items row -> what the cards need. Descriptor is "size · form"; a price of
@@ -185,7 +187,7 @@ export function toStoreProduct(row: ItemRow): StoreProduct {
     title: row.name,
     descriptor: `${row.size} · ${row.form}`,
     price: price > 0 ? price : undefined,
-    href: "#",
+    href: row.slug ? `/shop/${row.slug}` : "#",
     line: lineFor(row.name),
   };
 }

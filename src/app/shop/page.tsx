@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { ChevronRight, MoveUpIcon, MoveUpRightIcon } from "lucide-react";
 import { db } from "@/index";
-import { itemTable } from "@/db";
+import { itemTable, itemCodes } from "@/db";
+import { eq } from "drizzle-orm";
 import { container } from "@/lib/layout";
 import { cn } from "@/lib/utils";
 import { Rail, RailItem } from "@/components/rail/Rail";
@@ -27,8 +28,10 @@ export default async function ShopPage() {
       size: itemTable.size,
       form: itemTable.form,
       price: itemTable.price,
+      slug: itemCodes.slug,
     })
     .from(itemTable)
+    .leftJoin(itemCodes, eq(itemTable.item_code_id, itemCodes.id))
     .orderBy(itemTable.name);
 
   const catalog = rows.map(toStoreProduct);

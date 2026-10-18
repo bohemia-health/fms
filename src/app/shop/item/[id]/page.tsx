@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { itemTable } from "@/db";
 import { db } from "@/index";
 
@@ -13,6 +14,7 @@ export default async function Item({ params }: PageProps) {
     .select({
       item_id: itemTable.id,
       item_name: itemTable.name,
+      price: itemTable.price,
     })
     .from(itemTable);
 
@@ -20,6 +22,8 @@ export default async function Item({ params }: PageProps) {
     <main>
       <h1>{item.item_id}</h1>
       <h2>{item.item_name}</h2>
+      <h3>{item.price}</h3>
+      <Button size="sm">Add to Cart</Button>
     </main>
   );
 }
