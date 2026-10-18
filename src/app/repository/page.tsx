@@ -7,10 +7,9 @@ import SetBreadcrumb from "@/components/footer/breadcrumb/SetBreadcrumb";
 import SetFootnotes from "@/components/footer/breadcrumb/SetFootnotes";
 import SetLocalNav from "@/components/navbar/local-nav/SetLocalNav";
 import SetNavbar from "@/components/navbar/local-nav/SetNavbar";
-import { container } from "@/lib/layout";
 
 import { db } from "@/index";
-import { eq } from "drizzle-orm";
+import { and, eq, ilike, or } from "drizzle-orm";
 import { category, coa, manufacturer, batch, itemCodes } from "@/db";
 import { labReportUrl } from "@/integrations/b2/client";
 
@@ -22,10 +21,21 @@ function extOf(key: string): string {
 export default async function Repository({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; q?: string }>;
 }) {
-  const { category: slug } = await searchParams;
-  const query = db
+  const { category: slug, q } = await searchParams;
+  const term = q?.trim();
+  // One ilike per searchable column; `and` drops the undefined ones.
+  const matchesSearch = term
+    ? or(
+        ilike(coa.title, `%${term}%`),
+        ilike(batch.batch_number, `%${term}%`),
+        ilike(manufacturer.name, `%${term}%`),
+        ilike(itemCodes.codeTitle, `%${term}%`),
+      )
+    : undefined;
+  const inCategory = slug ? eq(category.slug, slug) : undefined;
+  const files = await db
     .select({
       id: coa.id,
       title: coa.title,
@@ -39,8 +49,8 @@ export default async function Repository({
     .innerJoin(itemCodes, eq(batch.item_code_id, itemCodes.id))
     .innerJoin(category, eq(itemCodes.category_id, category.id))
     .innerJoin(manufacturer, eq(batch.manufacturer_id, manufacturer.id))
+    .where(and(inCategory, matchesSearch))
     .orderBy(coa.title);
-  const files = slug ? await query.where(eq(category.slug, slug)) : await query;
   const categories = await db
     .select({
       title: category.title,
@@ -85,14 +95,19 @@ export default async function Repository({
       </section>
 
       <section className="mx-auto w-full max-w-[1240px] px-6 py-8">
-        <div className="relative">
+        {/* Plain GET form: Enter submits ?q=..., the server re-renders the list.
+            The hidden field keeps the selected pill while searching. */}
+        <form method="get" action="/repository" className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground pointer-events-none" />
+          {slug && <input type="hidden" name="category" value={slug} />}
           <Input
             className="h-12 text-lg rounded-xl pl-11"
-            placeholder="Search lab reports"
+            placeholder="Search by title, batch number, or vendor"
             type="search"
+            name="q"
+            defaultValue={term ?? ""}
           />
-        </div>
+        </form>
 
         <PillRow
           className="mt-8"
@@ -101,6 +116,12 @@ export default async function Repository({
             ...categories.map((c) => ({ label: c.title, slug: c.slug })),
           ]}
         />
+
+        {files.length === 0 && (
+          <p className="mt-14 text-[17px] font-light text-muted-foreground">
+            No lab reports match &ldquo;{term}&rdquo;.
+          </p>
+        )}
 
         <ul className="mt-14 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {files.map((file) => (

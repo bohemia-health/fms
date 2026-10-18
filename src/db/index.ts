@@ -4,6 +4,8 @@ export * from "./manufacturer";
 export * from "./category";
 export * from "./item";
 export * from "./item_code";
+export * from "./bag";
+export * from "./bag_item";
 export * from "./orders";
 export * from "./departments";
 export * from "./campaigns";

@@ -18,10 +18,11 @@ type PillRowProps = {
 // Apple-style filter row: rounded pills that scroll sideways when they
 // overflow. Each edge has a fade plus a chevron that nudges the row along,
 // always visible, dimmed when there is nothing left to scroll that way.
-// Selection is visual only for now; nothing is filtered yet.
+// Each pill links to ?category=slug, carrying the current ?q= along.
 export default function PillRow({ items, className }: PillRowProps) {
   const params = useSearchParams();
   const active = params.get("category");
+  const q = params.get("q");
   const {
     ref: scroller,
     canScrollLeft,
@@ -41,9 +42,13 @@ export default function PillRow({ items, className }: PillRowProps) {
             <Link
               scroll={false}
               key={item.label}
-              href={
-                item.slug ? `/repository?category=${item.slug}` : "/repository"
-              }
+              href={{
+                pathname: "/repository",
+                query: {
+                  ...(item.slug && { category: item.slug }),
+                  ...(q && { q }),
+                },
+              }}
               aria-pressed={isSelected}
               className={cn(
                 "inline-flex items-center h-14 shrink-0 whitespace-nowrap rounded-full border px-6 text-[17px] transition-colors",

@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* The TRIAL files render most punctuation (& ? ( ) : % " ...) as placeholder
+   dots, so the unicode-range below is deliberate: it limits Suisse to letters,
+   digits, and , - . and lets everything else fall back to the system font.
+   Remove the ranges only once the licensed files are in. */
 @font-face {
   font-family: "Suisse Intl";
   src: url("/fonts/SuisseIntlTRIAL-Regular.woff2") format("woff2");
@@ -116,7 +120,7 @@ code {
   --color-foreground: var(--foreground);
   --color-footer: var(--footer);
   --color-navbar: var(--navbar);
-  --font-sans: var(--font-sans);
+  --font-sans: var(--font-body);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -236,6 +240,10 @@ code {
   }
   body {
     @apply bg-background text-foreground;
+    /* Grayscale AA like apple.com: thinner, crisper strokes on macOS. */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
