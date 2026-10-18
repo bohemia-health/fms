@@ -5,6 +5,7 @@
 [![Drizzle ORM](https://img.shields.io/badge/Drizzle-ORM-C5F74F?logo=drizzle&logoColor=black)](https://orm.drizzle.team)
 [![Neon](https://img.shields.io/badge/Postgres-Neon-00E599?logo=postgresql&logoColor=white)](https://neon.tech)
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed-Vercel-black?logo=vercel)](https://bhmhlthcom.vercel.app)
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-lightgrey)](LICENSE.md)
 
 The storefront and order-management site for Bohemia Health: a Next.js app. "FMS" is the fulfilment-management side that staff use; the public store and repository are the customer side. Both live in this one app.
 
@@ -170,4 +171,4 @@ There is no separate CONTRIBUTING.md yet; this section is the contribution guide
 
 ## License
 
-See [LICENSE.md](LICENSE.md).
+Proprietary. Copyright Bohemia Health, all rights reserved. The code is public to read and to contribute to, but it may not be copied, redistributed, or deployed elsewhere without written permission. Full terms in [LICENSE.md](LICENSE.md).
