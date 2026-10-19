@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { cn } from "cn";
 
-type TileTheme = "dark" | "light";
+type TileTheme = "dark" | "light" | "pumpkin";
 
 function Tile({
   className,
@@ -18,6 +18,7 @@ function Tile({
         "group/tile flex flex-col items-center text-center overflow-hidden py-5",
         "data-[theme=dark]:bg-radial data-[theme=dark]:from-slate-950 data-[theme=dark]:to-black",
         "data-[theme=light]:bg-[#F5F5F7]",
+        "data-[theme=pumpkin]:bg-[radial-gradient(50%_50%_at_50%_50%,#183A37_0%,#000_100%)]",
         className,
       )}
       {...props}
@@ -41,7 +42,7 @@ function TileTitle({ className, ...props }: React.ComponentProps<"h2">) {
       data-slot="tile-title"
       className={cn(
         "text-[36px] md:text-[44px] lg:text-[54px] leading-none tracking-[-0.020em]",
-        "group-data-[theme=dark]/tile:text-neutral-100 group-data-[theme=light]/tile:text-gray-950",
+        "group-data-[theme=dark]/tile:text-neutral-100 group-data-[theme=light]/tile:text-gray-950 group-data-[theme=pumpkin]/tile:text-neutral-100",
         className,
       )}
       {...props}
@@ -55,7 +56,7 @@ function TileTagline({ className, ...props }: React.ComponentProps<"p">) {
       data-slot="tile-tagline"
       className={cn(
         "mt-1 text-[19px] md:text-[21px] lg:text-[23px] font-light",
-        "group-data-[theme=dark]/tile:text-neutral-100 group-data-[theme=light]/tile:text-gray-950",
+        "group-data-[theme=dark]/tile:text-neutral-100 group-data-[theme=light]/tile:text-gray-950 group-data-[theme=pumpkin]/tile:text-neutral-100",
         className,
       )}
       {...props}

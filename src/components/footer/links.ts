@@ -6,7 +6,7 @@ export const footerColumn: FooterColumn[] = [
       heading: "Shop and Discover",
       links: [
         { label: "Store", href: "/shop" },
-        { label: "Group Buys", href: "/group-buy" },
+        { label: "Group Buys", href: "/campaign" },
         { label: "GLP-1s", href: "/shop/goto/glp1" },
         { label: "MITO", href: "/shop/mito" },
         { label: "Nootropic", href: "/shop/nootropic" },
