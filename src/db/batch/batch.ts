@@ -17,4 +17,8 @@ export const batch = pgTable("batch", {
     .default(110000),
   batch_number: text("batch_number").notNull(),
   quantity: integer(),
+  // Vial appearance, shown under a bag line so the customer can match the
+  // vial in hand to the batch and its lab report.
+  cap_color: text("cap_color"),
+  crimp_color: text("crimp_color"),
 });
