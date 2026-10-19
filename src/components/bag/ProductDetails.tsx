@@ -12,21 +12,10 @@ const fade = [0.25, 0.1, 0.25, 1] as const;
 
 // "Show product details" disclosure under a bag line. Lists the batches that
 // point at this item (batch.item_id): number, vendor, cap/crimp, COA link.
-// PLACEHOLDER DATA until `BagLine` carries a `batches` array; see TO-DO.
-const placeholderBatches = [
-  {
-    number: "RE30-0416",
-    vendor: "Uther",
-    cap: "Blue",
-    crimp: "Black",
-    coaUrl: "/repository",
-  },
-];
-
 export default function ProductDetails({ line }: { line: BagLine }) {
   const [open, setOpen] = useState(false);
   const reduceMotion = useReducedMotion();
-  const batches = placeholderBatches; // later: line.batches
+  const { batches } = line;
 
   return (
     <div>
@@ -81,9 +70,14 @@ export default function ProductDetails({ line }: { line: BagLine }) {
             }
           >
             <div className="flex flex-col gap-4 pt-4 text-sm">
+              {batches.length === 0 && (
+                <p className="text-muted-foreground">
+                  No batch has been assigned to this item yet.
+                </p>
+              )}
               {batches.map((b) => (
                 <dl
-                  key={b.number}
+                  key={b.id}
                   className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1"
                 >
                   <dt className="text-muted-foreground">Batch</dt>
@@ -92,24 +86,38 @@ export default function ProductDetails({ line }: { line: BagLine }) {
                   <dt className="text-muted-foreground">Vendor</dt>
                   <dd>{b.vendor}</dd>
 
-                  <dt className="text-muted-foreground">Vial</dt>
-                  <dd>
-                    {b.cap} cap, {b.crimp} crimp
-                  </dd>
+                  {(b.cap || b.crimp) && (
+                    <>
+                      <dt className="text-muted-foreground">Vial</dt>
+                      <dd>
+                        {[b.cap && `${b.cap} cap`, b.crimp && `${b.crimp} crimp`]
+                          .filter(Boolean)
+                          .join(", ")}
+                      </dd>
+                    </>
+                  )}
 
-                  <dt className="text-muted-foreground">Lab report</dt>
+                  <dt className="text-muted-foreground">
+                    Lab {b.coas.length === 1 ? "report" : "reports"}
+                  </dt>
                   <dd>
-                    {b.coaUrl ? (
-                      <a
-                        href={b.coaUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#0065CC] hover:underline"
-                      >
-                        View COA
-                      </a>
-                    ) : (
+                    {b.coas.length === 0 ? (
                       <span className="text-muted-foreground">Not on file</span>
+                    ) : (
+                      <ul className="flex flex-wrap gap-x-4 gap-y-1">
+                        {b.coas.map((c) => (
+                          <li key={c.id}>
+                            <a
+                              href={c.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[#0065CC] hover:underline"
+                            >
+                              {c.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
                     )}
                   </dd>
                 </dl>

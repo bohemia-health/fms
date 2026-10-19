@@ -1,12 +1,13 @@
 import BagButton from "@/components/bag/BagButton";
 import BagItemCard from "@/components/bag/BagItemCard";
 import { getBagLines } from "./bag";
+import { getRecommendations } from "./recommendations";
+import RecommendedItems from "@/components/bag/RecommendedItems";
 
 import Link from "next/link";
 import TaxHelp from "@/components/bag/TaxHelp";
 import { container } from "@/lib/layout";
 import { cn } from "@/lib/utils";
-import { Bag } from "@/components/icons/bag";
 
 const currency = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -15,9 +16,41 @@ const currency = new Intl.NumberFormat("en-US", {
 
 export default async function bagPage() {
   const lines = await getBagLines();
+  const recommendations = await getRecommendations(lines);
   const subtotal = lines.reduce((sum, l) => sum + l.price * l.quantity, 0);
   // Placeholder until tax is computed from the address; shipping is free.
   const estimatedTax = 216.79;
+
+  if (lines.length === 0) {
+    return (
+      <main>
+        <section
+          className={cn(
+            container,
+            "flex flex-col items-center py-24 text-center",
+          )}
+        >
+          <div className="flex w-fit flex-col items-center gap-1">
+            <h1 className="text-[1.75rem] font-semibold md:text-[2.45rem]">
+              Your bag is empty.
+            </h1>
+            <p className="text-md">
+              Browse the{" "}
+              <Link href="/shop" className="underline text-[#007AFF]">
+                store
+              </Link>{" "}
+              to find something.
+            </p>
+            <div className="mt-8 w-[300px] max-w-full">
+              <Link href="/shop">
+                <BagButton label="Continue Shopping" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main>
@@ -27,8 +60,8 @@ export default async function bagPage() {
           "flex flex-col items-center border-b border-foreground/15 py-24 text-center",
         )}
       >
-        <div className="flex w-fit flex-col items-center gap-1">
-          <h1 className="text-[2.45rem] font-semibold">
+        <div className="flex w-fit max-w-full flex-col items-center gap-1">
+          <h1 className="text-balance text-[1.75rem] font-semibold md:text-[2.45rem]">
             Your bag total is {currency.format(subtotal)}.
           </h1>
           <p className="text-md">
@@ -86,7 +119,7 @@ export default async function bagPage() {
             </p>
           </div>
 
-          <div className="flex gap-4 py-8">
+          <div className="flex flex-col gap-3 py-8 sm:flex-row sm:gap-4">
             <BagButton
               label="Continue Shopping"
               className="bg-foreground text-background hover:bg-foreground/90"
@@ -94,6 +127,23 @@ export default async function bagPage() {
             <BagButton label="Check Out" className="py-5" />
           </div>
         </div>
+      </section>
+
+      <div className="border-t border-b border-foreground/20">
+        <div className={cn(container)}>
+          <p className="font-normal text-[1.0rem] px-4 py-4.5">
+            Need some help?{" "}
+            <Link href="/support" className="text-[#0065CC] underline">
+              Chat now.
+            </Link>
+          </p>
+        </div>
+      </div>
+
+      {/* Recommendations Section */}
+      <section className="py-16 text-center">
+        <h1 className="text-4xl font-semibold">You may also like</h1>
+        <RecommendedItems products={recommendations} />
       </section>
     </main>
   );
