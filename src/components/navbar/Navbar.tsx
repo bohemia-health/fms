@@ -24,7 +24,6 @@ import { useLocalNav } from "./local-nav/context";
 import { BagFlyout, BagBackdrop } from "./BagFlyout";
 import type { BagLine } from "../bag/types";
 
-
 // Shared by the three right-side glyphs so weight and tap target stay in sync.
 const iconStroke = 1.75;
 const iconBox =
@@ -57,12 +56,13 @@ export default function Navbar({ lines }: { lines: BagLine[] }) {
   const links: navLinks[] = [
     { href: "/shop", label: "Store" },
     { href: "/campaign", label: "Group Buy" },
-    { href: "/news", label: "News" },
-    { href: "/research/mito", label: "MITO" },
-    { href: "/research/nootropic", label: "Nootropic" },
-    { href: "/research/bioregulator", label: "Bioregulator" },
+    { href: "/angiogenic", label: "Angiogenic" },
+    { href: "/bioregulator", label: "Bioregulator" },
+    { href: "/blends", label: "Blends" },
+    { href: "/glp", label: "GLP-1" },
+    { href: "/mito", label: "MITO/MDPs" },
+    { href: "/nootropic", label: "Nootropic" },
     { href: "/repository", label: "Repository" },
-    { href: "/support", label: "Support" },
   ];
   return (
     <>
