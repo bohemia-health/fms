@@ -21,7 +21,10 @@ import { Logo } from "../brand/Logo";
 import { DropdownMenu, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { navLinks } from "./types";
 import { useLocalNav } from "./local-nav/context";
-import { BagFlyout, BagBackdrop } from "./BagFlyout";
+import { BagFlyout } from "./BagFlyout";
+import { SearchFlyout } from "./SearchFlyout";
+import { MenuFlyout } from "./MenuFlyout";
+import { FlyoutBackdrop } from "./Flyout";
 import type { BagLine } from "../bag/types";
 
 // Shared by the three right-side glyphs so weight and tap target stay in sync.
@@ -36,14 +39,21 @@ const linkClass = cn(
 
 export default function Navbar({ lines }: { lines: BagLine[] }) {
   const { navbarSticky } = useLocalNav();
-  const [bagOpen, setBagOpen] = useState(false);
+  // One flyout at a time: opening Search while Bag is open swaps them.
+  const [flyout, setFlyout] = useState<"bag" | "search" | "menu" | null>(null);
+  const bagOpen = flyout === "bag";
+  const searchOpen = flyout === "search";
+  const menuOpen = flyout === "menu";
+  const anyOpen = flyout !== null;
+  const closeFlyout = () => setFlyout(null);
+  const toggle = (which: "bag" | "search" | "menu") =>
+    setFlyout((cur) => (cur === which ? null : which));
   // Badge shows units, not rows: two of one item reads 2.
   const bagCount = lines.reduce((n, l) => n + l.quantity, 0);
-  const closeBag = () => setBagOpen(false);
   // The panel is a child of the header, so one mouse-leave on the header
   // means the pointer left both the bar and the flyout.
   const onHeaderLeave = () => {
-    if (bagOpen) closeBag();
+    if (anyOpen) closeFlyout();
   };
   // Navigating anywhere closes the flyout. State is adjusted during render
   // (React's "store the previous value" pattern) rather than in an effect.
@@ -51,7 +61,7 @@ export default function Navbar({ lines }: { lines: BagLine[] }) {
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);
-    setBagOpen(false);
+    setFlyout(null);
   }
   const links: navLinks[] = [
     { href: "/shop", label: "Store" },
@@ -73,8 +83,8 @@ export default function Navbar({ lines }: { lines: BagLine[] }) {
           // Pages opt out with <SetNavbar sticky={false} />. `relative` keeps
           // z-50 meaningful (and anchors the bag flyout) when not sticky.
           navbarSticky ? "sticky" : "relative",
-          // Solid while the bag flyout is open so the two read as one surface.
-          bagOpen ? "bg-background" : "bg-navbar",
+          // Solid while a flyout is open so the two read as one surface.
+          anyOpen ? "bg-background" : "bg-navbar",
         )}
       >
         {/* Here is where the logo, Navbar components are implemented */}
@@ -94,9 +104,20 @@ export default function Navbar({ lines }: { lines: BagLine[] }) {
           </NavigationMenu>
 
           <div className="flex items-center text-foreground -mr-3 md:-mr-2">
-            <Link href="/search" aria-label="Search" className={iconBox}>
+            <button
+              type="button"
+              aria-label="Search"
+              aria-expanded={searchOpen}
+              aria-controls="search-flyout"
+              onClick={() => toggle("search")}
+              className={cn(
+                iconBox,
+                "transition-[color,transform] duration-150 active:scale-[0.92]",
+                searchOpen && "text-foreground",
+              )}
+            >
               <Search className="size-5 md:size-4" strokeWidth={iconStroke} />
-            </Link>
+            </button>
             <button
               type="button"
               aria-label={
@@ -106,7 +127,7 @@ export default function Navbar({ lines }: { lines: BagLine[] }) {
               }
               aria-expanded={bagOpen}
               aria-controls="bag-flyout"
-              onClick={() => setBagOpen((o) => !o)}
+              onClick={() => toggle("bag")}
               className={cn(
                 iconBox,
                 "relative transition-[color,transform] duration-150 active:scale-[0.92]",
@@ -127,16 +148,24 @@ export default function Navbar({ lines }: { lines: BagLine[] }) {
             </button>
             <button
               type="button"
-              aria-label="Open menu"
-              className={cn(iconBox, "md:hidden")}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls="menu-flyout"
+              onClick={() => toggle("menu")}
+              className={cn(
+                iconBox,
+                "md:hidden transition-[color,transform] duration-150 active:scale-[0.92]",
+              )}
             >
               <Menu className="size-5" strokeWidth={iconStroke} />
             </button>
           </div>
         </div>
-        <BagFlyout open={bagOpen} onClose={closeBag} lines={lines} />
+        <BagFlyout open={bagOpen} onClose={closeFlyout} lines={lines} />
+        <SearchFlyout open={searchOpen} onClose={closeFlyout} />
+        <MenuFlyout open={menuOpen} onClose={closeFlyout} links={links} />
       </header>
-      <BagBackdrop open={bagOpen} onClose={closeBag} />
+      <FlyoutBackdrop open={anyOpen} onClose={closeFlyout} />
     </>
   );
 }
