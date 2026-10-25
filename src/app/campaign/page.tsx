@@ -21,6 +21,7 @@ import {
   AccordionContent,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 
 // apple.com/iphone hero gallery: 1260x680 cards centered, 80px gutters once the
 // column no longer fits, 16px on phones. Corner radius is Apple's 28px at full
@@ -236,64 +237,64 @@ export default function Page() {
         </Rail>
       </section>
 
-      <section className="mt-8">
-        <Accordion
-          defaultValue={["item-1"]}
-          className="py-8 bg-white border-t border-muted-foreground/60"
-        >
-          <AccordionItem>
-            <AccordionTrigger className="mx-3 text-black text-3xl font-medium hover:no-underline">
-              Questions about Campaigns
-            </AccordionTrigger>
-            <AccordionContent className="mx-3">
-              <Accordion>
-                <AccordionItem>
-                  <AccordionTrigger className="text-xl hover:no-underline">
-                    What is a group buy?
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    A campaign or group buy is a bulk order facilitated by
-                    bohemia health through a vendor. Qualifying customers
-                    participate in a campaign by following the guide and placing
-                    a pre-order on bhmhlth.com. Bohemia facilitates the order
-                    from placing it with the vendor to shipping samples to
-                    authorized locations.
-                  </AccordionContent>
-                </AccordionItem>
+      <section className="mt-8 border-t border-muted-foreground/60">
+        <div className={container}>
+          <Accordion defaultValue={["item-1"]} className="py-8 bg-white">
+            <AccordionItem>
+              <AccordionTrigger className="mx-3 text-black text-3xl font-medium hover:no-underline">
+                Questions about Campaigns
+              </AccordionTrigger>
+              <AccordionContent className="mx-3">
+                <Accordion>
+                  <AccordionItem>
+                    <AccordionTrigger className="text-xl hover:no-underline">
+                      What is a group buy?
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      A campaign or group buy is a bulk order facilitated by
+                      bohemia health through a vendor. Qualifying customers
+                      participate in a campaign by following the guide and
+                      placing a pre-order on bhmhlth.com. Bohemia facilitates
+                      the order from placing it with the vendor to shipping
+                      samples to authorized locations.
+                    </AccordionContent>
+                  </AccordionItem>
 
-                <AccordionItem>
-                  <AccordionTrigger className="text-xl hover:no-underline">
-                    When will I get my Items?
-                  </AccordionTrigger>
+                  <AccordionItem>
+                    <AccordionTrigger className="text-xl hover:no-underline">
+                      When will I get my Items?
+                    </AccordionTrigger>
 
-                  <AccordionContent>
-                    By entering a zip code, you'll get estimated delivery dates
-                    for your items. You'll get a final delivery date once all of
-                    your items have been received from the vendor. Delivery
-                    estimates are based on item availability, production and
-                    carrier speeds, and the shipping option you choose.{" "}
-                    <span>
-                      <Link
-                        href="/policies/shipping"
-                        className="text-[#0065CC] no-underline hover:underline hover:text-[#0065CC]"
-                      >
-                        Learn more about Shipping
-                      </Link>
-                    </span>{" "}
-                  </AccordionContent>
-                </AccordionItem>
+                    <AccordionContent>
+                      By entering a zip code at checkout, you'll get estimated
+                      delivery dates for your items. You'll get a final delivery
+                      date once all of your items arrive. Delivery estimates are
+                      based on item availability, testing requirements, lab
+                      processing speeds and the shipping option you choose.{" "}
+                      <span>
+                        <Link
+                          href="/policies/shipping"
+                          className="inline-flex items-center gap-0 text-[#0065CC] no-underline hover:underline hover:text-[#0065CC]"
+                        >
+                          Learn more about Shipping
+                          <ArrowUpRight className="size-6" />
+                        </Link>
+                      </span>{" "}
+                    </AccordionContent>
+                  </AccordionItem>
 
-                <AccordionItem>
-                  <AccordionTrigger className="text-xl hover:no-underline">
-                    What are my payment options?
-                  </AccordionTrigger>
+                  <AccordionItem>
+                    <AccordionTrigger className="text-xl hover:no-underline">
+                      What are my payment options?
+                    </AccordionTrigger>
 
-                  <AccordionContent>Lorem Ipsum.</AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+                    <AccordionContent>Lorem Ipsum.</AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
       </section>
 
       <SetFootnotes
