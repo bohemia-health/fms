@@ -1,4 +1,4 @@
-import SetFootnotes from "@/components/footer/breadcrumb/SetFootnotes";
+import { SetFootnotes } from "@asclepius/ui";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {

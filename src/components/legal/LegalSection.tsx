@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { container } from "@/lib/layout";
+import { container } from "@asclepius/ui";
 import LegalCard from "./LegalCard";
 import type { LegalSection as LegalSectionData } from "./types";
 

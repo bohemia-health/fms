@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import { Bookmark, Settings, Package, UserCircle } from "lucide-react";
-import { Flyout } from "./Flyout";
+import { Flyout } from "@asclepius/ui";
+import { AUTH_URL } from "@/lib/auth-site";
 
 import type { BagLine } from "../bag/types";
 import BagItem from "../bag/BagItem";
@@ -10,7 +11,7 @@ const bagLinks = [
   { id: 1, label: "Orders", icon: Package, href: "/orders/list" },
   { id: 2, label: "Your Saves", icon: Bookmark, href: "/saves" },
   { id: 3, label: "Account", icon: Settings, href: "/account" },
-  { id: 4, label: "Sign In", icon: UserCircle, href: "/sign-in" },
+  { id: 4, label: "Sign In", icon: UserCircle, href: `${AUTH_URL}/login` },
 ];
 
 type Props = { open: boolean; onClose: () => void; lines: BagLine[] };

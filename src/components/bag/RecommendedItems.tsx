@@ -1,4 +1,4 @@
-import { container } from "@/lib/layout";
+import { container } from "@asclepius/ui";
 import { cn } from "@/lib/utils";
 import RecommendedItem from "./RecommendedItem";
 import type { StoreProduct } from "@/components/store/types";

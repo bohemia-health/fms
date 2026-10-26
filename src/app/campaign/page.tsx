@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-import SetFootnotes from "@/components/footer/breadcrumb/SetFootnotes";
+import { SetFootnotes } from "@asclepius/ui";
 import {
   Tile,
   TileHeader,
@@ -12,9 +12,9 @@ import {
   TileActions,
   TileImage,
 } from "@/components/tile";
-import { container } from "@/lib/layout";
+import { container } from "@asclepius/ui";
 import { Rail, RailCaption } from "@/components/rail/Rail";
-import SetBreadcrumb from "@/components/footer/breadcrumb/SetBreadcrumb";
+import { SetBreadcrumb } from "@asclepius/ui";
 import {
   Accordion,
   AccordionItem,
