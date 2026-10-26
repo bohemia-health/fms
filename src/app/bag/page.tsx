@@ -6,7 +6,7 @@ import RecommendedItems from "@/components/bag/RecommendedItems";
 
 import Link from "next/link";
 import TaxHelp from "@/components/bag/TaxHelp";
-import { container } from "@/lib/layout";
+import { container } from "@asclepius/ui";
 import { cn } from "@/lib/utils";
 
 const currency = new Intl.NumberFormat("en-US", {

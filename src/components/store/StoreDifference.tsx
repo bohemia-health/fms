@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { container } from "@/lib/layout";
+import { container } from "@asclepius/ui";
 import { Rail, RailItem } from "@/components/rail/Rail";
 import StoreHeading from "./StoreHeading";
 import { storeDifferences } from "./lines";

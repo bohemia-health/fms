@@ -1,6 +1,6 @@
-import SetBreadcrumb from "@/components/footer/breadcrumb/SetBreadcrumb";
-import SetLocalNav from "@/components/navbar/local-nav/SetLocalNav";
-import SetNavbar from "@/components/navbar/local-nav/SetNavbar";
+import { SetBreadcrumb } from "@asclepius/ui";
+import { SetLocalNav } from "@asclepius/ui";
+import { SetNavbar } from "@asclepius/ui";
 import Image from "next/image";
 import LegalSection from "@/components/legal/LegalSection";
 import { legalSections } from "@/components/legal/cards";

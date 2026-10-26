@@ -2,10 +2,10 @@ import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { db } from "@/index";
 import { itemCodes, itemTable } from "@/db";
-import { container } from "@/lib/layout";
+import { container } from "@asclepius/ui";
 import { cn } from "@/lib/utils";
 import AddToBagButton from "@/components/bag/AddToBagButton";
-import SetBreadcrumb from "@/components/footer/breadcrumb/SetBreadcrumb";
+import { SetBreadcrumb } from "@asclepius/ui";
 
 const money = new Intl.NumberFormat("en-US", {
   style: "currency",

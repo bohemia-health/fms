@@ -7,7 +7,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from "@asclepius/ui";
 
 // The circled "?" beside "Estimated tax". A real button so keyboards and
 // screen readers reach it; the tooltip opens on hover and on focus.

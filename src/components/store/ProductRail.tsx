@@ -1,4 +1,4 @@
-import { container } from "@/lib/layout";
+import { container } from "@asclepius/ui";
 import { Rail, RailItem } from "@/components/rail/Rail";
 import ProductCard from "@/components/products/ProductCard";
 import StoreHeading from "./StoreHeading";

@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
-import { Flyout } from "./Flyout";
+import { Flyout } from "@asclepius/ui";
 
 // Under the field, the places people most often search for. Same list
 // styling as the bag flyout's My Profile links.

@@ -3,10 +3,10 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 import PillRow from "@/components/pill-row";
-import SetBreadcrumb from "@/components/footer/breadcrumb/SetBreadcrumb";
-import SetFootnotes from "@/components/footer/breadcrumb/SetFootnotes";
-import SetLocalNav from "@/components/navbar/local-nav/SetLocalNav";
-import SetNavbar from "@/components/navbar/local-nav/SetNavbar";
+import { SetBreadcrumb } from "@asclepius/ui";
+import { SetFootnotes } from "@asclepius/ui";
+import { SetLocalNav } from "@asclepius/ui";
+import { SetNavbar } from "@asclepius/ui";
 
 import { db } from "@/index";
 import { and, eq, ilike, or } from "drizzle-orm";

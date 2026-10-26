@@ -4,8 +4,8 @@ import Link from "next/link";
 import { XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
-import { container } from "@/lib/layout";
-import { useLocalNav } from "../navbar/local-nav/context";
+import { container } from "@asclepius/ui";
+import { useLocalNav } from "@asclepius/ui";
 
 type SiteBannerProps = {
   id: string;

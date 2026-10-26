@@ -3,7 +3,7 @@ import { ChevronRight, MoveUpIcon, MoveUpRightIcon } from "lucide-react";
 import { db } from "@/index";
 import { itemTable, itemCodes } from "@/db";
 import { eq } from "drizzle-orm";
-import { container } from "@/lib/layout";
+import { container } from "@asclepius/ui";
 import { cn } from "@/lib/utils";
 import { Rail, RailItem } from "@/components/rail/Rail";
 import CategoryChip from "@/components/store/CategoryChip";
@@ -14,10 +14,8 @@ import {
   storeLines,
   toStoreProduct,
 } from "@/components/store/lines";
-import SetBreadcrumb from "@/components/footer/breadcrumb/SetBreadcrumb";
-import SetFootnotes from "@/components/footer/breadcrumb/SetFootnotes";
-import SetLocalNav from "@/components/navbar/local-nav/SetLocalNav";
-import SetNavbar from "@/components/navbar/local-nav/SetNavbar";
+import { SetBreadcrumb } from "@asclepius/ui";
+import { SetFootnotes } from "@asclepius/ui";
 import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 
 export default async function ShopPage() {

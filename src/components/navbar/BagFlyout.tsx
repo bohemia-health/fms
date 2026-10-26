@@ -1,22 +1,26 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Bookmark, Settings, Package, UserCircle } from "lucide-react";
-import { Flyout } from "./Flyout";
+import { Flyout } from "@asclepius/ui";
+import { loginUrl } from "@/lib/auth-site";
 
 import type { BagLine } from "../bag/types";
 import BagItem from "../bag/BagItem";
 
-const bagLinks = [
+// Sign In is built per page so the auth site can bring the person back here.
+const bagLinks = (pathname: string) => [
   { id: 1, label: "Orders", icon: Package, href: "/orders/list" },
   { id: 2, label: "Your Saves", icon: Bookmark, href: "/saves" },
   { id: 3, label: "Account", icon: Settings, href: "/account" },
-  { id: 4, label: "Sign In", icon: UserCircle, href: "/sign-in" },
+  { id: 4, label: "Sign In", icon: UserCircle, href: loginUrl(pathname) },
 ];
 
 type Props = { open: boolean; onClose: () => void; lines: BagLine[] };
 
 // Bag content inside the shared Flyout shell.
 export function BagFlyout({ open, onClose, lines }: Props) {
+  const links = bagLinks(usePathname());
   return (
     <Flyout id="bag-flyout" label="Shopping bag" open={open} onClose={onClose}>
       {lines.length === 0 ? (
@@ -58,7 +62,7 @@ export function BagFlyout({ open, onClose, lines }: Props) {
         My Profile
       </h3>
       <ul className="mt-3 space-y-2 text-xs font-medium">
-        {bagLinks.map(({ id, href, label, icon: IconComponent }) => (
+        {links.map(({ id, href, label, icon: IconComponent }) => (
           <li key={id}>
             <Link
               href={href}
