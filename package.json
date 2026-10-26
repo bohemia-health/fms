@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@asclepius/ui": "file:../asclepius",
+    "@asclepius/ui": "git+ssh://git@github.com/bohemia-health/asclepius.git#main",
     "@aws-sdk/client-s3": "^3.1150.0",
     "@base-ui/react": "^1.8.0",
     "@neondatabase/serverless": "^1.1.0",

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AUTH_URL } from "@/lib/auth-site";
 import { ThemeProvider } from "next-themes";
 import {
   BreadcrumbProvider,
@@ -41,7 +42,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               <LocalNav />
               <SiteBanner />
               {children}
-              <MegaFooter />
+              <MegaFooter authUrl={AUTH_URL} />
             </NavChromeProvider>
           </BreadcrumbProvider>
         </ThemeProvider>
