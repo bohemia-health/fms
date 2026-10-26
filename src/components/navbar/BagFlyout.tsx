@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bookmark, Settings, Package, UserCircle } from "lucide-react";
+import { Bookmark, LogOut, Package, Settings, UserCircle } from "lucide-react";
 import { Flyout } from "@asclepius/ui";
 import { loginUrl } from "@/lib/auth-site";
 import { authClient } from "@/lib/auth-client";
@@ -25,13 +25,15 @@ type BagLink = {
   onClick?: () => void;
 };
 
-// TODO(human): the list shown once someone is signed in. Same shape as
-// bagLinks above. `signOut` ends the Asclepius session; a link with `onClick`
-// and no `href` renders as a button.
-function signedInLinks(pathname: string, signOut: () => void): BagLink[] {
-  void pathname;
-  void signOut;
-  return [];
+// Once signed in, the same account links minus Sign In, plus Sign Out. Sign
+// Out has no href, so it renders as a button that ends the Asclepius session.
+function signedInLinks(_pathname: string, signOut: () => void): BagLink[] {
+  return [
+    { id: 1, label: "Orders", icon: Package, href: "/orders/list" },
+    { id: 2, label: "Your Saves", icon: Bookmark, href: "/saves" },
+    { id: 3, label: "Account", icon: Settings, href: "/account" },
+    { id: 4, label: "Sign Out", icon: LogOut, onClick: signOut },
+  ];
 }
 
 type Props = { open: boolean; onClose: () => void; lines: BagLine[] };
