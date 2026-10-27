@@ -1,6 +1,5 @@
-import { db } from "@/index";
-import { ordersTable, customersTable, orderAddressesTable } from "@/db";
-import { eq, sql, and } from "drizzle-orm";
+import { notFound } from "next/navigation";
+import { api } from "@/lib/api";
 
 interface OrderDetailPageProps {
   params: Promise<{ id: string }>;
@@ -10,31 +9,9 @@ export default async function OrderDetailPage({
   params,
 }: OrderDetailPageProps) {
   const { id } = await params;
-  const [order] = await db
-    .select({
-      orderNumber: ordersTable.order_number,
-      firstName: customersTable.first_name,
-      lastName: customersTable.last_name,
-      street1: orderAddressesTable.line1,
-      street2: orderAddressesTable.line2,
-      street3: orderAddressesTable.line3,
-      city: orderAddressesTable.city,
-      state: orderAddressesTable.state,
-      country: orderAddressesTable.country,
-      zipcode: orderAddressesTable.postal_code,
-      items: sql<string>`(
-            select string_agg(concat(oi.quantity, ' x ', oi.name_at_purchase), ', ')
-            from order_items oi
-            where oi.order_id = ${ordersTable.id}
-            )`,
-    })
-    .from(ordersTable)
-    .leftJoin(customersTable, eq(ordersTable.customer_id, customersTable.id))
-    .leftJoin(
-      orderAddressesTable,
-      eq(ordersTable.id, orderAddressesTable.order_id),
-    )
-    .where(eq(ordersTable.order_number, id));
+  const res = await api.orders[":number"].$get({ param: { number: id } });
+  if (!res.ok) notFound();
+  const order = await res.json();
 
   const addressLines = [
     order.street1,

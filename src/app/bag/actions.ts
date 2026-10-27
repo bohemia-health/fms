@@ -1,29 +1,25 @@
 "use server";
 
-import { db } from "@/index";
-import { getOrCreateBag } from "./bag";
-import { and, eq, sql } from "drizzle-orm";
-import { bag_items } from "@/db";
 import { revalidatePath } from "next/cache";
+import { api, bagHeaders } from "@/lib/api";
+import { getOrCreateBag } from "./bag";
 
 export async function addToBag(itemId: string) {
-  const bagId = await getOrCreateBag();
-  await db
-    .insert(bag_items)
-    .values({ bag_id: bagId, item_id: itemId, quantity: 1 })
-    .onConflictDoUpdate({
-      target: [bag_items.bag_id, bag_items.item_id],
-      set: { quantity: sql`${bag_items.quantity} + 1` },
-    });
+  const token = await getOrCreateBag();
+  await api.bag.items.$post(
+    { json: { itemId } },
+    { headers: bagHeaders(token) },
+  );
   // The navbar badge lives in the root layout, so refresh everything under it.
   revalidatePath("/", "layout");
 }
 
 export async function removeFromBag(itemId: string) {
-  const bagId = await getOrCreateBag();
-  await db
-    .delete(bag_items)
-    .where(and(eq(bag_items.bag_id, bagId), eq(bag_items.item_id, itemId)));
+  const token = await getOrCreateBag();
+  await api.bag.items[":itemId"].$delete(
+    { param: { itemId } },
+    { headers: bagHeaders(token) },
+  );
   revalidatePath("/", "layout");
 }
 
@@ -31,10 +27,10 @@ export async function removeFromBag(itemId: string) {
 // else calls this; treat it as a remove rather than storing a zero line.
 export async function setQuantity(itemId: string, quantity: number) {
   if (quantity < 1) return removeFromBag(itemId);
-  const bagId = await getOrCreateBag();
-  await db
-    .update(bag_items)
-    .set({ quantity })
-    .where(and(eq(bag_items.bag_id, bagId), eq(bag_items.item_id, itemId)));
+  const token = await getOrCreateBag();
+  await api.bag.items[":itemId"].$put(
+    { param: { itemId }, json: { quantity } },
+    { headers: bagHeaders(token) },
+  );
   revalidatePath("/", "layout");
 }

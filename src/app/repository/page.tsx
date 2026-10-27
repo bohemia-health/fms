@@ -8,9 +8,7 @@ import { SetFootnotes } from "@asclepius/ui";
 import { SetLocalNav } from "@asclepius/ui";
 import { SetNavbar } from "@asclepius/ui";
 
-import { db } from "@/index";
-import { and, eq, ilike, or } from "drizzle-orm";
-import { category, coa, manufacturer, batch, itemCodes } from "@/db";
+import { api } from "@/lib/api";
 import { labReportUrl } from "@/integrations/b2/client";
 
 // "report.pdf" -> "PDF". The bucket key is the only place the type lives for now.
@@ -25,39 +23,12 @@ export default async function Repository({
 }) {
   const { category: slug, q } = await searchParams;
   const term = q?.trim();
-  // One ilike per searchable column; `and` drops the undefined ones.
-  const matchesSearch = term
-    ? or(
-        ilike(coa.title, `%${term}%`),
-        ilike(batch.batch_number, `%${term}%`),
-        ilike(manufacturer.name, `%${term}%`),
-        ilike(itemCodes.codeTitle, `%${term}%`),
-      )
-    : undefined;
-  const inCategory = slug ? eq(category.slug, slug) : undefined;
-  const files = await db
-    .select({
-      id: coa.id,
-      title: coa.title,
-      fileKey: coa.file_key,
-      batchNumber: batch.batch_number,
-      compound: itemCodes.codeTitle,
-      vendor: manufacturer.name,
-    })
-    .from(coa)
-    .innerJoin(batch, eq(coa.batch_id, batch.id))
-    .innerJoin(itemCodes, eq(batch.item_code_id, itemCodes.id))
-    .innerJoin(category, eq(itemCodes.category_id, category.id))
-    .innerJoin(manufacturer, eq(batch.manufacturer_id, manufacturer.id))
-    .where(and(inCategory, matchesSearch))
-    .orderBy(coa.title);
-  const categories = await db
-    .select({
-      title: category.title,
-      slug: category.slug,
-    })
-    .from(category)
-    .orderBy(category.title);
+  const [filesRes, categoriesRes] = await Promise.all([
+    api.coa.$get({ query: { category: slug, q: term } }),
+    api.categories.$get(),
+  ]);
+  const files = await filesRes.json();
+  const categories = await categoriesRes.json();
 
   return (
     <main>

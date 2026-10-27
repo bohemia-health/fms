@@ -1,7 +1,5 @@
 import { notFound } from "next/navigation";
-import { eq } from "drizzle-orm";
-import { db } from "@/index";
-import { itemCodes, itemTable } from "@/db";
+import { api } from "@/lib/api";
 import { container } from "@asclepius/ui";
 import { cn } from "@/lib/utils";
 import AddToBagButton from "@/components/bag/AddToBagButton";
@@ -21,28 +19,9 @@ interface PageProps {
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const [product] = await db
-    .select({
-      id: itemCodes.id,
-      title: itemCodes.codeTitle,
-      code: itemCodes.code,
-    })
-    .from(itemCodes)
-    .where(eq(itemCodes.slug, slug));
-
-  if (!product) notFound();
-
-  const variants = await db
-    .select({
-      id: itemTable.id,
-      name: itemTable.name,
-      size: itemTable.size,
-      form: itemTable.form,
-      price: itemTable.price,
-    })
-    .from(itemTable)
-    .where(eq(itemTable.item_code_id, product.id))
-    .orderBy(itemTable.size);
+  const res = await api.products[":slug"].$get({ param: { slug } });
+  if (!res.ok) notFound();
+  const product = await res.json();
 
   return (
     <main className={cn(container, "py-16 md:py-24")}>
@@ -55,13 +34,13 @@ export default async function ProductPage({ params }: PageProps) {
       </h1>
 
       <h2 className="mt-12 text-sm font-medium">Size</h2>
-      {variants.length === 0 ? (
+      {product.variants.length === 0 ? (
         <p className="mt-2 text-sm font-light text-muted-foreground">
           No sizes listed yet.
         </p>
       ) : (
         <ul className="mt-3 flex flex-col divide-y divide-foreground/10 border-y border-foreground/10">
-          {variants.map((v) => {
+          {product.variants.map((v) => {
             const price = Number(v.price);
             return (
               <li
