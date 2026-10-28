@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 
 // Apple store section heading: a dark lead sentence, then a gray one.
-// "The latest. Take a look at what's new, right now."
+// "The latest. Take a look at what's new, right now." 28px/600 from md, as
+// on apple.com/store; 24px on phones.
 export default function StoreHeading({
   lead,
   rest,
@@ -14,7 +15,7 @@ export default function StoreHeading({
   return (
     <h2
       className={cn(
-        "text-[24px] font-medium leading-[1.12] tracking-[-0.015em] text-balance md:text-[32px] lg:text-[40px]",
+        "text-[24px] font-semibold leading-[1.14] tracking-[-0.01em] text-balance md:text-[28px]",
         className,
       )}
     >

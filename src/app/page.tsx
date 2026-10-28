@@ -1,6 +1,7 @@
 import { SetFootnotes } from "@asclepius/ui";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
   Tile,
   TileActions,
@@ -33,12 +34,15 @@ export default function Home() {
         </div>
         <div className="flex flex-wrap justify-center gap-3 pt-4 md:gap-4">
           <Button variant="normal">Learn more</Button>
-          <Button
-            variant="normal"
-            className="bg-transparent text-[#2797FF] border-[#2797FF] hover:bg-[#2797FF] hover:text-white"
+          <Link
+            href="/shop/repair"
+            className={cn(
+              buttonVariants({ variant: "normal" }),
+              "bg-transparent text-[#2797FF] border-[#2797FF] hover:bg-[#2797FF] hover:text-white",
+            )}
           >
             Buy
-          </Button>
+          </Link>
         </div>
 
         <div className="relative pt-8 md:pt-12 -mb-7">
@@ -99,12 +103,15 @@ export default function Home() {
             <Button variant="normal" className="tracking-wide">
               Learn more
             </Button>
-            <Button
-              variant="normal"
-              className="tracking-wide bg-transparent text-[#2797FF] border-[#2797FF] hover:bg-[#2797FF] hover:text-white"
+            <Link
+              href="/shop/bioregulator"
+              className={cn(
+                buttonVariants({ variant: "normal" }),
+                "tracking-wide bg-transparent text-[#2797FF] border-[#2797FF] hover:bg-[#2797FF] hover:text-white",
+              )}
             >
               Buy
-            </Button>
+            </Link>
           </TileActions>
           <TileImage
             src="/bioreg_vial.png"
@@ -128,9 +135,12 @@ export default function Home() {
             </TileTagline>
           </TileHeader>
           <TileActions>
-            <Button variant="normal" className="tracking-wide">
+            <Link
+              href="/shop/nootropic"
+              className={cn(buttonVariants({ variant: "normal" }), "tracking-wide")}
+            >
               View Pricing
-            </Button>
+            </Link>
           </TileActions>
           <TileImage
             src="/adalank-crop.png"
@@ -150,12 +160,15 @@ export default function Home() {
             <Button variant="normal" className="tracking-wide">
               Learn more
             </Button>
-            <Button
-              variant="normal"
-              className="tracking-wide bg-transparent text-[#2797FF] border-[#2797FF] hover:bg-[#2797FF] hover:text-white"
+            <Link
+              href="/shop/accessories"
+              className={cn(
+                buttonVariants({ variant: "normal" }),
+                "tracking-wide bg-transparent text-[#2797FF] border-[#2797FF] hover:bg-[#2797FF] hover:text-white",
+              )}
             >
               Buy
-            </Button>
+            </Link>
           </TileActions>
           <TileImage
             src="/vials-in-a-line.png"

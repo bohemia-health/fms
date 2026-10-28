@@ -1,41 +1,32 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { ChevronRight, MoveUpIcon, MoveUpRightIcon } from "lucide-react";
-import { api } from "@/lib/api";
 import { container } from "@asclepius/ui";
 import { cn } from "@/lib/utils";
 import { Rail, RailItem } from "@/components/rail/Rail";
 import CategoryChip from "@/components/store/CategoryChip";
-import ProductRail from "@/components/store/ProductRail";
-import StoreDifference from "@/components/store/StoreDifference";
-import {
-  storeHelpLinks,
-  storeLines,
-  toStoreProduct,
-} from "@/components/store/lines";
-import { SetBreadcrumb } from "@asclepius/ui";
-import { SetFootnotes } from "@asclepius/ui";
+import StoreRails, { RailsSkeleton } from "./StoreRails";
+import { storeHelpLinks, storeLines } from "@/components/store/lines";
+import { storeColumn } from "@/components/store/types";
+import { SetBreadcrumb, SetFootnotes } from "@asclepius/ui";
 import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 
-export default async function ShopPage() {
-  const res = await api.items.$get();
-  const rows = await res.json();
+export const metadata: Metadata = {
+  title: "Store · Bohemia Health",
+  description: "Research peptides by line, every batch lab tested.",
+};
 
-  const catalog = rows.map(toStoreProduct);
-
-  // No created_at on items yet, so "the latest" is the first eight.
-  const latest = catalog.slice(0, 8);
-
-  // One rail per line, in storeLines order; lines with nothing in them
-  // are skipped so the page never shows an empty row.
-  const rails = storeLines
-    .map((line) => ({
-      line,
-      products: catalog.filter((p) => p.line?.slug === line.slug),
-    }))
-    .filter((rail) => rail.products.length > 0);
-
+export default function ShopPage() {
+  // The store field: apple.com/store is #f5f5f7 below the nav with white
+  // tiles on it; in dark mode the page is black and the tiles are #1d1d1f.
+  // The header and the category chips need no data, so they render at once;
+  // the rails wait on the catalogue inside Suspense and stream in behind a
+  // row of tile shapes. (A loading.tsx would do the same, but it wraps the
+  // whole segment, product pages included, and a 404 after the shell has
+  // streamed is a 200; see CHANGELOG 2026-10-27.)
   return (
-    <main className="mb-12 md:mb-20 ">
+    <main className="bg-[#f5f5f7] pb-12 md:pb-20 dark:bg-background">
       {/* 
       <header
         className={cn(
@@ -75,14 +66,21 @@ export default async function ShopPage() {
         </ul> 
       </header> */}
 
-      <header className="flex justify-between mx-auto w-full max-w-[1520px] px-4 py-24">
+      <header
+        className={cn(
+          storeColumn,
+          "flex flex-col gap-8 py-14 md:flex-row md:justify-between md:py-24",
+        )}
+      >
         {/* Start of Store Header and Tagline */}
-        <h1 className="text-[76px] font-medium tracking-tight">Store</h1>
-        <div className="flex flex-col gap-5">
-          <p className="text-[27px] max-w-xs leading-8 text-right">
+        <h1 className="text-[56px] font-medium leading-none tracking-tight md:text-[76px]">
+          Store
+        </h1>
+        <div className="flex flex-col gap-5 md:items-end">
+          <p className="max-w-xs text-[23px] leading-7 md:text-right md:text-[27px] md:leading-8">
             The best way to buy the products you love.
           </p>
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col gap-2 md:items-end">
             <Link
               href="/"
               className="inline-flex text-[#0065CC] text-sm font-light tracking-wide hover:underline"
@@ -114,36 +112,9 @@ export default async function ShopPage() {
         ))}
       </Rail>
 
-      <div className="mt-6 flex flex-col md:mt-10">
-        {latest.length > 0 ? (
-          <ProductRail
-            id="latest"
-            lead="The latest."
-            rest="Take a look at what's new, right now."
-            products={latest}
-          />
-        ) : (
-          <p
-            id="latest"
-            className={cn(
-              container,
-              "scroll-mt-12 py-8 text-xl font-light text-muted-foreground md:py-12",
-            )}
-          >
-            The shelves are being restocked. Check back soon.
-          </p>
-        )}
-        {rails.map(({ line, products }) => (
-          <ProductRail
-            key={line.slug}
-            id={line.slug}
-            lead={`${line.label}.`}
-            rest={line.tagline}
-            products={products}
-          />
-        ))}
-        <StoreDifference />
-      </div>
+      <Suspense fallback={<RailsSkeleton />}>
+        <StoreRails />
+      </Suspense>
 
       <SetBreadcrumb items={[{ label: "Store" }]} />
       <SetFootnotes

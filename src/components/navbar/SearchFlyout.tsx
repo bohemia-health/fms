@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Search } from "lucide-react";
 import { Flyout } from "@asclepius/ui";
+import { SearchResults } from "./SearchResults";
 
 // Under the field, the places people most often search for. Same list
 // styling as the bag flyout's My Profile links.
@@ -17,10 +18,21 @@ const quickLinks = [
 type Props = { open: boolean; onClose: () => void };
 
 // Search content inside the shared Flyout shell: one borderless field with
-// the search glyph to its left and a large placeholder, like Apple's. For
-// now it is only the look; submitting goes to /search as a GET with ?q=.
+// the search glyph to its left and a large placeholder, like Apple's. Typing
+// shows live catalogue results under the field (SearchResults); submitting
+// still goes to /search as a GET with ?q=.
 export function SearchFlyout({ open, onClose }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [query, setQuery] = useState("");
+
+  // A closed panel forgets its query, so it opens empty next time. Done as
+  // state derived from the previous `open` during render (React's pattern
+  // for this) rather than in an effect, which would render twice.
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (!open) setQuery("");
+  }
 
   // Put the cursor in the field once the panel's text has faded in (the
   // content fade starts at 200ms); focusing during the height reveal would
@@ -44,12 +56,29 @@ export function SearchFlyout({ open, onClose }: Props) {
             ref={inputRef}
             type="search"
             name="q"
+            aria-label="Search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              // Down from the field lands on the first result, so a query
+              // and one keystroke reach a product without the mouse.
+              if (e.key !== "ArrowDown") return;
+              const first = document.querySelector<HTMLAnchorElement>(
+                "#search-flyout [data-slot=search-hit]",
+              );
+              if (first) {
+                e.preventDefault();
+                first.focus();
+              }
+            }}
             placeholder="Search bohemia health"
             autoComplete="off"
             className="w-full bg-transparent text-xl font-medium tracking-tight outline-none placeholder:text-muted-foreground/70 [&::-webkit-search-cancel-button]:appearance-none"
           />
         </label>
       </form>
+
+      <SearchResults query={query} onPick={onClose} />
 
       <h3 className="mt-10 text-xs font-light tracking-wider text-muted-foreground">
         Quick Links
