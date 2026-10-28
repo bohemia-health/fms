@@ -4,6 +4,8 @@ import * as React from "react";
 // Shared scroll state for horizontal rails (PillRow, Rail): which way the row
 // can still move, plus a nudge helper. `step` is a pixel count, or a function
 // of the scroller for steps that depend on its width.
+export type ScrollPace = "snap" | "drift";
+
 export function useScrollRail(step: number | ((el: HTMLDivElement) => number)) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
@@ -76,9 +78,19 @@ export function useScrollRail(step: number | ((el: HTMLDivElement) => number)) {
   // the nearest snap point and animates it, so the tween would stutter. They
   // come back at the end, on a snap point, so nothing visibly moves. A wheel,
   // touch or pointer-down from the user cancels the tween and hands over.
-  const tween = React.useRef<{ frame: number; finish: () => void } | null>(null);
+  const tween = React.useRef<{ frame: number; finish: () => void } | null>(
+    null,
+  );
 
-  function animateTo(el: HTMLDivElement, target: number) {
+  // "snap" is the dot-click / chevron tween. "drift" is for autoplay: nobody
+  // asked for this particular move, so it should not grab the eye. Longer,
+  // and on a sine curve whose peak speed is 1.6x the average instead of the
+  // quartic's 4x, so the card glides across rather than lunging mid-way.
+  function animateTo(
+    el: HTMLDivElement,
+    target: number,
+    pace: ScrollPace = "snap",
+  ) {
     tween.current?.finish();
     const max = el.scrollWidth - el.clientWidth;
     target = Math.max(0, Math.min(max, target));
@@ -99,9 +111,15 @@ export function useScrollRail(step: number | ((el: HTMLDivElement) => number)) {
     // 1.2s for one item, +200ms per extra item, capped at 1.8s. Ease-in-out
     // quartic: a longer dwell at both ends than cubic, so the card settles
     // rather than stops. 800ms cubic was judged too fast.
-    const duration = Math.min(1800, 1200 + 200 * Math.max(0, span - 1));
-    const ease = (t: number) =>
-      t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+    const duration =
+      pace === "drift"
+        ? Math.min(2800, 2000 + 200 * Math.max(0, span - 1))
+        : Math.min(1800, 1200 + 200 * Math.max(0, span - 1));
+    const ease =
+      pace === "drift"
+        ? (t: number) => (1 - Math.cos(Math.PI * t)) / 2
+        : (t: number) =>
+            t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
 
     const prevBehavior = el.style.scrollBehavior;
     const prevSnap = el.style.scrollSnapType;
@@ -137,12 +155,12 @@ export function useScrollRail(step: number | ((el: HTMLDivElement) => number)) {
     animateTo(el, el.scrollLeft + direction * px);
   }
 
-  function scrollToIndex(index: number) {
+  function scrollToIndex(index: number, pace: ScrollPace = "snap") {
     const el = ref.current;
     const item = el?.children[index] as HTMLElement | undefined;
     if (!el || !item) return;
     const padding = parseFloat(getComputedStyle(el).paddingLeft) || 0;
-    animateTo(el, item.offsetLeft - padding);
+    animateTo(el, item.offsetLeft - padding, pace);
   }
 
   return {

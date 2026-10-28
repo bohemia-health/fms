@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useScrollRail } from "./use-scroll-rail";
 
@@ -51,6 +51,66 @@ export default function Rail({
     scrollToIndex,
   } = useScrollRail((el) => el.clientWidth * 0.8);
 
+  // Autoplay for the dots gallery: Apple's play/pause button beside the pill.
+  // While playing, the row advances one card per dwell. The effect keys on
+  // activeIndex so a dot click or a drag restarts the dwell from that card
+  // instead of firing mid-way through it.
+  const [playing, setPlaying] = React.useState(false);
+  // `playing` is what the button says; `suspended` is the world getting in
+  // the way: the window lost focus, the tab is hidden, or the rail scrolled
+  // off screen. The dwell timer runs only when playing and not suspended, and
+  // picks back up on its own, so a user who tabs away and returns finds the
+  // gallery still playing rather than quietly stopped.
+  const [suspended, setSuspended] = React.useState(false);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!playing || !el) return;
+    let inView = true;
+    let focused = document.hasFocus();
+    let visible = document.visibilityState === "visible";
+    const apply = () => setSuspended(!(inView && focused && visible));
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        apply();
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(el);
+    const onVisibility = () => {
+      visible = document.visibilityState === "visible";
+      apply();
+    };
+    const onFocus = () => {
+      focused = true;
+      apply();
+    };
+    const onBlur = () => {
+      focused = false;
+      apply();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("focus", onFocus);
+    window.addEventListener("blur", onBlur);
+    apply();
+    return () => {
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("focus", onFocus);
+      window.removeEventListener("blur", onBlur);
+    };
+  }, [playing, ref]);
+
+  const scrollToIndexRef = React.useRef(scrollToIndex);
+  scrollToIndexRef.current = scrollToIndex;
+  React.useEffect(() => {
+    if (!playing || suspended || count < 2) return;
+    const id = setInterval(() => {
+      scrollToIndexRef.current(nextSlide(activeIndex, count), "drift");
+    }, AUTOPLAY_DWELL_MS);
+    return () => clearInterval(id);
+  }, [playing, suspended, activeIndex, count]);
+
   return (
     <div>
       <div
@@ -75,6 +135,8 @@ export default function Rail({
           count={count}
           activeIndex={activeIndex}
           onSelect={scrollToIndex}
+          playing={playing}
+          onTogglePlay={() => setPlaying((p) => !p)}
         />
       )}
 
@@ -107,7 +169,11 @@ export default function Rail({
 // as the incoming one starts, a continuous crossfade. `--rail-d` comes from
 // useScrollRail on the item; `--rail-parallax` is a 0/1 switch so reduced
 // motion can turn it off without fighting the inline math.
-function RailCaption({ className, style, ...props }: React.ComponentProps<"div">) {
+function RailCaption({
+  className,
+  style,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="rail-caption"
@@ -152,40 +218,75 @@ function RailItem({ className, ...props }: React.ComponentProps<"div">) {
 // Pill geometry, same page: 120x56 for two dots, radius 28, 24px from the
 // pill edge to the first dot (16px padding + 8px item margin), 16px between
 // dots. 56px tall from md up, 40px on phones.
+// How long autoplay rests on a card before moving on. The drift tween takes
+// 2s of that, so the card is still for about 3s.
+const AUTOPLAY_DWELL_MS = 5000;
+
+// Which card autoplay should go to from `current`, given `count` cards.
+// Called once per dwell while the play button is on.
+function nextSlide(current: number, count: number): number {
+  // Wrap after the last card, as Apple's gallery does, so play runs forever.
+  return (current + 1) % count;
+}
+
 function RailDots({
   count,
   activeIndex,
   onSelect,
+  playing,
+  onTogglePlay,
 }: {
   count: number;
   activeIndex: number;
   onSelect: (index: number) => void;
+  playing: boolean;
+  onTogglePlay: () => void;
 }) {
+  const PlayIcon = playing ? Pause : Play;
   return (
-    <div
-      role="tablist"
-      aria-label="Choose a slide"
-      className="mx-auto mt-8 flex w-fit items-center gap-4 rounded-full bg-foreground/[0.08] px-6 py-4 [--rail-bar:32px] md:py-6 md:[--rail-bar:48px]"
-    >
-      {Array.from({ length: count }, (_, i) => {
-        const active = i === activeIndex;
-        const k = `max(0, 1 - max(${i} - var(--rail-p, 0), var(--rail-p, 0) - ${i}))`;
-        return (
-          <button
-            key={i}
-            type="button"
-            role="tab"
-            aria-selected={active}
-            aria-label={`Slide ${i + 1}`}
-            onClick={() => onSelect(i)}
-            className="h-2 shrink-0 rounded-full bg-foreground"
-            style={{
-              width: `calc(8px + (var(--rail-bar) - 8px) * ${k})`,
-              opacity: `calc(0.3 + 0.7 * ${k})`,
-            }}
-          />
-        );
-      })}
+    <div className="mx-auto mt-8 flex w-fit items-center gap-3">
+      <div
+        role="tablist"
+        aria-label="Choose a slide"
+        className="flex items-center gap-4 rounded-full bg-foreground/[0.08] px-6 py-4 [--rail-bar:32px] md:py-6 md:[--rail-bar:48px]"
+      >
+        {Array.from({ length: count }, (_, i) => {
+          const active = i === activeIndex;
+          const k = `max(0, 1 - max(${i} - var(--rail-p, 0), var(--rail-p, 0) - ${i}))`;
+          return (
+            <button
+              key={i}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              aria-label={`Slide ${i + 1}`}
+              onClick={() => onSelect(i)}
+              className="h-2 shrink-0 rounded-full bg-foreground"
+              style={{
+                width: `calc(8px + (var(--rail-bar) - 8px) * ${k})`,
+                opacity: `calc(0.3 + 0.7 * ${k})`,
+              }}
+            />
+          );
+        })}
+      </div>
+      <button
+        type="button"
+        aria-label={playing ? "Pause the gallery" : "Play the gallery"}
+        aria-pressed={playing}
+        onClick={onTogglePlay}
+        className={cn(
+          "flex size-10 shrink-0 items-center justify-center rounded-full bg-foreground/[0.08] text-foreground md:size-14",
+          "transition-[background-color,scale] duration-150 ease-out",
+          "hover:bg-foreground/[0.14] active:scale-95",
+        )}
+      >
+        <PlayIcon
+          className="size-4 md:size-5"
+          fill="currentColor"
+          strokeWidth={0}
+        />
+      </button>
     </div>
   );
 }

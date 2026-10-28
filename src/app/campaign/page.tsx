@@ -13,7 +13,7 @@ import {
   TileImage,
 } from "@/components/tile";
 import { container } from "@asclepius/ui";
-import { Rail, RailCaption } from "@/components/rail/Rail";
+import { Rail, RailCaption, RailItem } from "@/components/rail/Rail";
 import { SetBreadcrumb } from "@asclepius/ui";
 import {
   Accordion,
@@ -22,6 +22,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ArrowUpRight } from "@/components/icons/arrow-up-right";
+import { Separator } from "@base-ui/react";
+import { Card } from "@/components/ui/card";
+import { storeColumn } from "@/components/store/types";
 
 // apple.com/iphone hero gallery: 1260x680 cards centered, 80px gutters once the
 // column no longer fits, 16px on phones. Corner radius is Apple's 28px at full
@@ -32,6 +35,13 @@ import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 // would resolve against an ancestor.
 const railGutter =
   "px-[max(1rem,calc((100%-1260px)/2))] md:px-[max(5rem,calc((100%-1260px)/2))]";
+// Bands that stay white in dark mode: the announced gallery, the open group
+// buys and the FAQ. Besides the background, the tokens their children paint
+// with (text, the light card, muted text, borders, the chevrons' foreground
+// tint) are pinned to the light values from @asclepius/ui tokens.css, so a
+// dark card stays dark and a light one stays light either way.
+const lightBand =
+  "bg-white text-foreground [--foreground:oklch(0.145_0_0)] [--card:oklch(1_0_0)] [--card-foreground:oklch(0.145_0_0)] [--muted-foreground:oklch(0.556_0_0)] [--border:oklch(0.922_0_0)]";
 // Completed group buys that have no render yet: a quiet near-black card with
 // a small partner line top-left and title + "Completed" bottom-left in the
 // WWB card's type, so every completed buy reads as one family. Insets and
@@ -99,23 +109,22 @@ export default function Page() {
       {/* White in both modes, like Apple's gallery band. The heading and the
           dots pill paint with the theme's foreground, so the light value is
           pinned here; otherwise dark mode would put white dots on white. */}
-      <section className="bg-white py-16 text-foreground [--foreground:oklch(0.145_0_0)]">
+      <section className={cn(lightBand, "py-16")}>
         <h1
           className={cn(
             railGutter,
-            "mb-8 text-2xl font-semibold leading-snug md:text-5xl",
+            "mb-8 text-center text-2xl font-semibold leading-snug md:text-5xl",
           )}
         >
-          Here's what we've announced.
+          Here&rsquo;s what we&rsquo;ve announced.
         </h1>
         <Rail
           label="Past group buys"
           nav="dots"
-          className={cn(
-            "gap-5",
-            railGutter,
-            "scroll-px-[max(1rem,calc((100%-1260px)/2))] md:scroll-px-[max(5rem,calc((100%-1260px)/2))]",
-          )}
+          // No gutter override: the Rail's own store gutter puts the first
+          // card on the 1520px column's text edge, where Open Group Buys
+          // starts, so the two sections share a left edge at every width.
+          className="gap-5"
         >
           {/* TFC x Bohemia, "A new frequency." Figma frame is 2203x1410
               (1.56:1): logomark 690px wide at 12% from the top, headline 128px
@@ -237,44 +246,128 @@ export default function Page() {
         </Rail>
       </section>
 
-      <section className="mt-8 border-t border-muted-foreground/60">
+      {/* Apple store rail: heading on the 1520px store column, cards at the
+          feature-tile width starting on the column's text edge and running
+          off the right, instead of a grid stretched to the column. */}
+      <section className={cn(lightBand, "pt-8 pb-16 md:pt-12 md:pb-20")}>
+        <div className={storeColumn}>
+          <h1 className="text-5xl font-semibold mb-12">Open Group Buys</h1>
+        </div>
+        <Rail label="Open group buys">
+          <RailItem>
+            <Card className="relative h-full w-[320px] shrink-0 md:w-[480px] px-6 pt-8 bg-foreground text-white ring-white/10 shadow-[2px_4px_12px_rgba(0,0,0,0.08)] transition-[scale,box-shadow] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.01] hover:shadow-[2px_4px_16px_rgba(0,0,0,0.16)]">
+              <div className="flex flex-col">
+                <label className="text-xs font-medium text-orange-500">NEW</label>
+                <div className="flex flex-col gap-0">
+                  <h1 className="text-[1.65rem] font-semibold">
+                    Great Big Pumpkin Group Buy
+                  </h1>
+                  <p className="text-[14px]">
+                    Pre-Order until 11.12 Central Standard Time
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative mt-8">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 bg-radial-[60%_60%_at_50%_60%] from-orange-500/35 to-transparent to-70%"
+                />
+                <Image
+                  src="/campaign/pumpkin_asset.webp"
+                  alt="campaign image"
+                  width={1024}
+                  height={1024}
+                  className="relative drop-shadow-[0_24px_28px_rgba(0,0,0,0.55)]"
+                  priority
+                />
+              </div>
+            </Card>
+          </RailItem>
+          <RailItem>
+            <Card className="relative h-full w-[320px] shrink-0 md:w-[480px] px-6 pt-8 shadow-[2px_4px_12px_rgba(0,0,0,0.08)] transition-[scale,box-shadow] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.01] hover:shadow-[2px_4px_16px_rgba(0,0,0,0.16)]">
+              <div className="flex flex-col">
+                <label className="text-xs font-medium text-purple-700">
+                  UPCOMING
+                </label>
+                <div className="flex flex-col gap-0">
+                  <h1 className="text-3xl font-semibold max-w-sm leading-tighter">
+                    Immune Modulation Group Buy
+                  </h1>
+                  <p className="text-[14px]">
+                    Pre-Order 11.25 Central Standard Time
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative mt-auto w-84 mx-auto">
+                <Image
+                  src="/molecule3Demoji.png"
+                  alt="campaign image"
+                  width={1024}
+                  height={1024}
+                  quality={100}
+                  className="relative drop-shadow-[0_20px_24px_rgba(0,0,0,0.22)]"
+                  priority
+                />
+              </div>
+            </Card>
+          </RailItem>
+        </Rail>
+      </section>
+
+      <section className={cn(lightBand, "border-t border-muted-foreground/60")}>
         <div className={container}>
           <Accordion defaultValue={["item-1"]} className="py-8 bg-white">
             <AccordionItem>
               <AccordionTrigger className="mx-3 text-black text-3xl font-medium hover:no-underline">
                 Questions about Campaigns
               </AccordionTrigger>
-              <AccordionContent className="mx-3">
+
+              <AccordionContent className="mx-3 py-4">
+                <Separator
+                  orientation="horizontal"
+                  className="h-[1px] w-full bg-muted-foreground/20"
+                />
                 <Accordion>
                   <AccordionItem>
-                    <AccordionTrigger className="text-xl hover:no-underline">
+                    <AccordionTrigger className="text-lg hover:no-underline">
                       What is a group buy?
                     </AccordionTrigger>
                     <AccordionContent>
                       A campaign or group buy is a bulk order facilitated by
-                      bohemia health through a vendor. Qualifying customers
+                      Bohemia Health through a vendor.{" "}
+                      <span>
+                        <Link
+                          href="/policy/qualifying-customer"
+                          className="text-[#0065CC] !no-underline hover:no-underline hover:!text-[#0065CC]"
+                        >
+                          Qualifying customers
+                        </Link>
+                      </span>{" "}
                       participate in a campaign by following the guide and
                       placing a pre-order on bhmhlth.com. Bohemia facilitates
-                      the order from placing it with the vendor to shipping
-                      samples to authorized locations.
+                      the bulk order from placing it with the vendor to shipping
+                      samples to the recipients.
                     </AccordionContent>
                   </AccordionItem>
 
                   <AccordionItem>
-                    <AccordionTrigger className="text-xl hover:no-underline">
+                    <AccordionTrigger className="text-lg hover:no-underline">
                       When will I get my Items?
                     </AccordionTrigger>
 
                     <AccordionContent>
-                      By entering a zip code at checkout, you'll get estimated
-                      delivery dates for your items. You'll get a final delivery
-                      date once all of your items arrive. Delivery estimates are
-                      based on item availability, testing requirements, lab
-                      processing speeds and the shipping option you choose.{" "}
+                      By entering a zip code at checkout, you&rsquo;ll get
+                      estimated delivery dates for your items. You&rsquo;ll
+                      receive a final delivery date once all of your items
+                      arrive. Delivery estimates are based on item availability,
+                      testing requirements, lab processing speeds and the
+                      shipping option you choose.{" "}
                       <span>
                         <Link
                           href="/policies/shipping"
-                          className="inline-flex items-center gap-0 text-[#0065CC] no-underline hover:underline hover:text-[#0065CC]"
+                          className="inline-flex items-center gap-0 text-[#0065CC] !no-underline hover:!no-underline hover:!text-[#0065CC]"
                         >
                           Learn more about Shipping
                           <ArrowUpRight className="size-6" />
@@ -284,11 +377,24 @@ export default function Page() {
                   </AccordionItem>
 
                   <AccordionItem>
-                    <AccordionTrigger className="text-xl hover:no-underline">
+                    <AccordionTrigger className="text-lg hover:no-underline">
                       What are my payment options?
                     </AccordionTrigger>
 
-                    <AccordionContent>Lorem Ipsum.</AccordionContent>
+                    <AccordionContent className="text-sm leading-wide">
+                      We accept USDT, USDC on Solana and ERC-20, most credit and
+                      debit cards, Venmo, Zelle, Wise, and Store Gift Cards —
+                      though Venmo, Zelle, Wise, Store Gift Cards, and other
+                      payment options may not be available for all products. You
+                      can contact{" "}
+                      <Link
+                        href="/support"
+                        className="inline-flex items-center gap-0 text-[#0065CC] !no-underline hover:!no-underline hover:!text-[#0065CC]"
+                      >
+                        support
+                      </Link>{" "}
+                      for more information.
+                    </AccordionContent>
                   </AccordionItem>
                 </Accordion>
               </AccordionContent>
