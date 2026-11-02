@@ -14,9 +14,20 @@ export type BagBatch = {
   coas: BagCoa[]; // every lab report on file for this batch
 };
 
+// The group buy an item is sold through, when it is. Such a line is a
+// pre-order: it ships in the campaign's window, not from stock.
+export type BagCampaign = {
+  id: string;
+  title: string;
+  shipsInWeeksMin: number | null;
+  shipsInWeeksMax: number | null;
+};
+
 export type BagLine = {
   itemId: string;
   itemCodeId: string | null; // the product this size variant belongs to
+  slug: string | null; // /shop/<slug>, null if the item has no product yet
+  campaign: BagCampaign | null;
   image: string | null;
   name: string;
   size: string;

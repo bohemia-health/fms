@@ -5,7 +5,9 @@ import { getRecommendations } from "./recommendations";
 import RecommendedItems from "@/components/bag/RecommendedItems";
 
 import Link from "next/link";
-import TaxHelp from "@/components/bag/TaxHelp";
+import EstimatedTax from "@/components/bag/EstimatedTax";
+import { getTaxEstimate } from "./tax";
+import { getShippingEstimate } from "./shipping";
 import { container } from "@asclepius/ui";
 import { cn } from "@/lib/utils";
 
@@ -18,8 +20,11 @@ export default async function bagPage() {
   const lines = await getBagLines();
   const recommendations = await getRecommendations(lines);
   const subtotal = lines.reduce((sum, l) => sum + l.price * l.quantity, 0);
-  // Placeholder until tax is computed from the address; shipping is free.
-  const estimatedTax = 216.79;
+  // Tax and shipping are both estimated from the customer's zip (or IP).
+  const [estimate, shipping] = await Promise.all([
+    getTaxEstimate(subtotal),
+    getShippingEstimate(),
+  ]);
 
   if (lines.length === 0) {
     return (
@@ -76,7 +81,9 @@ export default async function bagPage() {
               label="Continue Shopping"
               className="bg-foreground text-background hover:bg-foreground/90"
             />
-            <BagButton label="Check Out" />
+            <Link href="/checkout" className="w-full">
+              <BagButton label="Check Out" />
+            </Link>
           </div>
         </div>
       </section>
@@ -84,7 +91,7 @@ export default async function bagPage() {
       <section className={cn(container, "pb-16")}>
         <ul className="divide-y divide-foreground/15">
           {lines.map((line) => (
-            <BagItemCard key={line.itemId} line={line} />
+            <BagItemCard key={line.itemId} line={line} shipping={shipping} />
           ))}
         </ul>
       </section>
@@ -99,23 +106,15 @@ export default async function bagPage() {
 
           <div className="flex justify-between">
             <p>Shipping</p>
-            <p>FREE</p>
+            <p className="tabular-nums">{currency.format(shipping.total)}</p>
           </div>
 
-          <div className="flex justify-between">
-            {/* The "?" hangs in the gutter (icon 16px + gap 6px) so the label
-                lines up with Subtotal and Shipping, like Apple's bag. */}
-            <p className="inline-flex items-center gap-1.5">
-              <TaxHelp className="-ml-[22px]" />
-              Estimated tax for 38671
-            </p>
-            <p className="tabular-nums">{currency.format(estimatedTax)}</p>
-          </div>
+          <EstimatedTax estimate={estimate} />
 
           <div className="mt-2 flex justify-between border-t border-foreground/15 pt-3 text-2xl font-semibold">
             <p>Total</p>
             <p className="tabular-nums">
-              {currency.format(subtotal + estimatedTax)}
+              {currency.format(subtotal + estimate.tax + shipping.total)}
             </p>
           </div>
 
@@ -124,7 +123,9 @@ export default async function bagPage() {
               label="Continue Shopping"
               className="bg-foreground text-background hover:bg-foreground/90"
             />
-            <BagButton label="Check Out" className="py-5" />
+            <Link href="/checkout" className="w-full">
+              <BagButton label="Check Out" className="py-5" />
+            </Link>
           </div>
         </div>
       </section>
