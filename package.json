@@ -10,11 +10,11 @@
     "test": "node --test \"src/**/*.test.ts\""
   },
   "dependencies": {
-    "@asclepius/ui": "git+ssh://git@github.com/bohemia-health/asclepius.git#main",
+    "@asclepius/ui": "github:bohemia-health/asclepius#main",
     "@base-ui/react": "^1.8.0",
     "@marsidev/react-turnstile": "^1.6.3",
     "@phosphor-icons/react": "^2.1.10",
-    "asclepius-api": "git+ssh://git@github.com/bohemia-health/asclepius-api.git#main",
+    "asclepius-api": "github:bohemia-health/asclepius-api#main",
     "better-auth": "^1.7.13",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.4.0",

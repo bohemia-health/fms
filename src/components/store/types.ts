@@ -72,3 +72,8 @@ export type StoreHelpLink = {
   label: string;
   href: string;
 };
+
+export type StoreBadge = {
+  label: string;
+  children: Element;
+};

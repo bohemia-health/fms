@@ -4,7 +4,10 @@ import * as React from "react";
 // Shared scroll state for horizontal rails (PillRow, Rail): which way the row
 // can still move, plus a nudge helper. `step` is a pixel count, or a function
 // of the scroller for steps that depend on its width.
-export type ScrollPace = "snap" | "drift";
+// "snap" is the card rail's dot-click / chevron tween (1.2s, so a caption
+// can parallax across). "drift" is autoplay. "quick" is a slide gallery
+// flipping one frame: 450ms on an ease-out cubic, Apple's product-page feel.
+export type ScrollPace = "snap" | "drift" | "quick";
 
 export function useScrollRail(step: number | ((el: HTMLDivElement) => number)) {
   const ref = React.useRef<HTMLDivElement>(null);
@@ -114,12 +117,16 @@ export function useScrollRail(step: number | ((el: HTMLDivElement) => number)) {
     const duration =
       pace === "drift"
         ? Math.min(2800, 2000 + 200 * Math.max(0, span - 1))
-        : Math.min(1800, 1200 + 200 * Math.max(0, span - 1));
+        : pace === "quick"
+          ? Math.min(700, 450 + 100 * Math.max(0, span - 1))
+          : Math.min(1800, 1200 + 200 * Math.max(0, span - 1));
     const ease =
       pace === "drift"
         ? (t: number) => (1 - Math.cos(Math.PI * t)) / 2
-        : (t: number) =>
-            t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+        : pace === "quick"
+          ? (t: number) => 1 - Math.pow(1 - t, 3)
+          : (t: number) =>
+              t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
 
     const prevBehavior = el.style.scrollBehavior;
     const prevSnap = el.style.scrollSnapType;
@@ -148,11 +155,11 @@ export function useScrollRail(step: number | ((el: HTMLDivElement) => number)) {
     );
   }
 
-  function scrollByStep(direction: -1 | 1) {
+  function scrollByStep(direction: -1 | 1, pace: ScrollPace = "snap") {
     const el = ref.current;
     if (!el) return;
     const px = typeof step === "function" ? step(el) : step;
-    animateTo(el, el.scrollLeft + direction * px);
+    animateTo(el, el.scrollLeft + direction * px, pace);
   }
 
   function scrollToIndex(index: number, pace: ScrollPace = "snap") {

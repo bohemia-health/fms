@@ -25,8 +25,25 @@ export default function AddToBagButton({
   );
 }
 
+// While the action runs the label gives way to a spinning ring, Apple's
+// bag-button behaviour, instead of swapping to "Adding…" and reflowing.
+// The label stays in the DOM, invisible, so the button keeps its width.
 function Submit({ pill }: { pill: boolean }) {
   const { pending } = useFormStatus();
+  const body = (
+    <span className="relative inline-flex items-center justify-center">
+      <span className={pending ? "invisible" : undefined}>Add to Bag</span>
+      {pending && (
+        <span
+          role="status"
+          aria-label="Adding to bag"
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          <span className="size-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+        </span>
+      )}
+    </span>
+  );
   if (pill) {
     return (
       <Button
@@ -35,13 +52,13 @@ function Submit({ pill }: { pill: boolean }) {
         disabled={pending}
         className="w-full font-normal transition-[background-color,scale] duration-150 ease-out active:scale-[0.98]"
       >
-        {pending ? "Adding…" : "Add to Bag"}
+        {body}
       </Button>
     );
   }
   return (
     <Button type="submit" size="sm" disabled={pending}>
-      {pending ? "Adding…" : "Add to Bag"}
+      {body}
     </Button>
   );
 }
