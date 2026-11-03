@@ -5,10 +5,11 @@ import { Label } from "@asclepius/ui";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import BagButton from "@/components/bag/BagButton";
-import { placeOrder } from "@/app/checkout/actions";
+import { startPayment } from "@/app/checkout/actions";
 import type { PaymentGroup, PaymentMethodId } from "@/app/checkout/payment-methods";
 
-// Step 3 of checkout: choose how to pay, then place the order. Two levels of
+// Step 3 of checkout: choose how to pay, then go pay. Nothing is an order
+// until the payment lands; the next screen is where to send it. Two levels of
 // choice, group then method, so adding a card processor or a second coin is
 // data, not a redesign. With one group and one method both come pre-picked.
 export default function PaymentMethods({
@@ -16,7 +17,7 @@ export default function PaymentMethods({
   error,
 }: {
   groups: PaymentGroup[];
-  error: string | null; // from the last placeOrder attempt, if it failed
+  error: string | null; // from the last startPayment attempt, if it failed
 }) {
   const [groupId, setGroupId] = useState(groups[0]?.id ?? "");
   const group = groups.find((g) => g.id === groupId) ?? groups[0];
@@ -25,7 +26,7 @@ export default function PaymentMethods({
   );
 
   return (
-    <form action={placeOrder} className="flex flex-col gap-10">
+    <form action={startPayment} className="flex flex-col gap-10">
       <div role="radiogroup" aria-label="Payment type" className="flex flex-col gap-4">
         {groups.map((g) => {
           const checked = g.id === groupId;
@@ -98,11 +99,11 @@ export default function PaymentMethods({
 
       <div className="flex flex-col gap-3 border-t border-foreground/15 pt-8">
         <p className="text-[0.9rem] text-muted-foreground">
-          Placing the order gives you a payment address and the exact amount to send.
-          You have 24 hours to pay before the order expires.
+          Next you&apos;ll get a payment address and the exact amount to send. Your order is
+          placed the moment the payment arrives; you have 24 hours before the address expires.
         </p>
         <div className="w-full md:w-auto md:min-w-80">
-          <BagButton label="Place order" disabled={!method} />
+          <BagButton label="Continue to payment" disabled={!method} />
         </div>
       </div>
     </form>

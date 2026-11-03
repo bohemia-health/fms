@@ -6,9 +6,10 @@ import { paymentStatus } from "@/app/checkout/actions";
 import PayWithUsdc from "@/components/checkout/PayWithUsdc";
 
 // The pay page: where to send the USDC and how much, with a clock. Reached
-// right after placing the order, and again from the order's email or link
-// while the payment is still open. Not behind the checkout gate: the
-// checkout cookies are gone by now and the order number is the ticket.
+// from the payment step, and again from a link while the payment is still
+// open. No order exists until the payment lands; the number here becomes
+// the order number then. Not behind the checkout gate: the checkout
+// cookies are gone by now and the number is the ticket.
 export default async function PayPage({
   params,
 }: {
@@ -22,7 +23,7 @@ export default async function PayPage({
   // runs as part of the page.
   let qrSvg: string | null = null;
   try {
-    const res = await api.orders[":number"].payment.qr.$get({ param: { number: payment.orderNumber } });
+    const res = await api.checkouts[":number"].qr.$get({ param: { number: payment.orderNumber } });
     if (res.status === 200) qrSvg = await res.text();
   } catch (e) {
     console.error("payment qr unreachable", e);

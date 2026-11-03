@@ -14,7 +14,7 @@ import { GUEST_COOKIE, checkoutDestination } from "../gate";
 const ERRORS: Record<string, string> = {
   payment:
     "We couldn't open the payment just now. Nothing was charged; please try again in a moment.",
-  order: "The order couldn't be placed. Please check your bag and try again.",
+  order: "We couldn't start the checkout. Please check your bag and try again.",
 };
 
 // Step 3 of checkout: how to pay. Same gate as the steps before it, plus the

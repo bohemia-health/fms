@@ -37,8 +37,8 @@ export default function PayWithUsdc({
       <div className="flex flex-col items-start gap-6 max-w-2xl">
         <h1 className="text-[2.55rem] font-medium">Payment received. Thank you.</h1>
         <p className="text-lg">
-          Order <span className="font-medium tabular-nums">{payment.orderNumber}</span> is
-          paid and on its way to our warehouse team. A receipt is on its way to your email.
+          Your order <span className="font-medium tabular-nums">{payment.orderNumber}</span> is
+          placed and on its way to our warehouse team. A receipt is on its way to your email.
         </p>
         <Link href={`/orders/${payment.orderNumber}`} className="text-[#0065CC] underline">
           View your order
@@ -54,9 +54,9 @@ export default function PayWithUsdc({
           {payment.status === "expired" ? "This payment window has closed." : "This order was cancelled."}
         </h1>
         <p className="text-lg">
-          Order <span className="font-medium tabular-nums">{payment.orderNumber}</span> is no
-          longer waiting for a payment. If you already sent funds, they are refunded to the
-          wallet they came from. To buy again, start from your bag.
+          Payment <span className="font-medium tabular-nums">{payment.orderNumber}</span> is no
+          longer open and no order was placed. If you already sent funds, they are refunded to
+          the wallet they came from. Your bag is as you left it, so you can start again.
         </p>
         <Link href="/bag" className="text-[#0065CC] underline">
           Back to your bag
@@ -71,7 +71,7 @@ export default function PayWithUsdc({
         <div>
           <h1 className="text-[2.55rem] font-medium">Send your payment</h1>
           <p className="mt-2 text-muted-foreground">
-            Order <span className="tabular-nums">{payment.orderNumber}</span>
+            Reference <span className="tabular-nums">{payment.orderNumber}</span>
             {" · "}
             <Countdown expiresAt={payment.expiresAt} />
           </p>
@@ -90,7 +90,10 @@ export default function PayWithUsdc({
         <ol className="list-decimal space-y-2 pl-5 text-[1.05rem]">
           <li>Open your Solana wallet and choose Send.</li>
           <li>Pick USDC, paste the address above, and enter the exact amount.</li>
-          <li>Confirm. This page updates by itself once the payment lands, usually within a minute.</li>
+          <li>
+            Confirm. This page updates by itself once the payment lands, usually within a
+            minute, and that is when your order is placed.
+          </li>
         </ol>
 
         <p className="text-[0.9rem] text-muted-foreground">

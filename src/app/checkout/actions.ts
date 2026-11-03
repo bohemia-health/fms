@@ -118,11 +118,12 @@ function renewCheckout(jar: Awaited<ReturnType<typeof cookies>>) {
   }
 }
 
-// Step 3: place the order. The API writes the order from the bag and the
-// saved address, prices it itself, opens the payment with Stablehand and
-// empties the bag; we then drop every checkout cookie and send the shopper to
-// the pay page. A failure goes back to the payment step with a reason.
-export async function placeOrder(formData: FormData) {
+// Step 3: start paying. The API prices the bag, opens the payment with
+// Stablehand and keeps the checkout; no order exists yet. We drop the
+// checkout cookies and send the shopper to the pay page. The order is
+// written by the API the moment the payment lands. A failure goes back to
+// the payment step with a reason.
+export async function startPayment(formData: FormData) {
   const method = formData.get("paymentMethod");
   if (!isPaymentMethodId(method)) redirect("/checkout/payment");
 
@@ -138,7 +139,7 @@ export async function placeOrder(formData: FormData) {
 
   let outcome: { orderNumber: string } | { error: string };
   try {
-    const res = await api.orders.$post({
+    const res = await api.checkouts.$post({
       json: {
         userId: user?.id ?? null,
         email: address.email || user?.email || "",
@@ -163,13 +164,13 @@ export async function placeOrder(formData: FormData) {
     if (res.status === 201) {
       outcome = { orderNumber: (await res.json()).orderNumber };
     } else {
-      console.error(`POST /orders answered ${res.status}`, await res.text());
-      // 502/503 mean the order exists but Stablehand would not open the
-      // payment; anything else is the order itself being refused.
+      console.error(`POST /checkouts answered ${res.status}`, await res.text());
+      // 502/503: Stablehand would not open the payment. Anything else is
+      // the checkout itself being refused.
       outcome = { error: res.status === 502 || res.status === 503 ? "payment" : "order" };
     }
   } catch (e) {
-    console.error("POST /orders unreachable", e);
+    console.error("POST /checkouts unreachable", e);
     outcome = { error: "order" };
   }
   if ("error" in outcome) redirect(`/checkout/payment?error=${outcome.error}`);
@@ -179,7 +180,8 @@ export async function placeOrder(formData: FormData) {
 }
 
 // What the pay page shows and polls. Each read asks the API, which asks
-// Stablehand while the payment is still open.
+// Stablehand while the payment is still open; "paid" means the order now
+// exists under the same number.
 export type PaymentView = {
   orderNumber: string;
   method: string;
@@ -188,11 +190,12 @@ export type PaymentView = {
   address: string;
   paymentUrl: string;
   expiresAt: string;
+  placed: boolean; // the order has been written
 };
 
 export async function paymentStatus(orderNumber: string): Promise<PaymentView | null> {
   if (!/^[A-Z0-9]{1,32}$/.test(orderNumber)) return null;
-  const res = await api.orders[":number"].payment.$get({ param: { number: orderNumber } });
+  const res = await api.checkouts[":number"].$get({ param: { number: orderNumber } });
   if (res.status !== 200) return null;
   return await res.json();
 }
