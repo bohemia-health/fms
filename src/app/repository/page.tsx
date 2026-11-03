@@ -11,6 +11,14 @@ import { SetNavbar } from "@asclepius/ui";
 import { api } from "@/lib/api";
 import { labReportUrl } from "@/integrations/b2/client";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Repository | Bohemia Health",
+  description:
+    "Discover precision and transparent testing through our comprehensive lab report library. Since 2024, we have personally verified more than a hundred individual compounds on HPLC-UV, LC-MS, Endotoxin Analysis, and TAMC+TYMC Microbial testing.",
+};
+
 // "report.pdf" -> "PDF". The bucket key is the only place the type lives for now.
 function extOf(key: string): string {
   return key.slice(key.lastIndexOf(".") + 1).toUpperCase();

@@ -17,7 +17,8 @@ import { getBagLines } from "@/app/bag/bag";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: "Bohemia Health", template: "%s – Bohemia Health" },
-  description: "Pioneering Biotechnological Discoveries",
+  description:
+    "Science, without the unnecessary. Bohemia Health is empowering and redefining scientific discovery with a modern approach to simplify the biotechnological experience.",
   openGraph: { siteName: "Bohemia Health", type: "website" },
 };
 
