@@ -16,6 +16,43 @@ import { Fragment } from "react";
 export default function Home() {
   return (
     <main>
+      {/* Full-bleed: the title keeps the same top padding as every other
+          tile, then the image runs edge to edge beneath it with no bottom
+          padding. width/height carry the file's 4096x1843 shape so Next
+          serves a source sharp enough for a wide screen. */}
+      <Tile theme="light" className="mb-2.5 pb-0">
+        <TileHeader>
+          <span className="text-neutral-600 font-semibold text-5xl md:text-[4rem] lg:text-[5rem] xl:text-[6.5rem] 2xl:text-[8rem] leading-none tracking-tight text-center">
+            Retatrutide
+          </span>
+          <TileTagline className="xl:text-[28px] 2xl:text-[34px]">
+            More than a little awesome.
+          </TileTagline>
+        </TileHeader>
+        <TileActions>
+          <Link
+            href="/shop/retatrutide"
+            className={cn(
+              buttonVariants({ variant: "normal" }),
+              "tracking-wide bg-transparent text-[#0065CC] border-[#0065CC] hover:bg-[#0065CC] hover:text-white",
+              "min-w-32 px-8 xl:h-11 xl:min-w-40 xl:px-10 xl:text-lg 2xl:h-12 2xl:min-w-44 2xl:px-12 2xl:text-xl",
+            )}
+          >
+            Buy
+          </Link>
+        </TileActions>
+
+        <TileImage
+          src="/store/vial_marketing_image.png"
+          alt="two vials angled towards eachother"
+          width={2048}
+          height={922}
+          sizes="100vw"
+          className="w-full pt-4 md:pt-6"
+          imageClassName="w-full"
+          priority
+        />
+      </Tile>
       {/* Thymosin Beta 4 TO-D0: Make this item into a tile component that can
       be reused for marketing purposes */}
       <section className="flex flex-col items-center bg-radial from-slate-950 to-black overflow-hidden py-10">
@@ -62,36 +99,6 @@ export default function Home() {
       </section>
       {/* End of TB4 Section */}
       <div className="flex flex-col gap-2.5">
-        {/* 
-                <Tile theme="dark">
-          <TileHeader>
-            <TileTitle>
-              <span className="font-medium">Thymosin </span>
-              <span className="font-thin">Beta 4</span>
-            </TileTitle>
-            <TileTagline>Repair is an unremarkable thing.</TileTagline>
-          </TileHeader>
-          <TileActions>
-            <Button variant="normal" className="tracking-wide">
-              Learn more
-            </Button>
-            <Button
-              variant="normal"
-              className="tracking-wide bg-transparent text-[#2797FF] border-[#2797FF] hover:bg-[#2797FF] hover:text-white"
-            >
-              Buy
-            </Button>
-          </TileActions>
-          <TileImage
-            src="/image 12.png"
-            alt="Thymosin Beta 4 vial"
-            className="-mb-7 -translate-x-1.3"
-            imageClassName="mask-b-from-55%"
-          />
-        </Tile>
-        
-        */}
-
         <Tile theme="light">
           <TileHeader>
             <TileTitle>
@@ -137,7 +144,10 @@ export default function Home() {
           <TileActions>
             <Link
               href="/shop/nootropic"
-              className={cn(buttonVariants({ variant: "normal" }), "tracking-wide")}
+              className={cn(
+                buttonVariants({ variant: "normal" }),
+                "tracking-wide",
+              )}
             >
               View Pricing
             </Link>
