@@ -5,7 +5,7 @@
 export const shopGoto: Record<string, string> = {
   glp1: "/shop/glp1",
   help: "/contact-us",
-  "order/list": "/orders/list",
+  "order/list": "/order/list",
   bulk: "/campaign",
   business: "/contact-us",
   "business/faq": "/contact-us",
