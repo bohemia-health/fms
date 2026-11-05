@@ -1,15 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
-import type { StoreLine } from "./types";
 
 // One doorway in the category rail: a cut-out product image over its line
 // name. On the store page it jumps to that line's rail.
 export default function CategoryChip({
-  line,
+  label,
   href,
 }: {
-  line: StoreLine;
+  label: string;
   href: string;
 }) {
   return (
@@ -19,15 +17,15 @@ export default function CategoryChip({
     >
       <div className="relative h-[96px] w-full md:h-[112px]">
         <Image
-          src={line.image.src}
+          src="/store/mito-vial.png"
           alt=""
           fill
           sizes="128px"
-          className={cn("object-contain", line.image.className)}
+          className="object-contain"
         />
       </div>
       <span className="text-[14px] font-normal text-foreground/90 group-hover/chip:text-foreground">
-        {line.label}
+        {label}
       </span>
     </Link>
   );

@@ -3,6 +3,7 @@ import { Navbar, type NavLink } from "@asclepius/ui";
 import { BagFlyout } from "./BagFlyout";
 import { SearchFlyout } from "./SearchFlyout";
 import type { BagLine } from "../bag/types";
+import styles from "./StoreNavbar.module.css";
 
 type Props = { links: NavLink[]; lines: BagLine[] };
 
@@ -13,10 +14,12 @@ export default function StoreNavbar({ links, lines }: Props) {
   // Badge shows units, not rows: two of one item reads 2.
   const count = lines.reduce((n, l) => n + l.quantity, 0);
   return (
-    <Navbar
-      links={links}
-      bag={{ count, flyout: (p) => <BagFlyout {...p} lines={lines} /> }}
-      search={(p) => <SearchFlyout {...p} />}
-    />
+    <div className={styles.shell}>
+      <Navbar
+        links={links}
+        bag={{ count, flyout: (p) => <BagFlyout {...p} lines={lines} /> }}
+        search={(p) => <SearchFlyout {...p} />}
+      />
+    </div>
   );
 }

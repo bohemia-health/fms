@@ -1,30 +1,27 @@
+import Link from "next/link";
+import { FlaskConical, MessageCircle, Users } from "lucide-react";
+import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 import { api } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { SetLocalNav, SetNavbar } from "@asclepius/ui";
 import { Rail, RailItem } from "@/components/rail/Rail";
 import ProductRail from "@/components/store/ProductRail";
-import StoreDifference from "@/components/store/StoreDifference";
 import StoreHeading from "@/components/store/StoreHeading";
 import FeatureTile from "@/components/store/FeatureTile";
 import {
   storeLines,
-  storePromos,
   toStoreProducts,
 } from "@/components/store/lines";
 import { storeColumn } from "@/components/store/types";
 
-// Everything on /shop that depends on the catalogue: "The latest.", one rail
-// per line with stock, "Help is here.", "Coming to the store." and the
-// difference row, plus the LocalNav (its links are the rails that exist).
-// Rendered inside Suspense by the page so the header and chips do not wait.
+// Stream the catalog and its navigation after the shop header and category links.
 export default async function StoreRails() {
   // If Asclepius is unreachable the store still has a page: the rails that
   // need data show the restocking line, and everything that does not (help,
   // coming soon, the difference row) renders as usual.
   const catalog = await loadCatalog();
 
-  // No created_at on items yet, so "the latest" is the first eight.
-  const latest = catalog.slice(0, 8);
+  const preview = catalog.filter((product) => product.href !== "#").slice(0, 8);
 
   // One rail per line, in storeLines order; lines with nothing in them
   // are skipped so the page never shows an empty row.
@@ -53,7 +50,7 @@ export default async function StoreRails() {
         href="/shop"
         sticky
         links={[
-          { href: "#latest", label: "The latest" },
+          { href: "#latest", label: "Explore" },
           ...rails.map(({ line }) => ({
             href: `#${line.slug}`,
             label: line.label,
@@ -63,15 +60,12 @@ export default async function StoreRails() {
       />
 
       <div className="mt-6 flex flex-col md:mt-10">
-        {latest.length > 0 ? (
+        {preview.length > 0 ? (
           <ProductRail
             id="latest"
-            lead="The latest."
-            rest="Take a look at what's new, right now."
-            products={latest}
-            leading={storePromos.map((promo) => (
-              <FeatureTile key={promo.href} {...promo} priority />
-            ))}
+            lead="Explore the catalog."
+            rest="Browse products and compare available sizes."
+            products={preview}
           />
         ) : (
           <p
@@ -85,113 +79,15 @@ export default async function StoreRails() {
           </p>
         )}
 
-        {/* One rail per line. Each closes on a tile that points somewhere
-            useful for that line, alternating lab reports and Stuart so two
-            rails in a row never end the same way. */}
-        {rails.map(({ line, products }, i) => (
+        {rails.map(({ line, products }) => (
           <ProductRail
             key={line.slug}
             id={line.slug}
             lead={`${line.label}.`}
             rest={line.tagline}
             products={products}
-            trailing={
-              i % 2 === 0 ? (
-                <FeatureTile
-                  eyebrow="Lab reports"
-                  title={`Every ${line.label} batch, on the record.`}
-                  cta="Find your report"
-                  href="/repository"
-                  image={{
-                    src: "/vials-in-a-line.png",
-                    alt: "Four empty glass vials in a row",
-                  }}
-                />
-              ) : (
-                <FeatureTile
-                  tone="dark"
-                  eyebrow="Need help choosing?"
-                  title="Ask Stuart which size fits your protocol."
-                  cta="Ask Stuart"
-                  href="/shop/goto/stuart"
-                  image={{
-                    src: "/campaign/holographic_logomark.png",
-                    alt: "The Bohemia mark as holographic glass",
-                    className: "scale-90",
-                  }}
-                />
-              )
-            }
           />
         ))}
-
-        {/* Help is here: Apple's feature tiles, 480×500, one per place a
-            buyer might want to go next. */}
-        <section id="help" className="scroll-mt-12 py-8 md:py-12">
-          <div className={storeColumn}>
-            <StoreHeading
-              lead="Help is here."
-              rest="Whenever and however you need it."
-              className="mb-6 md:mb-8"
-            />
-          </div>
-          <Rail label="Help is here">
-            <RailItem>
-              <FeatureTile
-                size="feature"
-                eyebrow="Lab reports"
-                title="Every batch tested by an independent lab before it ships."
-                cta="Find your report"
-                href="/repository"
-                image={{
-                  src: "/vials-in-a-line.png",
-                  alt: "Four empty glass vials in a row",
-                }}
-              />
-            </RailItem>
-            <RailItem>
-              <FeatureTile
-                size="feature"
-                tone="dark"
-                eyebrow="Group buys"
-                title="Bring the price down for everyone in the buy."
-                cta="See open group buys"
-                href="/campaign"
-                image={{
-                  src: "/campaign/pumpkin_asset.webp",
-                  alt: "A carved pumpkin glowing with the Bohemia mark",
-                }}
-                bleed
-              />
-            </RailItem>
-            <RailItem>
-              <FeatureTile
-                size="feature"
-                eyebrow="Ask Stuart"
-                title="Not sure where to start? Stuart knows the catalogue."
-                cta="Start a chat"
-                href="/shop/goto/stuart"
-                image={{
-                  src: "/adalank-crop.png",
-                  alt: "Nasal spray with a purple nozzle",
-                }}
-              />
-            </RailItem>
-            <RailItem>
-              <FeatureTile
-                size="feature"
-                eyebrow="Research use only"
-                title="Stated plainly on every listing, and in the fine print."
-                cta="Read the disclaimer"
-                href="/legal/disclaimer"
-                image={{
-                  src: "/store/amber-vial.png",
-                  alt: "Amber vial",
-                }}
-              />
-            </RailItem>
-          </Rail>
-        </section>
 
         {comingSoon.length > 0 && (
           <section id="coming-soon" className="scroll-mt-12 py-8 md:py-12">
@@ -213,8 +109,8 @@ export default async function StoreRails() {
                     eyebrow="Coming soon"
                     title={line.label}
                     tagline={line.tagline}
-                    cta="Ask Stuart when"
-                    href="/shop/goto/stuart"
+                    cta="Contact us"
+                    href="/shop/goto/help"
                     image={line.image}
                   />
                 </RailItem>
@@ -223,12 +119,58 @@ export default async function StoreRails() {
           </section>
         )}
 
-        <StoreDifference />
+        <section id="help" className={cn(storeColumn, "scroll-mt-20 pt-10 md:pt-16")}>
+          <StoreHeading
+            lead="Here when you need us."
+            rest="Check a batch, join a group buy, or get help with the catalog."
+            className="mb-6"
+          />
+          <div className="grid gap-3 md:grid-cols-3 md:gap-4">
+            {shopLinks.map(({ icon: Icon, title, description, href, action }) => (
+              <Link
+                key={href}
+                href={href}
+                className="group flex flex-col items-start rounded-3xl bg-card p-6 ring-1 ring-foreground/10 transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0065CC] lg:p-8"
+              >
+                <Icon aria-hidden="true" className="size-6 text-[#0065CC] dark:text-[#66b0ff]" strokeWidth={1.5} />
+                <h3 className="mt-4 text-xl font-medium tracking-tight">{title}</h3>
+                <p className="mt-2 mb-5 text-sm leading-relaxed text-muted-foreground">{description}</p>
+                <span className="mt-auto inline-flex items-center gap-1 text-sm font-medium text-[#0065CC] group-hover:underline dark:text-[#66b0ff]">
+                  {action} <ArrowUpRight aria-hidden="true" className="size-4" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
       </div>
 
     </>
   );
 }
+
+const shopLinks = [
+  {
+    icon: FlaskConical,
+    title: "See the original lab report.",
+    description: "Look up independent lab results by compound or batch number.",
+    href: "/repository",
+    action: "Find your report",
+  },
+  {
+    icon: Users,
+    title: "Explore group buys.",
+    description: "See what’s open and review the terms of each buy.",
+    href: "/campaign",
+    action: "See group buys",
+  },
+  {
+    icon: MessageCircle,
+    title: "Talk to Bohemia.",
+    description: "Get help finding a product or understanding its options.",
+    href: "/shop/goto/help",
+    action: "Contact us",
+  },
+];
 
 async function loadCatalog() {
   try {
@@ -242,18 +184,17 @@ async function loadCatalog() {
   }
 }
 
-// What the page shows while the catalogue loads: "The latest." as a bar and
-// four tile shapes, the same 400×500 boxes, pulsing quietly.
+// Reserve room for the first product rail while the catalog loads.
 export function RailsSkeleton() {
   return (
     <section className={cn(storeColumn, "mt-6 py-8 md:mt-10 md:py-12")} aria-hidden>
-      <div className="mb-6 h-8 w-80 animate-pulse rounded bg-foreground/[0.08] md:mb-8" />
+      <div className="mb-6 h-8 w-full max-w-80 motion-safe:animate-pulse rounded bg-foreground/[0.08] md:mb-8" />
       <div className="flex gap-5 overflow-hidden">
         {Array.from({ length: 4 }, (_, i) => (
           <div
             key={i}
             className={cn(
-              "h-[440px] w-[290px] shrink-0 animate-pulse rounded-[18px] bg-card p-7 md:h-[500px] md:w-[400px]",
+              "h-[440px] w-[290px] shrink-0 motion-safe:animate-pulse rounded-[18px] bg-card p-7 md:h-[500px] md:w-[400px]",
               "shadow-[2px_4px_12px_rgba(0,0,0,0.08)] dark:shadow-none dark:ring-1 dark:ring-foreground/10",
             )}
           >

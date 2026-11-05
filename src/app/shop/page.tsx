@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
-import { ChevronRight, MoveUpIcon, MoveUpRightIcon } from "lucide-react";
-import { container } from "@asclepius/ui";
 import { cn } from "@/lib/utils";
 import { Rail, RailItem } from "@/components/rail/Rail";
 import CategoryChip from "@/components/store/CategoryChip";
 import StoreRails, { RailsSkeleton } from "./StoreRails";
-import { storeHelpLinks, storeLines } from "@/components/store/lines";
+import { shopCategories } from "@/components/navbar/shop-categories";
 import { storeColumn } from "@/components/store/types";
 import { SetBreadcrumb, SetFootnotes } from "@asclepius/ui";
 import { ArrowUpRight } from "@/components/icons/arrow-up-right";
@@ -105,9 +103,9 @@ export default function ShopPage() {
         controls={false}
         contained
       >
-        {storeLines.map((line) => (
-          <RailItem key={line.slug}>
-            <CategoryChip line={line} href={`#${line.slug}`} />
+        {shopCategories.map(({ label, section }) => (
+          <RailItem key={section}>
+            <CategoryChip label={label} href={`#${section}`} />
           </RailItem>
         ))}
       </Rail>

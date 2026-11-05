@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["10.0.0.38"],
   // @asclepius/ui ships TypeScript source; Next compiles it with the app.
   transpilePackages: ["@asclepius/ui"],
+  outputFileTracingIncludes: {
+    "/repository/pdf-worker": ["./node_modules/pdfjs-dist/build/pdf.worker.min.mjs"],
+  },
   // Locally @asclepius/ui may be a symlink to the sibling folder, which
   // Turbopack can only read if its root is the workspace. On Vercel the
   // package is a real copy inside node_modules, and widening the root there
