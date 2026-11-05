@@ -3,8 +3,8 @@ import { cn } from "cn";
 /**
  * One step of the buy flow's right-hand column, in Apple's shape: a bold
  * noun ("Size.") followed by a quieter prompt ("Choose your vial.") on the
- * same line, then whatever options the step offers. Each step takes most
- * of a viewport so the column reads one decision at a time as it scrolls.
+ * same line, followed by the available options. Steps share a consistent
+ * spacing rhythm without reserving a full screen for short content.
  */
 export function ConfigStep({
   id,
@@ -26,18 +26,15 @@ export function ConfigStep({
     <section
       id={id}
       className={cn(
-        // lg: the same box as the sticky gallery (viewport minus the
-        // ribbon), so the first step's content centres on the gallery's
-        // midline and each later step is one screen down.
-        "flex scroll-mt-40 flex-col py-8 lg:min-h-[calc(100vh-98px)] lg:justify-center lg:py-0",
+        "flex scroll-mt-40 flex-col border-b border-foreground/10 py-8 first:pt-0 last:border-b-0 last:pb-0 lg:py-10",
         className,
       )}
     >
-      <h2 className="text-[clamp(22px,1.9vw,28px)] leading-tight font-semibold tracking-tight">
+      <h2 className="text-[22px] leading-[1.35] font-semibold tracking-[-0.025em] text-pretty">
         {title}{" "}
         <span className="font-normal text-muted-foreground">{lead}</span>
       </h2>
-      <div className="mt-6">{children}</div>
+      <div className="mt-5">{children}</div>
     </section>
   );
 }
