@@ -12,7 +12,7 @@ import {
   TileActions,
   TileImage,
 } from "@/components/tile";
-import { container } from "@asclepius/ui";
+import { navContainer } from "@asclepius/ui";
 import { Rail, RailCaption, RailItem } from "@/components/rail/Rail";
 import { SetBreadcrumb } from "@asclepius/ui";
 import {
@@ -317,7 +317,7 @@ export default function Page() {
       </section>
 
       <section className={cn(lightBand, "border-t border-muted-foreground/60")}>
-        <div className={container}>
+        <div className={navContainer}>
           <Accordion defaultValue={["item-1"]} className="py-8 bg-white">
             <AccordionItem>
               <AccordionTrigger className="mx-3 text-black text-3xl font-medium hover:no-underline">
