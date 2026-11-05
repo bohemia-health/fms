@@ -1,8 +1,18 @@
 export const shopCategories = [
-  { href: "/angiogenic", label: "Angiogenic", section: "repair" },
-  { href: "/bioregulator", label: "Bioregulator", section: "bioregulator" },
-  { href: "/blends", label: "Blends", section: "blends" },
-  { href: "/glp", label: "GLP-1", section: "glp1" },
-  { href: "/mito", label: "MITO/MDPs", section: "mito" },
-  { href: "/nootropic", label: "Nootropic", section: "nootropic" },
+  { href: "/shop/angiogenics", label: "Angiogenics", section: "repair" },
+  {
+    href: "/shop/bioregulators",
+    label: "Bioregulators",
+    section: "bioregulators",
+  },
+  { href: "/shop/blends", label: "Blends", section: "blends" },
+  { href: "/shop/glp-1s", label: "GLP-1s", section: "glp1" },
+  { href: "/shop/mito", label: "MITO/MDPs", section: "mito" },
+  { href: "/shop/nootropic", label: "Nootropics", section: "nootropics" },
+  {
+    href: "/shop/neurologicals",
+    label: "Neurologicals",
+    section: "neurological",
+  },
+  { href: "/shop/structural", label: "Structural", section: "structural" },
 ];
