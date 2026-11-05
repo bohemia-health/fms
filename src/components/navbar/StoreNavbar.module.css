@@ -1,0 +1,17 @@
+.shell {
+  display: contents;
+}
+
+.shell > header {
+  background-color: var(--navbar);
+}
+
+.shell > header > div:first-child :is(a, button) {
+  background-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.shell > header > div:first-child :is(a, button):focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}

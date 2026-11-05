@@ -16,11 +16,13 @@ export default function ProductOptions({
   className,
   value,
   onChange,
+  compact = false,
 }: {
   choices: Choice[];
   className?: string;
   value?: string;
   onChange?: (label: string) => void;
+  compact?: boolean;
 }) {
   const choices = rawChoices.map(toChoice);
   const [own, setOwn] = useState(choices[0]?.label);
@@ -52,6 +54,7 @@ export default function ProductOptions({
                 // curve; browsers without it keep the plain radius.
                 className={cn(
                   "min-h-16 w-full justify-between rounded-2xl py-3 lg:min-h-32 [corner-shape:squircle] border-transparent px-5 text-left text-[17px] font-normal tracking-normal ring-1 ring-foreground/40 hover:bg-transparent",
+                  compact && "min-h-20 rounded-xl px-4 text-base ring-foreground/20 lg:min-h-20",
                   isChecked && "ring-2 ring-[#0065CC]",
                   c.disabled && "cursor-not-allowed opacity-40",
                 )}

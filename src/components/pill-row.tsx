@@ -18,11 +18,12 @@ type PillRowProps = {
 // Apple-style filter row: rounded pills that scroll sideways when they
 // overflow. Each edge has a fade plus a chevron that nudges the row along,
 // always visible, dimmed when there is nothing left to scroll that way.
-// Each pill links to ?category=slug, carrying the current ?q= along.
+// Each pill keeps the search and sort and returns to the first page.
 export default function PillRow({ items, className }: PillRowProps) {
   const params = useSearchParams();
   const active = params.get("category");
   const q = params.get("q");
+  const sort = params.get("sort");
   const {
     ref: scroller,
     canScrollLeft,
@@ -47,11 +48,12 @@ export default function PillRow({ items, className }: PillRowProps) {
                 query: {
                   ...(item.slug && { category: item.slug }),
                   ...(q && { q }),
+                  ...(sort && { sort }),
                 },
               }}
-              aria-pressed={isSelected}
+              aria-current={isSelected ? "true" : undefined}
               className={cn(
-                "inline-flex items-center h-14 shrink-0 whitespace-nowrap rounded-full border px-6 text-[17px] transition-colors",
+                "inline-flex items-center h-12 shrink-0 whitespace-nowrap rounded-full border px-6 text-[17px] transition-colors",
                 isSelected
                   ? "border-foreground bg-foreground text-background"
                   : "border-foreground/15 bg-transparent text-foreground hover:border-foreground/40",
@@ -92,7 +94,7 @@ function EdgeControl({
   return (
     <div
       className={cn(
-        "absolute inset-y-0 flex items-center border-foreground/15 bg-background",
+        "absolute inset-y-0 flex items-center border-foreground/15 bg-[#f5f5f7] dark:bg-background",
         side === "left" ? "left-0 border-r pr-4" : "right-0 border-l pl-4",
       )}
     >

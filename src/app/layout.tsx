@@ -11,6 +11,7 @@ import {
   type NavLink,
 } from "@asclepius/ui";
 import StoreNavbar from "@/components/navbar/StoreNavbar";
+import { shopCategories } from "@/components/navbar/shop-categories";
 import SiteBanner from "@/components/banner/SiteBanner";
 import { getBagLines } from "@/app/bag/bag";
 
@@ -25,12 +26,7 @@ export const metadata: Metadata = {
 const links: NavLink[] = [
   { href: "/shop", label: "Store" },
   { href: "/campaign", label: "Group Buy" },
-  { href: "/angiogenic", label: "Angiogenic" },
-  { href: "/bioregulator", label: "Bioregulator" },
-  { href: "/blends", label: "Blends" },
-  { href: "/glp", label: "GLP-1" },
-  { href: "/mito", label: "MITO/MDPs" },
-  { href: "/nootropic", label: "Nootropic" },
+  ...shopCategories.map(({ href, label }) => ({ href, label })),
   { href: "/repository", label: "Repository" },
 ];
 

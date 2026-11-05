@@ -59,7 +59,7 @@ export default function Gallery({
             className="relative h-full w-full shrink-0 snap-start"
           >
             {s.caption && (
-              <p className="absolute top-[clamp(16px,3.4cqw,44px)] right-[clamp(16px,3.4cqw,44px)] left-[clamp(16px,3.4cqw,44px)] z-10 text-[clamp(14px,2.1cqw,34px)] leading-tight tracking-tight text-muted-foreground">
+              <p className="absolute top-[clamp(20px,4cqw,40px)] right-[clamp(20px,4cqw,40px)] left-[clamp(20px,4cqw,40px)] z-10 max-w-[48ch] text-[clamp(13px,2.25cqw,18px)] leading-[1.5] tracking-[-0.01em] text-muted-foreground text-pretty">
                 {s.caption}
               </p>
             )}

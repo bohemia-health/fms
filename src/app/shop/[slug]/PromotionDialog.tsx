@@ -30,7 +30,7 @@ export default function PromotionDialog() {
         render={
           <ProductBadge
             label="Save up to 25% when purchasing more."
-            className="bg-foreground/6 text-foreground/110 font-light font-['system-ui'] text-[0.8rem] py-4.25 px-3 rounded-xl"
+            className="min-h-11 w-full justify-start whitespace-normal rounded-xl border border-foreground/10 bg-transparent px-4 py-3 text-left font-sans text-[13px] leading-5 font-normal text-muted-foreground hover:border-foreground/25 focus-visible:outline-2 focus-visible:outline-offset-4"
           />
         }
       />
@@ -45,7 +45,7 @@ export default function PromotionDialog() {
           </h1>
           <p className="text-[1.05rem] leading-[1.5] max-w-2xl">
             Just add two or more qualifying items to your order to receive a
-            discount. We'll apply your savings at checkout. Checkout using
+            discount. We’ll apply your savings at checkout. Checkout using
             Stablecoin and receive an additional 5% off, up to 25%. Terms apply
           </p>
         </div>

@@ -131,6 +131,7 @@ export default function Configurator({
     <>
       <ConfigStep id="size" title="Size." lead="Choose your vial.">
         <ProductOptions
+          compact
           choices={sizeChoices}
           value={variant ? sizeLabel(variant) : undefined}
           onChange={chooseSize}
@@ -140,6 +141,7 @@ export default function Configurator({
       <ConfigStep id="vendor" title="Vendor." lead="Pick your favorite.">
         {known ? (
           <ProductOptions
+            compact
             choices={vendorChoices}
             value={chosenVendor ? vendorLabel(chosenVendor) : undefined}
             onChange={(label) =>
@@ -150,6 +152,7 @@ export default function Configurator({
           />
         ) : vendorConfig ? (
           <ProductOptions
+            compact
             choices={vendorConfig.choices}
             value={fallbackVendor}
             onChange={setFallbackVendor}
@@ -164,6 +167,7 @@ export default function Configurator({
           lead={quantityConfig.title.split(". ").slice(1).join(". ")}
         >
           <ProductOptions
+            compact
             choices={quantityConfig.choices}
             value={quantity}
             onChange={setQuantity}
@@ -174,7 +178,7 @@ export default function Configurator({
       <ConfigStep id="bag" title="Add to bag." lead="Your selection.">
         {variant && (
           <>
-            <p className="text-[14px] font-light text-muted-foreground">
+            <p className="text-sm leading-6 text-muted-foreground">
               {sizeLabel(variant)}
               {chosenVendor
                 ? ` · ${chosenVendor.vendorFullName}`
@@ -182,7 +186,7 @@ export default function Configurator({
               {quantity && ` · ${quantity}`}
             </p>
             {chosenBatch && (
-              <p className="mt-1 flex flex-wrap items-center gap-x-3 text-[14px] font-light text-muted-foreground">
+              <p className="mt-2 flex flex-wrap items-center gap-x-3 text-xs leading-5 text-muted-foreground">
                 <span>Batch {chosenBatch.batchNumber}</span>
                 {reports.map((r) => (
                   <a
@@ -198,7 +202,7 @@ export default function Configurator({
                 ))}
               </p>
             )}
-            <p className="mt-2 text-[28px] font-medium tracking-tight tabular-nums">
+            <p className="mt-5 text-[32px] leading-tight font-semibold tracking-tight tabular-nums">
               {variant.price !== undefined ? (
                 money.format(variant.price)
               ) : (
