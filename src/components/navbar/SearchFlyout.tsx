@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight, Search, X } from "lucide-react";
 import { Flyout } from "@asclepius/ui";
 import { SearchResults } from "./SearchResults";
 
@@ -39,12 +39,28 @@ export function SearchFlyout({ open, onClose }: Props) {
   // scroll the page before the panel is there.
   useEffect(() => {
     if (!open) return;
-    const t = setTimeout(() => inputRef.current?.focus(), 250);
-    return () => clearTimeout(t);
+    const trigger = document.activeElement;
+    const panel = inputRef.current?.closest('[role="dialog"]');
+    const t = setTimeout(() => inputRef.current?.focus({ preventScroll: true }), 250);
+    return () => {
+      clearTimeout(t);
+      if (trigger instanceof HTMLElement &&
+        (document.activeElement === document.body || panel?.contains(document.activeElement))) {
+        trigger.focus({ preventScroll: true });
+      }
+    };
   }, [open]);
 
   return (
     <Flyout id="search-flyout" label="Search" open={open} onClose={onClose}>
+      <button
+        type="button"
+        aria-label="Close search"
+        onClick={onClose}
+        className="absolute top-1 right-3 flex size-11 items-center justify-center rounded-full text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+      >
+        <X aria-hidden="true" className="size-5" />
+      </button>
       <form action="/search" method="get" role="search">
         <label className="flex items-center gap-4">
           <Search
@@ -73,25 +89,25 @@ export function SearchFlyout({ open, onClose }: Props) {
             }}
             placeholder="Search bohemia health"
             autoComplete="off"
-            className="w-full bg-transparent text-xl font-medium tracking-tight outline-none placeholder:text-muted-foreground/70 [&::-webkit-search-cancel-button]:appearance-none"
+            className="min-w-0 w-full bg-transparent text-2xl font-medium tracking-tight outline-none placeholder:text-muted-foreground/70 [&::-webkit-search-cancel-button]:appearance-none"
           />
         </label>
       </form>
 
       <SearchResults query={query} onPick={onClose} />
 
-      <h3 className="mt-10 text-xs font-light tracking-wider text-muted-foreground">
+      <h3 className="mt-10 text-sm font-normal text-muted-foreground">
         Quick Links
       </h3>
-      <ul className="mt-3 space-y-2 text-xs font-medium">
+      <ul className="mt-3 space-y-1 text-base font-medium">
         {quickLinks.map(({ href, label }) => (
           <li key={href}>
             <Link
               href={href}
               onClick={onClose}
-              className="flex items-center justify-start gap-3 text-foreground/80 hover:text-foreground transition-colors"
+              className="flex min-h-10 items-center justify-start gap-3 text-foreground/80 hover:text-foreground transition-colors"
             >
-              <ArrowRight size={11} />
+              <ArrowRight size={16} />
               {label}
             </Link>
           </li>

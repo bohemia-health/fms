@@ -6,6 +6,54 @@
   background-color: var(--navbar);
 }
 
+.shell > header > div:first-child {
+  transition: opacity 180ms ease-out;
+}
+
+/* Keep the header's layout box while a flyout owns the top surface. Match
+   logical open state so focus can return before the exit animation ends. */
+.shell > header:has(button[aria-controls$="-flyout"][aria-expanded="true"]) {
+  background-color: var(--footer);
+}
+
+.shell > header:has(button[aria-controls$="-flyout"][aria-expanded="true"]) > div:first-child {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.shell :is(:global(#bag-flyout), :global(#search-flyout), :global(#menu-flyout)) {
+  top: 0;
+  max-height: 100dvh;
+  overflow-y: auto;
+  background-color: var(--footer);
+}
+
+.shell :is(:global(#bag-flyout), :global(#search-flyout), :global(#menu-flyout)) > div {
+  padding-top: 56px;
+  padding-bottom: 48px;
+}
+
+@media (max-width: 767px) {
+  .shell :is(:global(#bag-flyout), :global(#search-flyout), :global(#menu-flyout)) > div {
+    min-height: calc(100dvh - 1px);
+    padding-inline: clamp(24px, 7vw, 48px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .shell > header:hover {
+    background-color: var(--footer);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell > header,
+  .shell > header > div:first-child {
+    transition: none;
+  }
+}
+
 .shell > header > div:first-child :is(a, button) {
   background-color: transparent;
   -webkit-tap-highlight-color: transparent;
@@ -14,4 +62,62 @@
 .shell > header > div:first-child :is(a, button):focus:not(:focus-visible) {
   outline: none;
   box-shadow: none;
+}
+
+/* Desktop/tablet flyouts sit below the visible, full-width navigation. */
+@media (min-width: 768px) {
+  .shell > header:has(button[aria-controls$="-flyout"][aria-expanded="true"]) > div:first-child {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .shell :is(:global(#bag-flyout), :global(#search-flyout), :global(#menu-flyout)) {
+    top: 100%;
+    max-height: calc(100dvh - 40px);
+  }
+}
+
+/* On phones the existing menu toggle becomes the corner close control.
+   It stays keyboard-accessible even while the other bar contents hide. */
+@media (max-width: 767px) {
+  .shell > header:has(button[aria-controls="menu-flyout"][aria-expanded="true"]) > div:first-child {
+    opacity: 1;
+  }
+
+  .shell button[aria-controls="menu-flyout"][aria-expanded="true"] {
+    position: absolute;
+    top: 4px;
+    right: 12px;
+    z-index: 1;
+    visibility: visible;
+    pointer-events: auto;
+    color: var(--muted-foreground);
+  }
+
+  .shell button[aria-controls="menu-flyout"][aria-expanded="true"] svg path {
+    transform-box: view-box;
+    transform-origin: center;
+  }
+
+  .shell button[aria-controls="menu-flyout"][aria-expanded="true"] svg path:first-child {
+    transform: translateY(-4.5px) rotate(45deg);
+  }
+
+  .shell button[aria-controls="menu-flyout"][aria-expanded="true"] svg path:last-child {
+    transform: translateY(4px) rotate(-45deg);
+  }
+}
+
+.shell :global(#menu-flyout) a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 28px;
+  line-height: 1.25;
+}
+
+.shell :global(#menu-flyout) ul {
+  display: grid;
+  gap: 8px;
 }
