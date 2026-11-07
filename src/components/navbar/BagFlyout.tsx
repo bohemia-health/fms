@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bookmark, LogOut, Package, Settings, UserCircle } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { Bookmark, LogOut, Package, Settings, UserCircle, X } from "lucide-react";
 import { Flyout } from "@asclepius/ui";
 import { loginUrl } from "@/lib/auth-site";
 import { authClient } from "@/lib/auth-client";
@@ -40,6 +41,23 @@ type Props = { open: boolean; onClose: () => void; lines: BagLine[] };
 
 // Bag content inside the shared Flyout shell.
 export function BagFlyout({ open, onClose, lines }: Props) {
+  const closeButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const trigger = document.activeElement;
+    const panel = closeButton.current?.closest('[role="dialog"]');
+    closeButton.current?.focus({ preventScroll: true });
+    return () => {
+      // Return focus when dismissing from inside the bag, without taking
+      // it away from a link or control the visitor has clicked elsewhere.
+      if (
+        trigger instanceof HTMLElement &&
+        (document.activeElement === document.body || panel?.contains(document.activeElement))
+      ) {
+        trigger.focus({ preventScroll: true });
+      }
+    };
+  }, [open]);
   const pathname = usePathname();
   const { data: session } = authClient.useSession();
   const user = session?.user;
@@ -48,10 +66,19 @@ export function BagFlyout({ open, onClose, lines }: Props) {
     : bagLinks(pathname);
   return (
     <Flyout id="bag-flyout" label="Shopping bag" open={open} onClose={onClose}>
+        <button
+          ref={closeButton}
+          type="button"
+          aria-label="Close shopping bag"
+          onClick={onClose}
+          className="absolute top-1 right-3 flex size-11 items-center justify-center rounded-full text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+        >
+          <X aria-hidden="true" className="size-5" />
+        </button>
       {lines.length === 0 ? (
         <>
           <h2 className="text-2xl font-medium">Your Bag is empty.</h2>
-          <p className="mt-2 text-[11.5px] font-light text-muted-foreground">
+          <p className="mt-3 text-sm text-muted-foreground">
             <Link
               href="/shop"
               onClick={onClose}
@@ -75,7 +102,7 @@ export function BagFlyout({ open, onClose, lines }: Props) {
               Review Bag
             </Link>
           </div>
-          <ul className="mt-6 space-y-5">
+          <ul className="mt-8 space-y-7">
             {lines.map((line) => (
               <BagItem key={line.itemId} line={line} />
             ))}
@@ -83,19 +110,19 @@ export function BagFlyout({ open, onClose, lines }: Props) {
         </>
       )}
 
-      <h3 className="mt-10 text-xs font-light tracking-wider text-muted-foreground">
+      <h3 className="mt-12 text-sm font-normal text-muted-foreground">
         {user ? `Hello, ${user.firstName}` : "My Profile"}
       </h3>
-      <ul className="mt-3 space-y-2 text-xs font-medium">
+      <ul className="mt-3 space-y-1 text-base font-medium">
         {links.map(({ id, href, label, icon: IconComponent, onClick }) => (
           <li key={id}>
             {href ? (
               <Link
                 href={href}
                 onClick={onClose}
-                className="flex items-center justify-start gap-3 text-foreground/80 hover:text-foreground transition-colors"
+                className="flex min-h-10 items-center justify-start gap-3 text-foreground/80 hover:text-foreground transition-colors"
               >
-                <IconComponent size={11} />
+                <IconComponent size={16} />
                 {label}
               </Link>
             ) : (
@@ -105,9 +132,9 @@ export function BagFlyout({ open, onClose, lines }: Props) {
                   onClick?.();
                   onClose();
                 }}
-                className="flex items-center justify-start gap-3 text-foreground/80 hover:text-foreground transition-colors"
+                className="flex min-h-10 items-center justify-start gap-3 text-foreground/80 hover:text-foreground transition-colors"
               >
-                <IconComponent size={11} />
+                <IconComponent size={16} />
                 {label}
               </button>
             )}
