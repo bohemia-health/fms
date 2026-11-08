@@ -13,6 +13,10 @@ import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 export const metadata: Metadata = {
   title: "Store · Bohemia Health",
   description: "Research peptides by line, every batch lab tested.",
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function ShopPage() {

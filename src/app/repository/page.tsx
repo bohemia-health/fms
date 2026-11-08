@@ -34,6 +34,10 @@ export const metadata: Metadata = {
   title: "Repository | Bohemia Health",
   description:
     "Discover precision and transparent testing through our comprehensive lab report library. Since 2024, we have personally verified more than a hundred individual compounds on HPLC-UV, LC-MS, Endotoxin Analysis, and TAMC+TYMC Microbial testing.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 // "report.pdf" -> "PDF". The bucket key is the only place the type lives for now.
@@ -294,134 +298,141 @@ export default async function Repository({
                     const format = extOf(report.fileKey);
                     return (
                       <Fragment key={report.id}>
-                      {newGroup && (
-                        <TableRow interactive={false} className="border-foreground/15 hover:bg-transparent">
-                          <TableCell colSpan={4} className="px-0 pt-10 pb-3 whitespace-normal">
-                            <h3 className="text-2xl font-semibold tracking-tight">
-                              {report.compound}
-                            </h3>
-                          </TableCell>
-                        </TableRow>
-                      )}
-                      <ReportRow
-                        batch={
-                          <>
-                            <span className="block text-[17px] leading-snug font-semibold tabular-nums">
-                              {report.batchNumber}
-                            </span>
-                            <span className="mt-0.5 block text-sm text-muted-foreground">
-                              {(grouped
-                                ? [report.vendorLabel]
-                                : [report.compound, report.vendorLabel]
-                              )
-                                .filter(Boolean)
-                                .join(" · ")}
-                            </span>
-                            <span className="mt-1 block text-xs text-muted-foreground md:hidden">
-                              {report.testLabel}
-                              {tested && <> · {tested}</>}
-                            </span>
-                          </>
-                        }
-                        details={
-                          <div className="grid items-start gap-8 py-8 md:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] md:gap-12 md:py-10">
-                            {(format === "PDF" || format === "PNG") && (
-                              <div className="min-w-0">
-                                {format === "PDF" ? (
-                                  <ReportPreview
-                                    src={`/repository/preview?key=${encodeURIComponent(report.fileKey)}`}
-                                    originalUrl={fileUrl}
-                                    batchNumber={report.batchNumber}
-                                  />
-                                ) : (
-                                  <div className="relative aspect-[1/1.414] bg-white ring-1 ring-black/10">
-                                    <Image
-                                    src={fileUrl}
-                                    alt={`Lab report for batch ${report.batchNumber}`}
-                                    fill
-                                    unoptimized
-                                    className="object-contain"
-                                    />
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                            <div className="flex min-w-0 flex-col gap-5">
-                              <div>
-                                <h3 className="text-xl font-medium tracking-tight">
-                                  Report details
-                                </h3>
-                                <dl className="mt-6 grid gap-5">
-                                  {[
-                                    {
-                                      label: "Testing lab",
-                                      value: report.labName ?? "Not available",
-                                    },
-                                    {
-                                      label: "Test performed",
-                                      value:
-                                        report.testLabel === "—"
-                                          ? "Not available"
-                                          : report.testLabel,
-                                    },
-                                    {
-                                      label: "Result received",
-                                      value: "Not available",
-                                    },
-                                    {
-                                      label: "Result expected",
-                                      value: "Not available",
-                                    },
-                                  ].map(({ label, value }) => (
-                                    <div key={label} className="min-w-0">
-                                      <dt className="text-xs text-muted-foreground">
-                                        {label}
-                                      </dt>
-                                      <dd className="mt-1 font-medium wrap-anywhere">
-                                        {value}
-                                      </dd>
-                                    </div>
-                                  ))}
-                                </dl>
-                              </div>
-                              <div className="mt-3 space-y-2 border-t pt-5">
+                        {newGroup && (
+                          <TableRow
+                            interactive={false}
+                            className="border-foreground/15 hover:bg-transparent"
+                          >
+                            <TableCell
+                              colSpan={4}
+                              className="px-0 pt-10 pb-3 whitespace-normal"
+                            >
+                              <h3 className="text-2xl font-semibold tracking-tight">
+                                {report.compound}
+                              </h3>
+                            </TableCell>
+                          </TableRow>
+                        )}
+                        <ReportRow
+                          batch={
+                            <>
+                              <span className="block text-[17px] leading-snug font-semibold tabular-nums">
+                                {report.batchNumber}
+                              </span>
+                              <span className="mt-0.5 block text-sm text-muted-foreground">
+                                {(grouped
+                                  ? [report.vendorLabel]
+                                  : [report.compound, report.vendorLabel]
+                                )
+                                  .filter(Boolean)
+                                  .join(" · ")}
+                              </span>
+                              <span className="mt-1 block text-xs text-muted-foreground md:hidden">
+                                {report.testLabel}
+                                {tested && <> · {tested}</>}
+                              </span>
+                            </>
+                          }
+                          details={
+                            <div className="grid items-start gap-8 py-8 md:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] md:gap-12 md:py-10">
+                              {(format === "PDF" || format === "PNG") && (
                                 <div className="min-w-0">
-                                  <p className="text-sm font-medium">
-                                    Original lab report
-                                  </p>
-                                  <p className="mt-1 text-xs wrap-anywhere text-muted-foreground">
-                                    {report.fileKey.split("/").at(-1)}
-                                  </p>
+                                  {format === "PDF" ? (
+                                    <ReportPreview
+                                      src={`/repository/preview?key=${encodeURIComponent(report.fileKey)}`}
+                                      originalUrl={fileUrl}
+                                      batchNumber={report.batchNumber}
+                                    />
+                                  ) : (
+                                    <div className="relative aspect-[1/1.414] bg-white ring-1 ring-black/10">
+                                      <Image
+                                        src={fileUrl}
+                                        alt={`Lab report for batch ${report.batchNumber}`}
+                                        fill
+                                        unoptimized
+                                        className="object-contain"
+                                      />
+                                    </div>
+                                  )}
                                 </div>
-                                <a
-                                  href={fileUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex min-h-11 items-center gap-1 font-medium text-[#0065CC] hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-[#66b0ff]"
-                                >
-                                  Open {format}
-                                  <ArrowUpRight
-                                    aria-hidden="true"
-                                    className="size-4"
-                                  />
-                                  <span className="sr-only">
-                                    {" "}
-                                    for batch {report.batchNumber} (opens in a new
-                                    tab)
-                                  </span>
-                                </a>
+                              )}
+                              <div className="flex min-w-0 flex-col gap-5">
+                                <div>
+                                  <h3 className="text-xl font-medium tracking-tight">
+                                    Report details
+                                  </h3>
+                                  <dl className="mt-6 grid gap-5">
+                                    {[
+                                      {
+                                        label: "Testing lab",
+                                        value:
+                                          report.labName ?? "Not available",
+                                      },
+                                      {
+                                        label: "Test performed",
+                                        value:
+                                          report.testLabel === "—"
+                                            ? "Not available"
+                                            : report.testLabel,
+                                      },
+                                      {
+                                        label: "Result received",
+                                        value: "Not available",
+                                      },
+                                      {
+                                        label: "Result expected",
+                                        value: "Not available",
+                                      },
+                                    ].map(({ label, value }) => (
+                                      <div key={label} className="min-w-0">
+                                        <dt className="text-xs text-muted-foreground">
+                                          {label}
+                                        </dt>
+                                        <dd className="mt-1 font-medium wrap-anywhere">
+                                          {value}
+                                        </dd>
+                                      </div>
+                                    ))}
+                                  </dl>
+                                </div>
+                                <div className="mt-3 space-y-2 border-t pt-5">
+                                  <div className="min-w-0">
+                                    <p className="text-sm font-medium">
+                                      Original lab report
+                                    </p>
+                                    <p className="mt-1 text-xs wrap-anywhere text-muted-foreground">
+                                      {report.fileKey.split("/").at(-1)}
+                                    </p>
+                                  </div>
+                                  <a
+                                    href={fileUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex min-h-11 items-center gap-1 font-medium text-[#0065CC] hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-[#66b0ff]"
+                                  >
+                                    Open {format}
+                                    <ArrowUpRight
+                                      aria-hidden="true"
+                                      className="size-4"
+                                    />
+                                    <span className="sr-only">
+                                      {" "}
+                                      for batch {report.batchNumber} (opens in a
+                                      new tab)
+                                    </span>
+                                  </a>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        }
-                      >
-                        <TableCell className="hidden px-4 text-[15px] whitespace-normal md:table-cell">
-                          {report.testLabel}
-                        </TableCell>
-                        <TableCell className="hidden px-4 text-[15px] text-muted-foreground md:table-cell">
-                          {tested ?? "—"}
-                        </TableCell>
-                      </ReportRow>
+                          }
+                        >
+                          <TableCell className="hidden px-4 text-[15px] whitespace-normal md:table-cell">
+                            {report.testLabel}
+                          </TableCell>
+                          <TableCell className="hidden px-4 text-[15px] text-muted-foreground md:table-cell">
+                            {tested ?? "—"}
+                          </TableCell>
+                        </ReportRow>
                       </Fragment>
                     );
                   })}

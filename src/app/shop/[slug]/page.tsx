@@ -49,7 +49,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const asLine = storeLines.find((l) => l.slug === slug);
   if (asLine) {
-    const title = `${asLine.label} · Bohemia Health`;
+    const title = `${asLine.label} - Bohemia Health`;
     return {
       title,
       description: asLine.tagline,
@@ -57,6 +57,10 @@ export async function generateMetadata({
         title,
         description: asLine.tagline,
         images: [og(asLine.image.src)],
+      },
+      robots: {
+        index: false,
+        follow: true,
       },
     };
   }
@@ -190,7 +194,14 @@ export default async function ProductPage({ params }: PageProps) {
           </h1>
           <div className="flex flex-col gap-1">
             {priceLines.map((l, index) => (
-              <p key={l} className={index === 0 ? "text-base leading-6 font-medium tabular-nums" : "text-sm leading-5 text-muted-foreground"}>
+              <p
+                key={l}
+                className={
+                  index === 0
+                    ? "text-base leading-6 font-medium tabular-nums"
+                    : "text-sm leading-5 text-muted-foreground"
+                }
+              >
                 {l}
               </p>
             ))}

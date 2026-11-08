@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { cn } from "cn";
 import Image from "next/image";
 import Link from "next/link";
@@ -67,6 +68,13 @@ function CompletedCard({ partner, title }: { partner: string; title: string }) {
     </article>
   );
 }
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function Page() {
   return (
@@ -257,7 +265,9 @@ export default function Page() {
           <RailItem>
             <Card className="relative h-full w-[320px] shrink-0 md:w-[480px] px-6 pt-8 bg-foreground text-white ring-white/10 shadow-[2px_4px_12px_rgba(0,0,0,0.08)] transition-[scale,box-shadow] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.01] hover:shadow-[2px_4px_16px_rgba(0,0,0,0.16)]">
               <div className="flex flex-col">
-                <label className="text-xs font-medium text-orange-500">NEW</label>
+                <label className="text-xs font-medium text-orange-500">
+                  NEW
+                </label>
                 <div className="flex flex-col gap-0">
                   <h1 className="text-[1.65rem] font-semibold">
                     Great Big Pumpkin Group Buy
