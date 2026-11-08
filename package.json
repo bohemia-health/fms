@@ -12,6 +12,8 @@
   "dependencies": {
     "@asclepius/ui": "github:bohemia-health/asclepius#main",
     "@base-ui/react": "^1.8.0",
+    "@datadog/browser-rum": "^7.17.0",
+    "@datadog/browser-rum-react": "^7.17.0",
     "@marsidev/react-turnstile": "^1.6.3",
     "@phosphor-icons/react": "^2.1.10",
     "asclepius-api": "github:bohemia-health/asclepius-api#main",
