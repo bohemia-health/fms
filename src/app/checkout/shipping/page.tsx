@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { container } from "@asclepius/ui";
+import { storeColumn } from "@/components/store/types";
 import { cn } from "@/lib/utils";
 import { getBagLines } from "@/app/bag/bag";
 import { guessLocation } from "@/app/bag/tax";
@@ -34,7 +34,7 @@ export default async function CheckoutShippingPage() {
 
   return (
     <main>
-      <section className={cn(container, "py-16")}>
+      <section className={cn(storeColumn, "py-16")}>
         <h1 className="text-[2.55rem] font-medium">
           Where should we send your order?
         </h1>

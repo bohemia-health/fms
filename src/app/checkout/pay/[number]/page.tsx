@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { container, SetLocalNav, SetNavbar } from "@asclepius/ui";
+import { SetLocalNav, SetNavbar } from "@asclepius/ui";
+import { storeColumn } from "@/components/store/types";
 import { cn } from "@/lib/utils";
 import { api } from "@/lib/api";
 import { paymentStatus } from "@/app/checkout/actions";
@@ -31,12 +32,12 @@ export default async function PayPage({
 
   return (
     <main>
-      <section className={cn(container, "py-16")}>
+      <section className={cn(storeColumn, "py-16")}>
         <PayWithUsdc initial={payment} qrSvg={qrSvg} />
       </section>
       {/* The bar sticks in the navbar's place: same as the shop and repository pages. */}
       <SetNavbar sticky={false} />
-      <SetLocalNav sticky title="Checkout" titleClassName="font-medium" links={[]} />
+      <SetLocalNav sticky wide title="Checkout" titleClassName="font-medium" links={[]} />
     </main>
   );
 }

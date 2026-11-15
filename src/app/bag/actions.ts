@@ -9,20 +9,22 @@ import { parsePostal } from "./postal";
 
 export async function addToBag(itemId: string) {
   const token = await getOrCreateBag();
-  await api.bag.items.$post(
+  const res = await api.bag.items.$post(
     { json: { itemId } },
     { headers: bagHeaders(token) },
   );
+  if (!res.ok) throw new Error("Could not add this item to the bag.");
   // The navbar badge lives in the root layout, so refresh everything under it.
   revalidatePath("/", "layout");
 }
 
 export async function removeFromBag(itemId: string) {
   const token = await getOrCreateBag();
-  await api.bag.items[":itemId"].$delete(
+  const res = await api.bag.items[":itemId"].$delete(
     { param: { itemId } },
     { headers: bagHeaders(token) },
   );
+  if (!res.ok) throw new Error("Could not remove this item from the bag.");
   revalidatePath("/", "layout");
 }
 
@@ -31,10 +33,11 @@ export async function removeFromBag(itemId: string) {
 export async function setQuantity(itemId: string, quantity: number) {
   if (quantity < 1) return removeFromBag(itemId);
   const token = await getOrCreateBag();
-  await api.bag.items[":itemId"].$put(
+  const res = await api.bag.items[":itemId"].$put(
     { param: { itemId }, json: { quantity } },
     { headers: bagHeaders(token) },
   );
+  if (!res.ok) throw new Error("Could not update the bag quantity.");
   revalidatePath("/", "layout");
 }
 

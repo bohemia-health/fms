@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { container } from "@asclepius/ui";
+import { storeColumn } from "@/components/store/types";
 import { cn } from "@/lib/utils";
 import { getBagLines } from "@/app/bag/bag";
 import { getSessionUser } from "@/lib/session";
@@ -42,7 +42,7 @@ export default async function CheckoutPaymentPage({
 
   return (
     <main>
-      <section className={cn(container, "py-16")}>
+      <section className={cn(storeColumn, "py-16")}>
         <h1 className="text-[2.55rem] font-medium">How would you like to pay?</h1>
         <div className="mt-10 grid gap-10 md:grid-cols-[32rem_1fr] md:items-start">
           <PaymentMethods
