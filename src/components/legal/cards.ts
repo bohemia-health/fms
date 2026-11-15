@@ -32,7 +32,7 @@ export const legalSections: LegalSection[] = [
         icon: Scale,
         title: "Terms of Use",
         body: "The agreement that governs your use of the Bohemia website, your account, and every order and group buy placed through it. Please read it before purchasing.",
-        link: { label: "Read the Terms of Use", href: "/legal/terms-of-use" },
+        link: { label: "Read the Terms of Use", href: "/legal/policies/tos" },
       },
       {
         icon: Truck,
@@ -65,13 +65,19 @@ export const legalSections: LegalSection[] = [
         icon: ShieldCheck,
         title: "Ethics & Compliance",
         body: "The standards Bohemia holds itself to: how we source, what we will and will not say about our products, how we protect customers from fraud, and how to report a concern.",
-        link: { label: "Read Our Ethics & Compliance Statement", href: "/legal/ethics" },
+        link: {
+          label: "Read Our Ethics & Compliance Statement",
+          href: "/legal/ethics",
+        },
       },
       {
         icon: ClipboardCheck,
         title: "Testing Standards",
         body: "Which assays every batch goes through, which labs run them, and how to find the certificate of analysis for the exact batch you received.",
-        link: { label: "Review Our Testing Standards", href: "/testing/standards" },
+        link: {
+          label: "Review Our Testing Standards",
+          href: "/testing/standards",
+        },
       },
     ],
   },

@@ -68,7 +68,7 @@ export default function DeliveryOptions({
             }
             className={cn(
               "h-auto w-full justify-between px-6 text-left rounded-lg ring-1 ring-foreground/20",
-              checked && "ring-2 ring-foreground",
+              checked && "ring-2 ring-[#0065CC]",
               className,
             )}
           >

@@ -2,7 +2,8 @@ import { Fragment } from "react";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { container, SetLocalNav, SetNavbar } from "@asclepius/ui";
+import { SetLocalNav, SetNavbar } from "@asclepius/ui";
+import { storeColumn } from "@/components/store/types";
 import { TruckIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getBagLines } from "@/app/bag/bag";
@@ -41,13 +42,14 @@ export default async function CheckoutPage() {
   if (destination === "gate") {
     return (
       <main>
-        <section className={cn(container)}>
+        <section className={storeColumn}>
           <CheckoutGate />
         </section>
         {/* The bar sticks in the navbar's place: same as the shop and repository pages. */}
         <SetNavbar sticky={false} />
         <SetLocalNav
           sticky
+          wide
           title="Checkout"
           titleClassName="font-medium"
           links={[]}
@@ -61,20 +63,20 @@ export default async function CheckoutPage() {
 
   return (
     <main>
-      <div className={cn(container)}>
+      <div className={storeColumn}>
         <div className="flex flex-col items-center justify-center gap-8 py-16">
           <h1 className="text-[2.65rem] text-center font-medium">
             How would you like to get your order?
           </h1>
-          <ButtonGroup className="ring-2 ring-muted-foreground/50 rounded-md">
-            <Button className="inline-flex gap-2 items-center max-w-lg py-10 px-4 bg-transparent text-foreground hover:bg-transparent">
+          <ButtonGroup className="max-w-full ring-2 ring-muted-foreground/50 rounded-md">
+            <Button className="inline-flex min-w-0 flex-1 gap-2 items-center max-w-lg whitespace-normal sm:flex-initial sm:whitespace-nowrap py-10 px-4 bg-transparent text-foreground hover:bg-transparent">
               <TruckIcon className="size-5" />
-              <span className="text-lg">I'd like it delivered.</span>
+              <span className="text-lg">I&apos;d like it delivered.</span>
             </Button>
             <Separator orientation="vertical" className="w-6 bg-foreground" />
-            <Button className="inline-flex gap-2 items-center max-w-lg py-10 px-4 bg-transparent text-foreground hover:bg-transparent">
+            <Button className="inline-flex min-w-0 flex-1 gap-2 items-center max-w-lg whitespace-normal sm:flex-initial sm:whitespace-nowrap py-10 px-4 bg-transparent text-foreground hover:bg-transparent">
               <CheckoutLogoBag className="size-5 stroke-2" />
-              <span className="text-lg">I'd like to pick it up.</span>
+              <span className="text-lg">I&apos;d like to pick it up.</span>
             </Button>
           </ButtonGroup>
 
@@ -168,8 +170,8 @@ export default async function CheckoutPage() {
       </div>
 
       <div className="border-t border-b border-foreground/20">
-        <div className={cn(container)}>
-          <p className="font-normal text-[1.0rem] px-4 py-4.5">
+        <div className={storeColumn}>
+          <p className="font-normal text-[1.0rem] py-4.5">
             Need some help?{" "}
             <Link href="/support" className="text-[#0065CC] underline">
               Chat now.

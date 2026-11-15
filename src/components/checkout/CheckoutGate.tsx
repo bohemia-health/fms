@@ -53,7 +53,7 @@ export default function CheckoutGate() {
           Sign in to your Bohemia account.
         </p>
 
-        <form onSubmit={onSubmit} className="mt-8 flex flex-col gap-3">
+        <form onSubmit={onSubmit} className="mt-8 flex w-full max-w-md flex-col gap-3">
           <FloatingInput
             id="email"
             name="email"
@@ -103,7 +103,7 @@ export default function CheckoutGate() {
         <p className="mt-2 text-muted-foreground">
           You can create an account after you place your order.
         </p>
-        <form action={continueAsGuest} className="mt-8">
+        <form action={continueAsGuest} className="mt-8 w-full max-w-md">
           <BagButton
             label="Continue as Guest"
             className="bg-foreground text-background hover:bg-foreground/90"

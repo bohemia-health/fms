@@ -12,6 +12,7 @@ export async function getOrCreateBag(): Promise<string> {
   const jar = await cookies();
   const current = jar.get(COOKIE)?.value;
   const res = await api.bag.$post({}, { headers: bagHeaders(current) });
+  if (!res.ok) throw new Error("Could not open the bag.");
   const { token } = await res.json();
   if (token !== current) {
     jar.set(COOKIE, token, { httpOnly: true, sameSite: "lax", path: "/" });
@@ -27,6 +28,7 @@ export async function getBagLines(): Promise<BagLine[]> {
   if (!token) return [];
 
   const res = await api.bag.$get({}, { headers: bagHeaders(token) });
+  if (!res.ok) throw new Error("Could not load the bag.");
   const rows = await res.json();
 
   // The API hands back keys and raw report types; turning those into URLs

@@ -37,6 +37,7 @@ export default function CheckoutBar({
       <SetNavbar sticky={false} />
       <SetLocalNav
         sticky
+        wide
         title="Checkout"
         titleClassName="font-medium"
         links={[

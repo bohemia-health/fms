@@ -86,7 +86,7 @@ export default function Page() {
             Great Big Pumpkin Group Buy
           </TileTitle>
           <TileTagline className="font-normal text-[#EAEAEA]">
-            Available starting 10.23
+            Available starting 11.07
           </TileTagline>
         </TileHeader>
 
@@ -98,7 +98,7 @@ export default function Page() {
             variant="normal"
             className="bg-transparent text-[#2797FF] border-[#2797FF] hover:bg-transparent"
           >
-            Pre-order
+            <Link href="/campaign/510300">Pre-order</Link>
           </Button>
         </TileActions>
 
@@ -263,36 +263,38 @@ export default function Page() {
         </div>
         <Rail label="Open group buys">
           <RailItem>
-            <Card className="relative h-full w-[320px] shrink-0 md:w-[480px] px-6 pt-8 bg-foreground text-white ring-white/10 shadow-[2px_4px_12px_rgba(0,0,0,0.08)] transition-[scale,box-shadow] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.01] hover:shadow-[2px_4px_16px_rgba(0,0,0,0.16)]">
-              <div className="flex flex-col">
-                <label className="text-xs font-medium text-orange-500">
-                  NEW
-                </label>
-                <div className="flex flex-col gap-0">
-                  <h1 className="text-[1.65rem] font-semibold">
-                    Great Big Pumpkin Group Buy
-                  </h1>
-                  <p className="text-[14px]">
-                    Pre-Order until 11.12 Central Standard Time
-                  </p>
+            <Link href="/campaign/510300">
+              <Card className="relative h-full w-[320px] shrink-0 md:w-[480px] px-6 pt-8 bg-foreground text-white ring-white/10 shadow-[2px_4px_12px_rgba(0,0,0,0.08)] transition-[scale,box-shadow] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.01] hover:shadow-[2px_4px_16px_rgba(0,0,0,0.16)]">
+                <div className="flex flex-col">
+                  <label className="text-xs font-medium text-orange-500">
+                    NEW
+                  </label>
+                  <div className="flex flex-col gap-0">
+                    <h1 className="text-[1.65rem] font-semibold">
+                      Great Big Pumpkin Group Buy
+                    </h1>
+                    <p className="text-[14px]">
+                      Pre-Order until 11.12 Central Standard Time
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              <div className="relative mt-8">
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 bg-radial-[60%_60%_at_50%_60%] from-orange-500/35 to-transparent to-70%"
-                />
-                <Image
-                  src="/campaign/pumpkin_asset.webp"
-                  alt="campaign image"
-                  width={1024}
-                  height={1024}
-                  className="relative drop-shadow-[0_24px_28px_rgba(0,0,0,0.55)]"
-                  priority
-                />
-              </div>
-            </Card>
+                <div className="relative mt-8">
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 bg-radial-[60%_60%_at_50%_60%] from-orange-500/35 to-transparent to-70%"
+                  />
+                  <Image
+                    src="/campaign/pumpkin_asset.webp"
+                    alt="campaign image"
+                    width={1024}
+                    height={1024}
+                    className="relative drop-shadow-[0_24px_28px_rgba(0,0,0,0.55)]"
+                    priority
+                  />
+                </div>
+              </Card>
+            </Link>
           </RailItem>
           <RailItem>
             <Card className="relative h-full w-[320px] shrink-0 md:w-[480px] px-6 pt-8 shadow-[2px_4px_12px_rgba(0,0,0,0.08)] transition-[scale,box-shadow] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-[1.01] hover:shadow-[2px_4px_16px_rgba(0,0,0,0.16)]">
