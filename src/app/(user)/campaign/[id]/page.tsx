@@ -1,5 +1,8 @@
 import { api } from "@/lib/api";
-import { notFound } from "next/navigation";
+import { headers } from "next/headers";
+import { notFound, redirect } from "next/navigation";
+import { loginUrl } from "@/lib/auth-site";
+import { getSessionUser } from "@/lib/session";
 import { CampaignBanner } from "./campaign-banner";
 import Image from "next/image";
 import AddKitsButton from "@/components/campaign/AddKitsButton";
@@ -11,10 +14,18 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  // Group buys are for signed-in people. Signed out goes to the auth site and
+  // comes back here.
+  if (!(await getSessionUser())) redirect(loginUrl(`/campaign/${id}`));
+
+  // Asclepius checks the visitor's own session on this route, so their cookie
+  // goes along with the call.
+  const cookie = (await headers()).get("cookie") ?? "";
   const res = await api.campaigns[":id"].$get(
     { param: { id } },
-    { init: { cache: "no-store" } },
+    { headers: { cookie }, init: { cache: "no-store" } },
   );
+  if (res.status === 401) redirect(loginUrl(`/campaign/${id}`));
   if (!res.ok) notFound();
 
   const campaign = await res.json();

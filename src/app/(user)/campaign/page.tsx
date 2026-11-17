@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { cn } from "cn";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { loginUrl } from "@/lib/auth-site";
+import { getSessionUser } from "@/lib/session";
 import { Button } from "@/components/ui/button";
 
 import { SetFootnotes } from "@asclepius/ui";
@@ -76,7 +79,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
+export default async function Page() {
+  // Group buys are for signed-in people. Signed out goes to the auth site and
+  // comes back here.
+  if (!(await getSessionUser())) redirect(loginUrl("/campaign"));
+
   return (
     <main>
       {/* New October GB Announcement */}
