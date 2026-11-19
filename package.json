@@ -10,7 +10,7 @@
     "test": "node --test \"src/**/*.test.ts\""
   },
   "dependencies": {
-    "@asclepius/ui": "github:bohemia-health/asclepius#main",
+    "@asclepius/ui": "github:bohemia-health/asclepius-ui#main",
     "@base-ui/react": "^1.8.0",
     "@datadog/browser-rum": "^7.17.0",
     "@datadog/browser-rum-react": "^7.17.0",
@@ -24,7 +24,7 @@
     "hono": "^4.13.14",
     "lucide-react": "^1.48.0",
     "motion": "^14.0.0",
-    "next": "16.3.6",
+    "next": "^16.4.6",
     "next-themes": "^0.4.6",
     "pdfjs-dist": "^6.5.438",
     "react": "19.2.8",
@@ -41,7 +41,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.3.6",
+    "eslint-config-next": "^16.4.6",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5"

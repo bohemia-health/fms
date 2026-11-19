@@ -1,4 +1,3 @@
-import { SetFootnotes } from "@asclepius/ui";
 import Image from "next/image";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,7 +10,7 @@ import {
   TileTitle,
 } from "@/components/tile";
 import Link from "next/link";
-import { Fragment } from "react";
+import Footnotes from "@/components/footer/footnotes";
 
 export default function Home() {
   return (
@@ -188,25 +187,7 @@ export default function Home() {
           />
         </Tile>
       </div>
-      <SetFootnotes
-        notes={[
-          <Fragment key="note-1">
-            The information provided on this site is for general informational
-            and educational purposes. Certain sections of this site are intended
-            for particular audiences including Bohemia&rsquo;s employees,
-            subsidiaries and shareholders, as well as the general public. Your
-            access to and use of the information contained in this site is
-            subject to the Terms of Use Agreement. By accessing and using this
-            site, you accept, without limitation of qualification, the Terms of
-            Use Agreement at{" "}
-            <Link href="/terms-of-use" className="underline">
-              https://bhmhlth.com/terms-of-use
-            </Link>
-          </Fragment>,
-          "Bohemia will use reasonable efforts to include accurate and up-to-date information on this site but makes no warranties or representations of any kind as to its accuracy, currency or completeness. You agree that access to and use of this site and the content thereof is at your own risk. Bohemia disclaims all warranties, express or implied.",
-          "The entire contents of this site are subject to copyright protection. Copyright 2025-2026 Bohemia LLC. Except as expressly provided above, you may not otherwise copy, display, download, distribute, modify, reproduce, republish or retransmit any information, text or documents contained in this site or create any derivative work based on such images, text or documents, without the express written consent of Bohemia. You are expressly prohibited from using robots, spiders, scripts, service, software or any manual or automatic device, tool, or process design to data mine or scrape any content from this website, or otherwise use, access, or collect any content using automated means, except for purposes for inclusion in a public search engine.",
-        ]}
-      />
+      <Footnotes slug="/" />
     </main>
   );
 }

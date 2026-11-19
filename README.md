@@ -41,7 +41,7 @@ The API client derives its types from `asclepius-api` using Hono's client utilit
 Related repositories:
 
 - [Asclepius API](https://github.com/bohemia-health/asclepius-api) — backend routes and database schema.
-- [Asclepius UI](https://github.com/bohemia-health/asclepius) — shared components and design tokens.
+- [Asclepius UI](https://github.com/bohemia-health/asclepius-ui) — shared components and design tokens.
 
 ## Stack
 

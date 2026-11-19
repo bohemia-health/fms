@@ -1,0 +1,407 @@
+{
+  "bhm-oct-26/50AM-0226.pdf": {
+    "batch": "50AM-0226",
+    "readings": [
+      {"label": "Purity", "value": "99.887%"},
+      {"label": "Net content", "value": "67.85 mg"}
+    ]
+  },
+  "bhm-oct-26/50AM-0506-1.pdf": {
+    "batch": "50AM-0506",
+    "readings": [
+      {"label": "Purity", "value": "75.73%"},
+      {"label": "Net content", "value": "29.32 mg"}
+    ]
+  },
+  "bhm-oct-26/BAC10-0715.pdf": {
+    "batch": "BAC10-0715",
+    "readings": [
+      {"label": "Endotoxin threshold", "value": "Pass"},
+      {"label": "Assay sensitivity", "value": "≤0.05 EU/mL"}
+    ]
+  },
+  "bhm-oct-26/BAC3-0715.pdf": {
+    "batch": "BAC3-0715",
+    "readings": [
+      {"label": "Endotoxin threshold", "value": "Pass"},
+      {"label": "Assay sensitivity", "value": "≤0.05 EU/mL"}
+    ]
+  },
+  "bhm-oct-26/BPTB20-0506.pdf": {
+    "batch": "BPTB20-0506",
+    "readings": [
+      {"label": "Purity", "value": "99.33%"},
+      {"label": "BPC-157", "value": "12.49 mg"},
+      {"label": "Thymosin Beta-4", "value": "11.63 mg"}
+    ]
+  },
+  "bhm-oct-26/BPTB30-0928.pdf": {
+    "batch": "BPTB30-0928",
+    "readings": [
+      {"label": "Purity", "value": "99.58%"},
+      {"label": "BPC-157", "value": "16.67 mg"},
+      {"label": "Thymosin Beta-4", "value": "16.55 mg"}
+    ]
+  },
+  "bhm-oct-26/CARTA40-0730-1.png": {
+    "batch": "CARTA40-0730",
+    "readings": [
+      {"label": "Purity (3 vials)", "value": "99.914%; 99.956%; 99.922%"},
+      {"label": "Amount (3 vials)", "value": "41.76 mg; 41.73 mg; 41.70 mg"}
+    ]
+  },
+  "bhm-oct-26/CARTA40-0730-2.png": {
+    "batch": "CARTA40-0730",
+    "readings": [
+      {"label": "Endotoxin", "value": "1.252 EU/vial"}
+    ]
+  },
+  "bhm-oct-26/CARTA40-0730-3.png": {
+    "batch": "CARTA40-0730",
+    "readings": [
+      {"label": "Detected", "value": "Mannitol and Cartalax"}
+    ]
+  },
+  "bhm-oct-26/CARTA40-0730-4.png": {
+    "batch": "CARTA40-0730",
+    "readings": [
+      {"label": "TAMC", "value": "Pass"},
+      {"label": "TYMC", "value": "Pass"}
+    ]
+  },
+  "bhm-oct-26/ET50-0226.pdf": {
+    "batch": "ET50-0226",
+    "readings": [
+      {"label": "Purity", "value": "99.308%"},
+      {"label": "Net content", "value": "61.31 mg"}
+    ]
+  },
+  "bhm-oct-26/GH15-0404-1.png": {
+    "batch": "GH15-0404",
+    "readings": [
+      {"label": "Purity (2 vials)", "value": "98.051%; 97.843%"},
+      {"label": "Amount (2 vials)", "value": "5.59 mg; 5.64 mg"},
+      {"label": "Dimer and related proteins", "value": "Not detected in either vial"}
+    ]
+  },
+  "bhm-oct-26/GH15-0404-2.png": {
+    "batch": "GH15-0404",
+    "readings": [
+      {"label": "Endotoxin", "value": "1.515 EU/vial"}
+    ]
+  },
+  "bhm-oct-26/GH36-0226.png": {
+    "batch": "GH36-0226",
+    "readings": [
+      {"label": "Purity (2 vials)", "value": "97.235%; 97.672%"},
+      {"label": "Amount (2 vials)", "value": "14.01 mg; 14.24 mg"},
+      {"label": "Dimer and related proteins", "value": "0.164%; 0.187%"}
+    ]
+  },
+  "bhm-oct-26/GT1500-0410.pdf": {
+    "batch": "GT1500-0410",
+    "readings": [
+      {"label": "Purity", "value": "94.142%"},
+      {"label": "Net content", "value": "1425.52 mg"}
+    ]
+  },
+  "bhm-oct-26/HK100-0226.pdf": {
+    "batch": "HK100-0226",
+    "readings": [
+      {"label": "Purity", "value": "99.894%"},
+      {"label": "Net content", "value": "112.56 mg"}
+    ]
+  },
+  "bhm-oct-26/HK100-0505.png": {
+    "batch": "HK100-0505",
+    "readings": [
+      {"label": "Purity", "value": "99.764%"},
+      {"label": "GHK-Cu", "value": "107.15 mg"},
+      {"label": "GHK content", "value": "88.32 mg"},
+      {"label": "Copper content", "value": "18.83 mg"}
+    ]
+  },
+  "bhm-oct-26/HK100-0609.png": {
+    "batch": "HK100-0609",
+    "readings": [
+      {"label": "Purity", "value": "99.788%"},
+      {"label": "GHK-Cu", "value": "112.61 mg"},
+      {"label": "GHK content", "value": "93.68 mg"},
+      {"label": "Copper content", "value": "18.93 mg"}
+    ]
+  },
+  "bhm-oct-26/IP10-0727.pdf": {
+    "batch": "IP10-0727",
+    "readings": [
+      {"label": "Purity", "value": "99.38%"},
+      {"label": "Net content", "value": "10.90 mg"}
+    ]
+  },
+  "bhm-oct-26/KLO80-0318-2.png": {
+    "batch": "KLO80-0318",
+    "readings": [
+      {"label": "Detected", "value": "Mannitol, GHK(-Cu), KPV, TB-500 (TB4), and BPC-157"}
+    ]
+  },
+  "bhm-oct-26/KLO80-0318.png": {
+    "batch": "KLO80-0318",
+    "readings": [
+      {"label": "GHK-Cu (2 vials)", "value": "56.47 mg; 59.18 mg"},
+      {"label": "BPC-157 (2 vials)", "value": "12.59 mg; 11.51 mg"},
+      {"label": "TB-500 (TB4, 2 vials)", "value": "11.29 mg; 11.33 mg"},
+      {"label": "KPV (2 vials)", "value": "11.13 mg; 11.54 mg"}
+    ]
+  },
+  "bhm-oct-26/KLO80-0418.png": {
+    "batch": "KLO80-0418",
+    "readings": [
+      {"label": "GHK-Cu (2 vials)", "value": "61.32 mg; 61.05 mg"},
+      {"label": "BPC-157 (2 vials)", "value": "13.10 mg; 12.83 mg"},
+      {"label": "TB-500 (TB4, 2 vials)", "value": "12.30 mg; 12.43 mg"},
+      {"label": "KPV (2 vials)", "value": "11.64 mg; 11.59 mg"}
+    ]
+  },
+  "bhm-oct-26/KLO80-0715.pdf": {
+    "batch": "KLO80-0715",
+    "readings": [
+      {"label": "Purity", "value": "99.67%"},
+      {"label": "GHK-Cu", "value": "56.68 mg"},
+      {"label": "KPV", "value": "10.60 mg"},
+      {"label": "BPC-157", "value": "12.51 mg"},
+      {"label": "Thymosin Beta-4", "value": "11.57 mg"}
+    ]
+  },
+  "bhm-oct-26/KP30-0509.png": {
+    "batch": "KP30-0509",
+    "readings": [
+      {"label": "Purity", "value": "98.233%"},
+      {"label": "Amount", "value": "35.47 mg"}
+    ]
+  },
+  "bhm-oct-26/KP30-0604.pdf": {
+    "batch": "KP30-0604",
+    "readings": [
+      {"label": "Purity", "value": "99.65%"},
+      {"label": "Net content", "value": "35.16 mg"}
+    ]
+  },
+  "bhm-oct-26/MB20-0226.pdf": {
+    "batch": "MB20-0226",
+    "readings": [
+      {"label": "Purity", "value": "97.971%"},
+      {"label": "Net content", "value": "19.05 mg"}
+    ]
+  },
+  "bhm-oct-26/MO40-0115-1.png": {
+    "batch": "MO40-0115",
+    "readings": [
+      {"label": "Purity", "value": "99.565%"},
+      {"label": "Amount", "value": "51.55 mg"}
+    ]
+  },
+  "bhm-oct-26/MO40-0115-2.png": {
+    "batch": "MO40-0115",
+    "readings": [
+      {"label": "Detected", "value": "Mannitol, MOTS-C, and degradation products"},
+      {"label": "Contamination", "value": "No significant contamination detected"}
+    ]
+  },
+  "bhm-oct-26/MO40-0506.pdf": {
+    "batch": "MO40-0506",
+    "readings": [
+      {"label": "Purity", "value": "99.64%"},
+      {"label": "Net content", "value": "47.52 mg"}
+    ]
+  },
+  "bhm-oct-26/NJ500-0506.pdf": {
+    "batch": "NJ500-0506",
+    "readings": [
+      {"label": "Purity (vials 1–3)", "value": "99.21%; 99.31%; 99.26%"},
+      {"label": "Average net content", "value": "614.75 mg"}
+    ]
+  },
+  "bhm-oct-26/RE20-0423.png": {
+    "batch": "RE20-0423",
+    "readings": [
+      {"label": "Purity", "value": "99.390%"},
+      {"label": "Amount", "value": "24.75 mg"}
+    ]
+  },
+  "bhm-oct-26/RE20-1119-1.png": {
+    "batch": "RE20-1119",
+    "readings": [
+      {"label": "Purity (3 vials)", "value": "99.676%; 99.654%; 99.668%"},
+      {"label": "Amount (3 vials)", "value": "31.27 mg; 20.83 mg; 30.81 mg"}
+    ]
+  },
+  "bhm-oct-26/RE20-1119-2.png": {
+    "batch": "RE20-1119",
+    "readings": [
+      {"label": "Detected", "value": "Mannitol, retatrutide, and degradation products"}
+    ]
+  },
+  "bhm-oct-26/RE20-1119-3.png": {
+    "batch": "RE20-1119",
+    "readings": [
+      {"label": "Endotoxin", "value": "3.040 EU/vial"}
+    ]
+  },
+  "bhm-oct-26/RE20-1119-4.png": {
+    "batch": "RE20-1119",
+    "readings": [
+      {"label": "TAMC", "value": "Pass"},
+      {"label": "TYMC", "value": "Pass"}
+    ]
+  },
+  "bhm-oct-26/RE30-0115-1.png": {
+    "batch": "RE30-0115",
+    "readings": [
+      {"label": "Purity (3 vials)", "value": "99.867%; 99.845%; 99.807%"},
+      {"label": "Amount (3 vials)", "value": "34.00 mg; 33.71 mg; 33.20 mg"}
+    ]
+  },
+  "bhm-oct-26/RE30-0115-2.png": {
+    "batch": "RE30-0115",
+    "readings": [
+      {"label": "Endotoxin", "value": "3.415 EU/vial"}
+    ]
+  },
+  "bhm-oct-26/RE30-0115-3.png": {
+    "batch": "RE30-0115",
+    "readings": [
+      {"label": "TAMC", "value": "Pass"},
+      {"label": "TYMC", "value": "Pass"}
+    ]
+  },
+  "bhm-oct-26/RE30-0115-4.png": {
+    "batch": "RE30-0115",
+    "readings": [
+      {"label": "Detected", "value": "Mannitol, retatrutide, and degradation products"}
+    ]
+  },
+  "bhm-oct-26/RE30-0416-1.png": {
+    "batch": "RE30-0416",
+    "readings": [
+      {"label": "Purity (3 vials)", "value": "99.510%; 99.775%; 99.798%"},
+      {"label": "Amount (3 vials)", "value": "34.14 mg; 34.03 mg; 34.21 mg"}
+    ]
+  },
+  "bhm-oct-26/RE30-0416-2.png": {
+    "batch": "RE30-0416",
+    "readings": [
+      {"label": "Endotoxin", "value": "<1 EU/vial"}
+    ]
+  },
+  "bhm-oct-26/RE30-0704.pdf": {
+    "batch": "RE30-0704",
+    "readings": [
+      {"label": "Purity (vials 1–2)", "value": "99.78%; 99.76%"},
+      {"label": "Average net content", "value": "32.43 mg"},
+      {"label": "Endotoxin replicates", "value": "Both passed"},
+      {"label": "Assay sensitivity", "value": "≤0.05 EU/mL"}
+    ]
+  },
+  "bhm-oct-26/RE30-0706.pdf": {
+    "batch": "RE30-0706",
+    "readings": [
+      {"label": "Purity", "value": "99.96%"},
+      {"label": "Net content", "value": "32.69 mg"}
+    ]
+  },
+  "bhm-oct-26/RE60-0102.pdf": {
+    "batch": "RE60-0102",
+    "readings": [
+      {"label": "Purity", "value": "99.7%"},
+      {"label": "Quantitative assay", "value": "63.58 mg"}
+    ]
+  },
+  "bhm-oct-26/SS50-0411.png": {
+    "batch": "SS50-0411",
+    "readings": [
+      {"label": "Purity", "value": "99.785%"},
+      {"label": "Amount", "value": "50.47 mg"}
+    ]
+  },
+  "bhm-oct-26/SS50-0605.png": {
+    "batch": "SS50-0605",
+    "readings": [
+      {"label": "Purity", "value": "99.829%"},
+      {"label": "Amount", "value": "51.00 mg"}
+    ]
+  },
+  "bhm-oct-26/TE20-0429.png": {
+    "batch": "TE20-0429",
+    "readings": [
+      {"label": "Purity", "value": "99.026%"},
+      {"label": "Amount", "value": "21.87 mg"}
+    ]
+  },
+  "bhm-oct-26/ZE30-0102.pdf": {
+    "batch": "ZE30-0102",
+    "readings": [
+      {"label": "Purity", "value": "99.8%"},
+      {"label": "Quantitative assay", "value": "31.29 mg"}
+    ]
+  },
+  "bhm-oct-26/ZE30-0105-1.png": {
+    "batch": "ZE30-0105",
+    "readings": [
+      {"label": "Purity (3 vials)", "value": "99.769%; 99.873%; 99.866%"},
+      {"label": "Amount (3 vials)", "value": "36.69 mg; 35.78 mg; 35.40 mg"}
+    ]
+  },
+  "bhm-oct-26/ZE30-0105-2.png": {
+    "batch": "ZE30-0105",
+    "readings": [
+      {"label": "Endotoxin", "value": "2.688 EU/vial"}
+    ]
+  },
+  "bhm-oct-26/ZE30-0105-3.png": {
+    "batch": "ZE30-0105",
+    "readings": [
+      {"label": "TAMC", "value": "Pass"},
+      {"label": "TYMC", "value": "Pass"}
+    ]
+  },
+  "bhm-oct-26/ZE30-0517-1.png": {
+    "batch": "ZE30-0517",
+    "readings": [
+      {"label": "Purity", "value": "99.939%"},
+      {"label": "Amount", "value": "34.68 mg"}
+    ]
+  },
+  "bhm-oct-26/ZE30-0517-2.png": {
+    "batch": "ZE30-0517",
+    "readings": [
+      {"label": "Endotoxin", "value": "<10 EU/vial"},
+      {"label": "Estimate (outside validated range)", "value": "5.276 EU/vial"}
+    ]
+  },
+  "bhm-oct-26/ZE30-0601-1.png": {
+    "batch": "ZE30-0601",
+    "readings": [
+      {"label": "Purity (3 vials)", "value": "99.777%; 99.799%; 99.639%"},
+      {"label": "Amount (3 vials)", "value": "33.45 mg; 33.94 mg; 32.85 mg"}
+    ]
+  },
+  "bhm-oct-26/ZE30-0601-2.png": {
+    "batch": "ZE30-0601",
+    "readings": [
+      {"label": "Endotoxin", "value": "2.015 EU/vial"}
+    ]
+  },
+  "bhm-oct-26/ZE30-0715.pdf": {
+    "batch": "ZE30-0715",
+    "readings": [
+      {"label": "Purity (vials 1–2)", "value": "99.40%; 99.41%"},
+      {"label": "Average net content", "value": "35.13 mg"}
+    ]
+  },
+  "bhm-oct-26/ZE60-0409.png": {
+    "batch": "ZE60-0409",
+    "readings": [
+      {"label": "Purity", "value": "99.858%"},
+      {"label": "Amount", "value": "69.37 mg"}
+    ]
+  }
+}

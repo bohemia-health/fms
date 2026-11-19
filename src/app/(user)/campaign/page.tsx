@@ -7,7 +7,6 @@ import { loginUrl } from "@/lib/auth-site";
 import { getSessionUser } from "@/lib/session";
 import { Button } from "@/components/ui/button";
 
-import { SetFootnotes } from "@asclepius/ui";
 import {
   Tile,
   TileHeader,
@@ -29,6 +28,7 @@ import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 import { Separator } from "@base-ui/react";
 import { Card } from "@/components/ui/card";
 import { storeColumn } from "@/components/store/types";
+import Footnotes from "@/components/footer/footnotes";
 
 // apple.com/iphone hero gallery: 1260x680 cards centered, 80px gutters once the
 // column no longer fits, 16px on phones. Corner radius is Apple's 28px at full
@@ -422,13 +422,7 @@ export default async function Page() {
         </div>
       </section>
 
-      <SetFootnotes
-        notes={[
-          "The information provided on this site is for general informational and educational purposes only.",
-          'When we refer to ourselves as "we" or "Bohemia", or "Bohemia Health," we mean Bohemia LLC. Bohemia Health is not a chemical manufacturer, supplier, or vendor  within the FDA\'s definition. Products and Services, such as items or accessories listed for sale, certificates of analysis (COA), material safety data sheets (MSDS), or like thereof are intended for authorized recipients such as authorized institutions, academic or industrial laboratory operators, licensed chemical investigators, or professional chemists in the United States.  Items, services, material or content listed on this Website may not be intended for unauthorized audiences. We reserve the right, without waiver under the furthest extent of the law, to reject, refuse or cancel an order or service if We suspect a purchase was made for an unintended use. ',
-          "Group Buys are a coordinated volume purchase facilitated by Bohemia LLC. Bohemia LLC is not a supplier, manufacturer or vendor. Certain delays due to production times, shipping speeds, carrier loss, package damage, lab processing timelines and speeds, or uncontrollable events such as customs seizure, item or test samples parcel loss or damage due to carrier possession, vendor behavior, federal, national, or international holidays, or force majeure are not considered in breach of contract. Participation within a group buy is assumed at a buyer's own risk. ",
-        ]}
-      />
+      <Footnotes slug="/campaign" />
 
       <SetBreadcrumb items={[{ label: "Campaigns" }]} />
     </main>

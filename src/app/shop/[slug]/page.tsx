@@ -6,7 +6,6 @@ import { api } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import {
   SetBreadcrumb,
-  SetFootnotes,
   SetLocalNav,
   SetNavbar,
 } from "@asclepius/ui";
@@ -20,6 +19,7 @@ import Gallery from "./Gallery";
 import LinePage from "./LinePage";
 import { SITE_URL } from "@/app/sitemap";
 import styles from "./product-page.module.css";
+import Footnotes from "@/components/footer/footnotes";
 
 const money = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -159,143 +159,141 @@ export default async function ProductPage({ params }: PageProps) {
   ];
 
   return (
-    <main className={cn(styles.page, buyColumn, "pt-10 md:pt-14")}>
-      <SetBreadcrumb
-        items={[{ label: "Store", href: "/shop" }, { label: product.title }]}
-      />
-      {/* Apple's buy page: the global nav scrolls away and the product
-          ribbon alone pins at the top once the header has passed. */}
-      <SetNavbar sticky={false} />
-      <SetLocalNav
-        sticky
-        containerClassName={buyColumn}
-        title={product.title}
-        titleClassName="font-medium tracking-tight"
-        href={`/shop/${slug}`}
-        links={[]}
-        detail={priceLines}
-        detailClassName="font-medium"
-        revealAfter="product-header"
-        border="full"
-        subbar={[
-          { icon: "clock", label: "Ships in 1-2 business days" },
-          { icon: "truck", label: "Free shipping" },
-          { icon: "coins", label: "Stablecoin accepted" },
-        ]}
-      />
+    <>
+      <main className={cn(styles.page, buyColumn, "pt-10 md:pt-14")}>
+        <SetBreadcrumb
+          items={[{ label: "Store", href: "/shop" }, { label: product.title }]}
+        />
+        {/* Apple's buy page: the global nav scrolls away and the product
+            ribbon alone pins at the top once the header has passed. */}
+        <SetNavbar sticky={false} />
+        <SetLocalNav
+          sticky
+          containerClassName={buyColumn}
+          title={product.title}
+          titleClassName="font-medium tracking-tight"
+          href={`/shop/${slug}`}
+          links={[]}
+          detail={priceLines}
+          detailClassName="font-medium"
+          revealAfter="product-header"
+          border="full"
+          subbar={[
+            { icon: "clock", label: "Ships in 1-2 business days" },
+            { icon: "truck", label: "Free shipping" },
+            { icon: "coins", label: "Stablecoin accepted" },
+          ]}
+        />
 
-      <div
-        id="product-header"
-        className="grid items-end gap-6 lg:grid-cols-[minmax(0,1fr)_328px] lg:gap-x-[clamp(32px,4vw,60px)]"
-      >
-        <div className="flex min-w-0 flex-col gap-4">
-          <h1 className="text-[clamp(2rem,3.8vw,3.5rem)] leading-[1.08] font-semibold tracking-[-0.035em] text-balance">
-            Shop {product.title}
-          </h1>
-          <div className="flex flex-col gap-1">
-            {priceLines.map((l, index) => (
-              <p
-                key={l}
-                className={
-                  index === 0
-                    ? "text-base leading-6 font-medium tabular-nums"
-                    : "text-sm leading-5 text-muted-foreground"
-                }
-              >
-                {l}
-              </p>
-            ))}
+        <div
+          id="product-header"
+          className="grid items-end gap-6 lg:grid-cols-[minmax(0,1fr)_328px] lg:gap-x-[clamp(32px,4vw,60px)]"
+        >
+          <div className="flex min-w-0 flex-col gap-4">
+            <h1 className="text-[clamp(2rem,3.8vw,3.5rem)] leading-[1.08] font-semibold tracking-[-0.035em] text-balance">
+              Shop {product.title}
+            </h1>
+            <div className="flex flex-col gap-1">
+              {priceLines.map((l, index) => (
+                <p
+                  key={l}
+                  className={
+                    index === 0
+                      ? "text-base leading-6 font-medium tabular-nums"
+                      : "text-sm leading-5 text-muted-foreground"
+                  }
+                >
+                  {l}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex min-w-0 flex-col items-start lg:items-stretch">
+            <PromotionDialog />
           </div>
         </div>
 
-        <div className="flex min-w-0 flex-col items-start lg:items-stretch">
-          <PromotionDialog />
-        </div>
-      </div>
-
-      {/* Buy flow, Apple's shape: the gallery sticks on the left while the
-          right column scrolls one decision at a time. */}
-      <div className="mt-8 md:mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_328px] lg:gap-x-[clamp(32px,4vw,60px)]">
-        {/* Both columns start on the same line; the gallery remains sticky
-            while the configuration steps continue down the right. */}
-        <div className="lg:sticky lg:top-[122px] lg:self-start">
-          <Gallery
-            slides={[
-              {
-                key: "caps",
-                image: {
-                  src: "/store/vial_marketing_image.png",
-                  alt: "Two vial caps with purple elastomeric closures, seen from above",
+        {/* Buy flow, Apple's shape: the gallery sticks on the left while the
+            right column scrolls one decision at a time. */}
+        <div className="mt-8 md:mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_328px] lg:gap-x-[clamp(32px,4vw,60px)]">
+          {/* Both columns start on the same line; the gallery remains sticky
+              while the configuration steps continue down the right. */}
+          <div className="lg:sticky lg:top-[122px] lg:self-start">
+            <Gallery
+              slides={[
+                {
+                  key: "caps",
+                  image: {
+                    src: "/store/vial_marketing_image.png",
+                    alt: "Two vial caps with purple elastomeric closures, seen from above",
+                  },
+                  imageClassName: "object-bottom",
+                  caption: (
+                    <>
+                      Batches feature unique vial cap and elastomeric rubber
+                      closures designed to{" "}
+                      <span className="text-foreground">
+                        maintain an airtight, negative pressure environment
+                      </span>
+                    </>
+                  ),
                 },
-                imageClassName: "object-bottom",
-                caption: (
-                  <>
-                    Batches feature unique vial cap and elastomeric rubber
-                    closures designed to{" "}
-                    <span className="text-foreground">
-                      maintain an airtight, negative pressure environment
-                    </span>
-                  </>
-                ),
-              },
-              ...(line
-                ? [
-                    {
-                      key: "line",
-                      image: line.image,
-                      imageClassName: cn("p-[10cqw]", line.image.className),
-                    },
-                  ]
-                : []),
-            ]}
-          />
+                ...(line
+                  ? [
+                      {
+                        key: "line",
+                        image: line.image,
+                        imageClassName: cn("p-[10cqw]", line.image.className),
+                      },
+                    ]
+                  : []),
+              ]}
+            />
+          </div>
+
+          <aside className="mt-12 lg:mt-0">
+            <Configurator variants={variants} stock={stock}>
+              <ul className="mt-8 flex flex-col divide-y divide-foreground/10 border-y border-foreground/10 text-xs leading-5 text-muted-foreground">
+                <li className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-4">
+                  <span>Every batch tested by an independent lab.</span>
+                  <Link
+                    href="/repository"
+                    className="inline-flex shrink-0 items-center text-[#0065CC] hover:underline"
+                  >
+                    Find your report
+                    <ChevronRight size={16} />
+                  </Link>
+                </li>
+                <li className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-4">
+                  <span>Research use only.</span>
+                  <Link
+                    href="/legal/disclaimer"
+                    className="inline-flex shrink-0 items-center text-[#0065CC] hover:underline"
+                  >
+                    Read the disclaimer
+                    <ChevronRight size={16} />
+                  </Link>
+                </li>
+              </ul>
+            </Configurator>
+          </aside>
         </div>
 
-        <aside className="mt-12 lg:mt-0">
-          <Configurator variants={variants} stock={stock}>
-            <ul className="mt-8 flex flex-col divide-y divide-foreground/10 border-y border-foreground/10 text-xs leading-5 text-muted-foreground">
-              <li className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-4">
-                <span>Every batch tested by an independent lab.</span>
-                <Link
-                  href="/repository"
-                  className="inline-flex shrink-0 items-center text-[#0065CC] hover:underline"
-                >
-                  Find your report
-                  <ChevronRight size={16} />
-                </Link>
-              </li>
-              <li className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-4">
-                <span>Research use only.</span>
-                <Link
-                  href="/legal/disclaimer"
-                  className="inline-flex shrink-0 items-center text-[#0065CC] hover:underline"
-                >
-                  Read the disclaimer
-                  <ChevronRight size={16} />
-                </Link>
-              </li>
-            </ul>
-          </Configurator>
-        </aside>
-      </div>
+        {/* The store field again, so the rail reads as the store continuing. */}
+        {alsoLike.length > 0 && (
+          <div className="-mx-[max(16px,6.2vw)] mt-16 bg-[#f5f5f7] py-4 md:py-8 dark:bg-background">
+            <ProductRail
+              id="also-like"
+              lead="You may also like."
+              rest="More from the catalogue."
+              products={alsoLike}
+            />
+          </div>
+        )}
 
-      {/* The store field again, so the rail reads as the store continuing. */}
-      {alsoLike.length > 0 && (
-        <div className="-mx-[max(16px,6.2vw)] mt-16 bg-[#f5f5f7] py-4 md:py-8 dark:bg-background">
-          <ProductRail
-            id="also-like"
-            lead="You may also like."
-            rest="More from the catalogue."
-            products={alsoLike}
-          />
-        </div>
-      )}
-
-      <SetFootnotes
-        notes={[
-          "All products are supplied for laboratory research use only and are not intended for human or veterinary use.",
-        ]}
-      />
-    </main>
+      </main>
+      <Footnotes slug="/shop" />
+    </>
   );
 }

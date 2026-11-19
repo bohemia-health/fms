@@ -1,5 +1,6 @@
 import ReportRow from "./ReportRow";
 import ReportPreview from "./ReportPreview";
+import ReportResults from "./ReportResults";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -18,17 +19,19 @@ import { ArrowUpRight } from "@/components/icons/arrow-up-right";
 import { coaTypeLabel } from "@/components/bag/coaTypeLabel";
 import PillRow from "@/components/pill-row";
 import ReportSort from "./ReportSort";
+import { readingsFor } from "./report-readings";
 import QualityHighlights from "./QualityHighlights";
 import { SetBreadcrumb } from "@asclepius/ui";
-import { SetFootnotes } from "@asclepius/ui";
 import { SetLocalNav } from "@asclepius/ui";
 import { SetNavbar } from "@asclepius/ui";
 
 import { api } from "@/lib/api";
 import { labReportUrl } from "@/integrations/b2/client";
+import LabButton from "@/integrations/labs/LabButton";
 import { cn } from "@/lib/utils";
 
 import type { Metadata } from "next";
+import Footnotes from "@/components/footer/footnotes";
 
 export const metadata: Metadata = {
   title: "Repository | Bohemia Health",
@@ -104,12 +107,25 @@ export default async function Repository({
         : coaTypeLabel(testType, "—");
     return {
       ...file,
+      displayTitle:
+        "displayTitle" in file && typeof file.displayTitle === "string"
+          ? file.displayTitle
+          : file.compound,
       testedAt,
       testLabel,
       vendorLabel: vendorShort || file.vendor,
       labName:
         "labName" in file && typeof file.labName === "string"
           ? file.labName.trim() || null
+          : null,
+      // This report on the lab's own site, entered by staff in Sanoful.
+      // Asclepius only stores https links; checked again here because this
+      // becomes an href.
+      labUrl:
+        "resultUrl" in file &&
+        typeof file.resultUrl === "string" &&
+        file.resultUrl.startsWith("https://")
+          ? file.resultUrl
           : null,
     };
   });
@@ -213,7 +229,7 @@ export default async function Repository({
               key={term ?? ""}
               id="report-search"
               className="h-12 rounded-xl pl-11 text-lg"
-              placeholder="Search by title, batch number, or vendor"
+              placeholder="Search compound, batch, lab, vendor or test"
               type="search"
               name="q"
               defaultValue={term ?? ""}
@@ -296,6 +312,10 @@ export default async function Repository({
                     ) : null;
                     const fileUrl = labReportUrl(report.fileKey);
                     const format = extOf(report.fileKey);
+                    const readings = readingsFor(
+                      report.fileKey,
+                      report.batchNumber,
+                    );
                     return (
                       <Fragment key={report.id}>
                         {newGroup && (
@@ -359,41 +379,12 @@ export default async function Repository({
                               <div className="flex min-w-0 flex-col gap-5">
                                 <div>
                                   <h3 className="text-xl font-medium tracking-tight">
-                                    Report details
+                                    {report.displayTitle}
                                   </h3>
-                                  <dl className="mt-6 grid gap-5">
-                                    {[
-                                      {
-                                        label: "Testing lab",
-                                        value:
-                                          report.labName ?? "Not available",
-                                      },
-                                      {
-                                        label: "Test performed",
-                                        value:
-                                          report.testLabel === "—"
-                                            ? "Not available"
-                                            : report.testLabel,
-                                      },
-                                      {
-                                        label: "Result received",
-                                        value: "Not available",
-                                      },
-                                      {
-                                        label: "Result expected",
-                                        value: "Not available",
-                                      },
-                                    ].map(({ label, value }) => (
-                                      <div key={label} className="min-w-0">
-                                        <dt className="text-xs text-muted-foreground">
-                                          {label}
-                                        </dt>
-                                        <dd className="mt-1 font-medium wrap-anywhere">
-                                          {value}
-                                        </dd>
-                                      </div>
-                                    ))}
+                                  <dl>
+                                    <p className="pt-2">{report.vendor}</p>
                                   </dl>
+                                  <ReportResults reportId={report.id} excerpts={readings} />
                                 </div>
                                 <div className="mt-3 space-y-2 border-t pt-5">
                                   <div className="min-w-0">
@@ -422,6 +413,14 @@ export default async function Repository({
                                     </span>
                                   </a>
                                 </div>
+                                {report.labUrl && (
+                                  <div className="space-y-2">
+                                    <LabButton
+                                      labName={report.labName ?? "the lab"}
+                                      href={report.labUrl}
+                                    />
+                                  </div>
+                                )}
                               </div>
                             </div>
                           }
@@ -509,11 +508,7 @@ export default async function Repository({
         ]}
       />
       <SetBreadcrumb items={[{ label: "Repository" }]} />
-      <SetFootnotes
-        notes={[
-          "Lab reports are provided by independent third-party laboratories and reflect the batch tested, not every unit sold.",
-        ]}
-      />
+      <Footnotes slug="/repository" />
     </main>
   );
 }
